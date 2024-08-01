@@ -115,3 +115,44 @@ fn square(num: i32) -> i32 {
 ```
 This way, when someone calls square(3), they'll get back 9, which matches what they expect based on how you defined the function.
 
+
+# On If statements as a Restaurant Menu
+- Imagine you're at a restaurant with a menu that promises certain dishes. The menu acts like the function signature, and the dishes are like the return values.
+```bash
+rust
+fn foo_if_fizz(fizzish: &str) -> &str {
+    if fizzish == "fizz" {
+        "foo"
+    } else if fizzish == "fuzz" {
+        "bar"
+    } else {
+        1 // Putting this 1 here is like going to Chick-Fli-A and ordering their Babybaby Ribs.
+    }
+}
+```
+- Function Signature: The menu promises to serve only food (&str). In programming, strings (represented as &str in rust) are words. The value 1 is an integer (i32). They're both types of data, but they are fundamentally differen types.
+Dishes:
+If you order "fizz," you get "foo."
+If you order "fuzz," you get "bar."
+For any other order, instead of serving food (like "baz"), the restaurant tries to serve an integer (1). This doesn't match what was promised on the menu.
+- In other words
+The glitch here is that when someone orders something other than "fizz" or "fuzz," instead of getting food (a string), they get an integer (1). This doesn't match what was promised on the menu (&str). It's like ordering food but getting a number instead.
+To fix this glitch, we need to ensure that every order results in serving food as promised:
+```bash
+fn foo_if_fizz(fizzish: &str) -> &str {
+    if fizzish == "fizz" {
+        "foo"
+    } else if fizzish == "fuzz" {
+        "bar"
+    } else {
+        "baz" // Now we're serving food for all orders.
+    }
+}
+```
+In our analogy:
+Fixed Menu:
+If you order "fizz," you still get "foo."
+If you order "fuzz," you still get "bar."
+For any other order, now you'll get "baz," which is also food.
+-By ensuring that every condition returns food (a string), we've fixed our restaurant menu so it matches what was promised. This way, no matter what dish someone orders, they'll always receive food as expected. The original code had a mismatch between what was promised (&str) and what was returned (i32) in one of its branches. By changing that branch to return "baz" (a string), we ensured consistency with our function signature (-> &str).
+- This ensures that our code compiles correctly and behaves as expected according to its defined behavior.
