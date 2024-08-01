@@ -1,35 +1,35 @@
 +---------------+---------------+---------------+
-|  Rust         |  C++          |  Java         |
+|  **Language**  |  **Rust**     |  **C++**      |  **Java**     |
 +---------------+---------------+---------------+
-|  Source Code  |  Source Code  |  Source Code  |
+|  Source Code  |  Source Code  |  Source Code  |  Source Code  |
 +---------------+---------------+---------------+
-       |               |               |
-       |               |               |
-       v               v               v
+|               |               |               |               |
+|               |               |               |               |
+|               v               v               v               |
 +---------------+---------------+---------------+
-| Lexical Analysis| Lexical Analysis| Lexical Analysis|
+|  Lexical Analysis|  Lexical Analysis|  Lexical Analysis|
 +---------------+---------------+---------------+
-       |               |               |
-       |               |               |
-       v               v               v
+|               |               |               |               |
+|               |               |               |               |
+|               v               v               v               |
 +---------------+---------------+---------------+
-| Syntax Analysis| Syntax Analysis| Syntax Analysis|
+|  Syntax Analysis|  Syntax Analysis|  Syntax Analysis|
 +---------------+---------------+---------------+
-       |               |               |
-       |               |               |
-       v               v               v
+|               |               |               |               |
+|               |               |               |               |
+|               v               v               v               |
 +---------------+---------------+---------------+
-| Semantic Analysis| Semantic Analysis| Bytecode Generation|
+|  Semantic Analysis|  Semantic Analysis|  Bytecode Generation|
 +---------------+---------------+---------------+
-       |               |               |
-       |               |               |
-       v               v               v
+|               |               |               |               |
+|               |               |               |               |
+|               v               v               v               |
 +---------------+---------------+---------------+
 |  Optimization  |  Optimization  |  Just-In-Time  |
 +---------------+---------------+---------------+
-       |               |               |
-       |               |               |
-       v               v               v
+|               |               |               |               |
+|               |               |               |               |
+|               v               v               v               |
 +---------------+---------------+---------------+
-| Code Generation| Code Generation|  Machine Code  |
+|  Code Generation|  Code Generation|  Machine Code  |
 +---------------+---------------+---------------+
