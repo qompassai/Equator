@@ -1,0 +1,71 @@
+[workspace]
+resolver = "2"
+exclude = [
+  "tests/test_exercises",
+  "dev",
+]
+
+[workspace.package]
+version = "6.1.0"
+authors = [
+  "Mo Bitar <mo8it@proton.me>", # https://github.com/mo8it
+  "Liv <mokou@fastmail.com>", # https://github.com/shadows-withal
+  # Alumni
+  "Carol (Nichols || Goulding) <carol.nichols@gmail.com>", # https://github.com/carols10cents
+]
+repository = "https://github.com/rust-lang/rustlings"
+license = "MIT"
+edition = "2021" # On Update: Update the edition of the `rustfmt` command that checks the solutions.
+rust-version = "1.80"
+
+[workspace.dependencies]
+serde = { version = "1.0.204", features = ["derive"] }
+toml_edit = { version = "0.22.18", default-features = false, features = ["parse", "serde"] }
+
+[package]
+name = "rustlings"
+description = "Small exercises to get you used to reading and writing Rust code!"
+version.workspace = true
+authors.workspace = true
+repository.workspace = true
+license.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+keywords = [
+  "exercise",
+  "learning",
+]
+include = [
+  "/src/",
+  "/exercises/",
+  "/solutions/",
+  # A symlink to be able to include `dev/Cargo.toml` although `dev` is excluded.
+  "/dev-Cargo.toml",
+  "/README.md",
+  "/LICENSE",
+]
+
+[dependencies]
+anyhow = "1.0.86"
+clap = { version = "4.5.11", features = ["derive"] }
+hashbrown = "0.14.5"
+notify-debouncer-mini = { version = "0.4.1", default-features = false }
+os_pipe = "1.2.0"
+ratatui = { version = "0.27.0", default-features = false, features = ["crossterm"] }
+rustlings-macros = { path = "rustlings-macros", version = "=6.1.0" }
+serde_json = "1.0.121"
+serde.workspace = true
+toml_edit.workspace = true
+
+[profile.release]
+panic = "abort"
+
+[profile.dev]
+panic = "abort"
+
+[package.metadata.release]
+pre-release-hook = ["./release-hook.sh"]
+
+# TODO: Remove after the following fix is released: https://github.com/rust-lang/rust-clippy/pull/13102
+[lints.clippy]
+needless_option_as_deref = "allow"
