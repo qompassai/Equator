@@ -148,11 +148,3 @@ If you want to remove Rustlings from your system, run the following command:
 ```bash
 cargo uninstall rustlings
 ```
-
-## Contributing
-
-See [CONTRIBUTING.md](https://github.com/rust-lang/rustlings/blob/main/CONTRIBUTING.md) 🔗
-
-## Contributors ✨
-
-Thanks to [all the wonderful contributors](https://github.com/rust-lang/rustlings/graphs/contributors) 🎉
