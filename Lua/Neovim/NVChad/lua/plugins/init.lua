@@ -83,6 +83,8 @@ return {
   -- lsp stuff
   {
     "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
     opts = function()
       return require "nvchad.configs.mason"
