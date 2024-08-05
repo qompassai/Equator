@@ -119,38 +119,6 @@ docker run -d -p 8080:8080 -p 80:80 -v $PWD/traefik.toml:/etc/traefik/traefik.to
 git clone https://github.com/traefik/traefik
 ```
 
-## Introductory Videos
-
-You can find high level and deep dive videos on [videos.traefik.io](https://videos.traefik.io).
-
-## Maintainers
-
-We are strongly promoting a philosophy of openness and sharing, and firmly standing against the elitist closed approach. Being part of the core team should be accessible to anyone who is motivated and want to be part of that journey!
-This [document](docs/content/contributing/maintainers-guidelines.md) describes how to be part of the [maintainers' team](docs/content/contributing/maintainers.md) as well as various responsibilities and guidelines for Traefik maintainers.
-You can also find more information on our process to review pull requests and manage issues [in this document](https://github.com/traefik/contributors-guide/blob/master/issue_triage.md).
-
-## Contributing
-
-If you'd like to contribute to the project, refer to the [contributing documentation](CONTRIBUTING.md).
-
-Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md).
-By participating in this project, you agree to abide by its terms.
-
-## Release Cycle
-
-- We usually release 3/4 new versions (e.g. 1.1.0, 1.2.0, 1.3.0) per year.
-- Release Candidates are available before the release (e.g. 1.1.0-rc1, 1.1.0-rc2, 1.1.0-rc3, 1.1.0-rc4, before 1.1.0).
-- Bug-fixes (e.g. 1.1.1, 1.1.2, 1.2.1, 1.2.3) are released as needed (no additional features are delivered in those versions, bug-fixes only).
-
-Each version is supported until the next one is released (e.g. 1.1.x will be supported until 1.2.0 is out).
-
-We use [Semantic Versioning](https://semver.org/).
-
-## Mailing Lists
-
-- General announcements, new releases: mail at news+subscribe@traefik.io or on [the online viewer](https://groups.google.com/a/traefik.io/forum/#!forum/news).
-- Security announcements: mail at security+subscribe@traefik.io or on [the online viewer](https://groups.google.com/a/traefik.io/forum/#!forum/security).
-
 ## Credits
 
 Kudos to [Peka](http://peka.byethost11.com/photoblog/) for his awesome work on the gopher's logo!.
