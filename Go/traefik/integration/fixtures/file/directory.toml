@@ -1,0 +1,15 @@
+[global]
+  checkNewVersion = false
+  sendAnonymousUsage = false
+
+[log]
+  level = "DEBUG"
+  noColor = true
+
+[entryPoints]
+  [entryPoints.web]
+    address = ":8000"
+
+[providers]
+  [providers.file]
+    directory = "fixtures/file/dir/"

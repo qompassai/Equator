@@ -1,0 +1,62 @@
+{
+	"features": {
+		"accessLog": false,
+		"metrics": "",
+		"tracing": ""
+	},
+	"http": {
+		"middlewares": {
+			"errors": 0,
+			"total": 0,
+			"warnings": 0
+		},
+		"routers": {
+			"errors": 0,
+			"total": 0,
+			"warnings": 0
+		},
+		"services": {
+			"errors": 0,
+			"total": 0,
+			"warnings": 0
+		}
+	},
+	"providers": [
+		"Docker",
+		"Swarm",
+		"File",
+		"KubernetesIngress",
+		"KubernetesCRD",
+		"Rest",
+		"plugin-test"
+	],
+	"tcp": {
+		"middlewares": {
+			"errors": 0,
+			"total": 0,
+			"warnings": 0
+		},
+		"routers": {
+			"errors": 0,
+			"total": 0,
+			"warnings": 0
+		},
+		"services": {
+			"errors": 0,
+			"total": 0,
+			"warnings": 0
+		}
+	},
+	"udp": {
+		"routers": {
+			"errors": 0,
+			"total": 0,
+			"warnings": 0
+		},
+		"services": {
+			"errors": 0,
+			"total": 0,
+			"warnings": 0
+		}
+	}
+}
