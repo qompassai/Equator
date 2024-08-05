@@ -1,0 +1,78 @@
+name: Build Binaries
+
+on:
+  pull_request:
+    branches:
+      - '*'
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - 'script/gcg/**'
+
+env:
+  GO_VERSION: '1.22'
+  CGO_ENABLED: 0
+
+jobs:
+
+  build-webui:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: webui/.nvmrc
+          cache: yarn
+          cache-dependency-path: webui/yarn.lock
+
+      - name: Build webui
+        working-directory: ./webui
+        run: |
+          yarn install
+          yarn build
+
+      - name: Package webui
+        run: |
+          tar czvf webui.tar.gz ./webui/static/
+
+      - name: Artifact webui
+        uses: actions/upload-artifact@v4
+        with:
+          name: webui.tar.gz
+          path: webui.tar.gz
+
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+    needs:
+      - build-webui
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go ${{ env.GO_VERSION }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Artifact webui
+        uses: actions/download-artifact@v4
+        with:
+          name: webui.tar.gz
+
+      - name: Untar webui
+        run: tar xvf webui.tar.gz
+
+      - name: Build
+        run: make binary

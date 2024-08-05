@@ -1,0 +1,68 @@
+name: Build experimental image on branch
+
+on:
+  push:
+    branches:
+      - master
+      - v*
+
+env:
+  GO_VERSION: '1.22'
+  CGO_ENABLED: 0
+
+jobs:
+
+  experimental:
+    if: github.repository == 'traefik/traefik'
+    name: Build experimental image on branch
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # https://github.com/marketplace/actions/checkout
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: webui/.nvmrc
+          cache: yarn
+          cache-dependency-path: webui/yarn.lock
+
+      - name: Build webui
+        working-directory: ./webui
+        run: |
+          yarn install
+          yarn build
+
+      - name: Set up Go ${{ env.GO_VERSION }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Build
+        run: make generate binary
+
+      - name: Branch name
+        run: echo ${GITHUB_REF##*/}
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build docker experimental image
+        env:
+          DOCKER_BUILDX_ARGS: "--push"
+        run: |
+          make multi-arch-image-experimental-${GITHUB_REF##*/}
