@@ -7,13 +7,14 @@
 - Rust: Systems level programming that as of August 2024 is now a priority for the Federal Government to migrate legacy C & C++ to Rust via the TRACTOR project (TRAnsition C TO Rust)
 - Lua: The OG for low level functionality and use of vim/neovim
 - Go: Highly Concurrent language for Microservices
+- Zig: Cross-compilation
+- Python: The OG of AI
+- Mojo: Superset of Python
 # To be added soon 
 - Git: All things Git & Github
 - Swift: Made for Apple
-- Zig: Cross-compilation
-- Python: The OG of AI
 - C: What the Linux Kernel is made of. 
-- Mojo: Superset of Python
+
 
 # Why these languages? 
 - Great question- Three reasons. 
