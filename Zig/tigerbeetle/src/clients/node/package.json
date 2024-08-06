@@ -1,0 +1,42 @@
+{
+  "name": "tigerbeetle-node",
+  "version": "0.12.0",
+  "description": "TigerBeetle Node.js client",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tigerbeetle/tigerbeetle.git",
+    "directory": "src/clients/node"
+  },
+  "preferUnplugged": true,
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist",
+    "src",
+    "!src/zig-cache",
+    "package.json",
+    "package-lock.json",
+    "tsconfig.json"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "prepare": "tsc"
+  },
+  "author": "TigerBeetle, Inc",
+  "license": "Apache-2.0",
+  "contributors": [
+    "Donovan Changfoot <don@coil.com>",
+    "Isaac Freund <isaac.freund@coil.com>",
+    "Jason Bruwer <jason.bruwer@coil.com>",
+    "Joran Dirk Greef <joran@tigerbeetle.com>"
+  ],
+  "devDependencies": {
+    "@types/node": "^14.14.41",
+    "node-api-headers": "^0.0.2",
+    "typescript": "^4.0.2"
+  }
+}
