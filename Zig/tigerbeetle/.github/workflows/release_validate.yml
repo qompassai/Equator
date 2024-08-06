@@ -1,0 +1,57 @@
+name: "Release (validate)"
+
+on:
+  workflow_dispatch: # Manual triggering for debugging
+  workflow_run:
+    workflows: ["Release"]
+    types:
+      - completed
+
+  schedule:
+    # Schedule a validation run every six hours to make sure we catch any bugs due to changes
+    # in systems we do not control.
+    - cron: 0 */6 * * *
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    if: ${{ !(github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'failure') }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: release # Use the 'release' branch even if triggered by cron.
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '7.x'
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
+
+      # TODO: Leave only `./zig/download.sh` after the next release is out.
+      - run: ./zig/download.sh | ./scripts/install_zig.sh
+
+      - run: ./zig/zig build scripts -- ci --validate-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+  alert_failure:
+    runs-on: ubuntu-latest
+    needs: [validate]
+    if: ${{ always() && contains(needs.*.result, 'failure') }}
+    steps:
+      - name: Alert if anything failed
+        run: |
+          export URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" && \
+          curl -d "text=Release validation failed! See ${URL} for more information." -d "channel=C04RWHT9EP5" -H "Authorization: Bearer ${{ secrets.SLACK_TOKEN }}" -X POST https://slack.com/api/chat.postMessage

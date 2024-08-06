@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="TigerBeetle.props" />
+  <PropertyGroup>
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <Platforms>AnyCPU</Platforms>
+    <LangVersion>10</LangVersion>
+    <Nullable>enable</Nullable>
+    <AssemblyName>TigerBeetle</AssemblyName>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RollForward>LatestMajor</RollForward>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn> <!-- Disables the warning CS1591: Missing XML comment for publicly visible type or member -->
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="runtimes\**\*.so">
+      <PackagePath>runtimes</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="runtimes\**\*.dylib">
+      <PackagePath>runtimes</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="runtimes\**\*.dll">
+      <PackagePath>runtimes</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+  </ItemGroup>
+</Project>

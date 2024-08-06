@@ -1,0 +1,15 @@
+build/
+dist/
+node_modules/
+tigerbeetle
+zig/
+zig-cache/
+
+# TigerBeetle
+*.tigerbeetle
+benchmark.log
+tigerbeetle_test.log
+benchmark/
+test/
+tigerbeetle-node-*.tgz
+node.lib
