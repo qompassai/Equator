@@ -1,0 +1,19 @@
+--- exercises/046_optionals2.zig	2024-06-23 19:43:16
++++ answers/046_optionals2.zig	2024-06-23 19:42:46
+@@ -22,7 +22,7 @@
+ 
+ const Elephant = struct {
+     letter: u8,
+-    tail: *Elephant = null, // Hmm... tail needs something...
++    tail: ?*Elephant = null, // Hmm... tail needs something...
+     visited: bool = false,
+ };
+ 
+@@ -66,6 +66,6 @@
+ 
+         // HINT: We want something similar to what `.?` does,
+         // but instead of ending the program, we want to exit the loop...
+-        e = e.tail ???
++        e = e.tail orelse break;
+     }
+ }
