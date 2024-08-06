@@ -56,6 +56,4 @@ You can test the solution files with the `-s` / `--solutions` flag, which can be
 $ ./mojolings.bash --full --solutions
 ```
 
-## Contributing
 
-Contributions are welcome!
