@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TigerBeetle DevHub</title>
+  <script src="./devhub.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.2/apexcharts.min.js"
+    integrity="sha512-vIqZt7ReO939RQssENNbZ+Iu3j0CSsgk41nP3AYabLiIFajyebORlk7rKPjGddmO1FQkbuOb2EVK6rJkiHsmag=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      :root {
+        background: white;
+        filter: invert(100%);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>TigerBeetle DevHub</h1>
+
+  <div style="display: flex; flex-direction: row;">
+
+    <section>
+      <h2>Release</h2>
+
+      Release Manager for:
+      <ul>
+        <li>last week: <span id="release-previous">N/A</span> </li>
+        <li><strong>this week: <span id="release-current">N/A</span></strong></li>
+        <li>next week: <span id="release-next">N/A</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Fuzz failures (
+          <a href="?all">show all</a>,
+          <a href="https://github.com/tigerbeetle/devhubdb/tree/main/fuzzing">raw data</a>
+        )</h2>
+      <table id="seeds">
+        <thead>
+          <tr>
+            <th>commit</th>
+            <th>author</th>
+            <th>fuzzer</th>
+            <th>command</th>
+            <th>duration</th>
+            <th>freshness</th>
+            <th>count</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <section>
+    <h2>Metrics (on
+      <a href="https://nyrkio.com/public/https%3A%2F%2Fgithub.com%2Ftigerbeetle%2Ftigerbeetle/main/devhub">Nyrkiö</a>,
+      <a href="https://github.com/tigerbeetle/devhubdb/tree/main/devhub">raw data</a>)
+    </h2>
+    <div id="charts" style="display: flex; flex-direction: column;">
+    </div>
+  </section>
+</body>
+
+</html>
