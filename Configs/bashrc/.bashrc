@@ -35,8 +35,13 @@ else
     fi
 fi
 unset __conda_setup
+
+# Prevent auto-activation of base environment
+conda config --set auto_activate_base false
 # <<< conda initialize <<<
 
+#C++ ABI for Pytorch https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html
+export _GLIBCXX_USE_CXX11_ABI=1
 #Cuda/CUDNN
 export PATH=/opt/cuda/bin:$PATH
 export LD_LIBRARY_PATH=/opt/cuda/lib64:/opt/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
@@ -55,6 +60,8 @@ export BUILDX_EXPERIMENTAL=1
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
+export GOROOT=/usr/lib/go
+export PATH=$PATH:/usr/lib/go/bin
 
 #Haskell
 export PATH="$HOME/.local/bin:$PATH"
@@ -62,8 +69,8 @@ export PATH=$HOME/.stack/programs/x86_64-linux/ghc-tinfo6-9.6.5/bin:$PATH
 [ -f "/home/phaedrus/.ghcup/env" ] && . "/home/phaedrus/.ghcup/env" # ghcup-env
 
 #HuggingFace
-#export HF_HUB_ENABLE_HF_TRANSFER=1
-
+export HF_HUB_ENABLE_HF_TRANSFER=1
+export HF_HOME=/home/phaedrus/Forge/HF/Models/Flux-dev
 #JAVA
 export PATH=$PATH:/usr/lib/jvm/java-22-openjdk/bin
 
@@ -71,6 +78,10 @@ export PATH=$PATH:/usr/lib/jvm/java-22-openjdk/bin
 for lang_server in beancount-language-server clarity-lsp erlang-debugger erlang-ls gitlab-ci-ls hdl-checker java-language-server nimlsp pkgbuild-language-server salt-lsp vetur-vls; do
   export PATH=$PATH:/usr/bin/$lang_server
 done
+
+#Liboqs
+LIBOQS_INCLUDE_DIR=/usr/include
+LIBOQS_LIB_DIR=/usr/lib
 
 #Lua
 export PATH=$PATH:/usr/bin/
@@ -81,6 +92,9 @@ export PATH=$PATH:/usr/bin/luarocks
 #Make
 export PATH=$PATH:/usr/local/bin
 
+#Models
+export FLUX_DEV=/home/phaedrus/Forge/HF/Models/Flux-dev/flux1-dev.sft
+export AE=/home/phaedrus/Forge/HF/Models/Flux-dev/ae.sft
 #Node
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # 
@@ -90,6 +104,10 @@ export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.npm/bin
 #Opam
  test -r /home/phaedrus/.opam/opam-init/init.sh && . /home/phaedrus/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+
+#OpenSSL
+export OPENSSL_MODULES=/usr/lib/ossl-modules
+
 
 #Podman
 export PATH=$PATH:/usr/lib/podman
