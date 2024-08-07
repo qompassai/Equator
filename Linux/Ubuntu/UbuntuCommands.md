@@ -1,3 +1,0 @@
-```bash
-sudo apt install --install-recommends pacman-package-manager duck svn-buildpackage libmultidimensional-perl debtags elpa-devscripts w3m libxstring-perl squid-deb-proxy-client faketime equivs libxml-sax-expatxs-perl dlocate adequate gnuplot libgitlab-api-v4-perl binutils-multiarch emacs-bin-common at how-can-i-help libsoap-lite-perl libtext-template-perl reportbug-gtk autopkgtest libdbd-pg-perl pristine-tar cowdancer bzr bls-standalone libterm-size-perl mini-dinstall gdebi-core brz bsd-mailx libyaml-syck-perl wodim libasprintf-dev claws-mail diffoscope pristine-lfs libgettextpo-dev debsums disorderfs ratt libbareword-filehandles-perl
-```
