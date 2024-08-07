@@ -1,4 +1,4 @@
-This is Python version 3.14.0 alpha 0
+Qompass Implementation of Python 3.14.0 alpha 0
 =====================================
 
 # Qompass CPython Compilation of Python 3.14 without Global Interpreter Lock (GIL)
@@ -14,7 +14,7 @@ Clone the CPython repository:
 git clone https://github.com/python/cpython.git
 cd cpython
 ```
-Configure the build with the --disable-gil option and set the installation prefix to /opt/python3.14:
+Configure the build with the --disable-gil and --enable-optimizations option and set the installation prefix to /opt/python3.14:
 ```bash
 ./configure --disable-gil  --enable-optimizations --prefix=/opt/python3.14
 ```
@@ -121,7 +121,7 @@ Copyright © 2001-2024 Python Software Foundation.  All rights reserved.
 
 See the end of this file for further copyright and license information.
 
-.. contents::
+
 
 General Information
 -------------------
@@ -136,17 +136,17 @@ Contributing to CPython
 -----------------------
 
 For more complete instructions on contributing to CPython development,
-see the `Developer Guide`_.
+see the `Developer Guide`.
 
-.. _Developer Guide: https://devguide.python.org/
+Developer Guide: https://devguide.python.org/
 
 Using Python
 ------------
 
 Installable Python kits, and information about using Python, are available at
-`python.org`_.
+`python.org`.
 
-.. _python.org: https://www.python.org/
+python.org: https://www.python.org/
 
 Build Instructions
 ------------------
@@ -191,8 +191,7 @@ For example::
     make
     make test
 
-(This will fail if you *also* built at the top-level directory.  You should do
-a ``make clean`` at the top-level first.)
+(This will fail if you *also* built at the top-level directory. You should do a ``make clean`` at the top-level first.)
 
 To get an optimized build of Python, ``configure --enable-optimizations``
 before you run ``make``.  This sets the default make targets up to enable
