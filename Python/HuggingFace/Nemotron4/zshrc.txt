@@ -1,0 +1,77 @@
+#Cuda/CUDNN
+export PATH=/opt/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/opt/cuda/lib64:/opt/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
+
+#Rootless Docker
+export PATH=/home/testuser/bin:$PATH
+export DOCKER_HOST=unix:///run/user/1000/docker.sock
+
+#Zoxide
+eval "$(zoxide init zsh)"
+
+#Opam
+test -r /home/username/.opam/opam-init/init.sh && . /home/username/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+
+#Rust 
+# To check version of rust and cargo use the below
+##rustc --version 
+##cargo --version
+export PATH=$PATH:/usr/bin/cargo:/usr/bin/rustc
+
+# Bun.js
+export BUN_INSTALL="$HOME/.bun"
+export PATH=$BUN_INSTALL/bin:$PATH
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/username/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/username/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/username/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/username/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+#JAVA
+export PATH=$PATH:/usr/lib/jvm/java-22-openjdk/bin
+
+#Python
+export PATH=$PATH:/usr/bin/python
+
+#Neovim
+alias snvim="sudo -E nvim"
+export SUDO_EDITOR=nvim
+export EDITOR=nvim
+
+#Make
+export PATH=$PATH:/usr/local/bin
+
+#Transferring Large HF Large Files
+export HF_HUB_ENABLE_HF_TRANSFER=1
+
+#Golang
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+
+#Lua
+export PATH=$PATH:/usr/bin/
+
+#Podman
+export PATH=$PATH:/usr/lib/podman
+
+#Haskell
+export PATH="$HOME/.local/bin:$PATH"
+export PATH=$HOME/.stack/programs/x86_64-linux/ghc-tinfo6-9.6.5/bin:$PATH
+
+#TensorRT
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/TensorRT-10.1.0.27/lib
+export PATH=$PATH:/opt/TensorRT-10.1.0.27/bin
+
+#Docker BuildX
+export BUILDX_EXPERIMENTAL=1
