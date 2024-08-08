@@ -1,0 +1,71 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sdgx"
+description = "synthetic-data-generator"
+keywords = ["synthetic data", "hitsz-ids"]
+requires-python = ">=3.8"
+
+dependencies = [
+    "pandas",
+    "numpy<2",
+    "scipy",
+    "pyyaml",
+    'scikit-learn>=0.24,<2',
+    'Faker>=10',
+    "matplotlib",
+    "torch>=2",
+    "table-evaluator",
+    "click",
+    "pluggy",
+    "loguru",
+    "pyarrow",
+    "pydantic>=2",
+    "cloudpickle",
+    "importlib_metadata",
+    "openai>=1.10.0",
+    "python-dotenv",
+    "joblib>=1.4.0"
+]
+dynamic = ["version"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+]
+
+[project.optional-dependencies]
+test = ["pytest", "pytest-cov", "coverage<7", "email_validator"]
+docs = [
+    "Sphinx",
+    "pydata-sphinx-theme",
+    "sphinx-click",
+    "autodoc_pydantic>=2",
+]
+
+[project.scripts]
+sdgx = "sdgx.cli.main:cli"
+
+[[project.authors]]
+name = "hitsz-ids"
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[project.license]
+text = "Apache Software License 2.0"
+
+[project.urls]
+Source = "https://github.com/hitsz-ids/synthetic-data-generator"
+
+[tool.check-manifest]
+ignore = [".*"]
+
+[tool.hatch.version]
+path = "sdgx/__init__.py"
