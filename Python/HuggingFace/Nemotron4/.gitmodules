@@ -1,0 +1,3 @@
+[submodule "Python/Nemotron4"]
+	path = Python/Nemotron4
+	url = https://github.com/qompassai/Nemotron4.git
