@@ -1,0 +1,77 @@
+{
+  "projectName": "synthetic-data-generator",
+  "projectOwner": "hitsz-ids",
+  "files": [
+    "README.md",
+    "README_ZH_CN.md"
+  ],
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "contributors": [
+    {
+      "login": "Wh1isper",
+      "name": "Zhongsheng Ji",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43375501?v=4",
+      "profile": "https://wh1isper.github.io/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "MooooCat",
+      "name": "MoooCat",
+      "avatar_url": "https://avatars.githubusercontent.com/u/141886018?v=4",
+      "profile": "https://github.com/MooooCat",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "joeyscave",
+      "name": "YUAN KAIWEN",
+      "avatar_url": "https://avatars.githubusercontent.com/u/72662648?v=4",
+      "profile": "https://github.com/joeyscave",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "sjh120",
+      "name": "sjh120",
+      "avatar_url": "https://avatars.githubusercontent.com/u/86507761?v=4",
+      "profile": "https://github.com/sjh120",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Z712023",
+      "name": "Z712023",
+      "avatar_url": "https://avatars.githubusercontent.com/u/132286135?v=4",
+      "profile": "https://github.com/Z712023",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+
+      "login": "Femi-lawal",
+      "name": "Oluwafemi Lawal",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33192240?v=4",
+      "profile": "http://femilawal.com",
+      "contributions": [
+        "code"
+       ]
+      },
+      {
+      "login": "iokk3732",
+      "name": "iokk3732",
+      "avatar_url": "https://avatars.githubusercontent.com/u/141700052?v=4",
+      "profile": "https://github.com/iokk3732",
+      "contributions": [
+        "code"
+      ]
+    }
+  ]
+}
