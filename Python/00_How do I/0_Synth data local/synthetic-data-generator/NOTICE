@@ -1,0 +1,4 @@
+sdgx/models/components/sdv_* is released under MIT License:
+- sdv_copulas: https://github.com/sdv-dev/copulas/tree/v0.7.0
+- sdv_ctgan: https://github.com/sdv-dev/CTGAN/tree/v0.6.0
+- sdv_rdt: https://github.com/sdv-dev/rdt/tree/v1.2.1
