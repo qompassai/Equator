@@ -116,12 +116,8 @@ p3.14
    ```
 2. Follow Ubuntu 24.04 instructions
 
-
+# Remainder of this README is boilerplate from the home repo https://github.com/cython/cython
 Copyright © 2001-2024 Python Software Foundation.  All rights reserved.
-
-See the end of this file for further copyright and license information.
-
-
 
 General Information
 -------------------
@@ -132,13 +128,7 @@ General Information
 - Documentation: https://docs.python.org
 - Developer's Guide: https://devguide.python.org/
 
-Contributing to CPython
------------------------
 
-For more complete instructions on contributing to CPython development,
-see the `Developer Guide`.
-
-Developer Guide: https://devguide.python.org/
 
 Using Python
 ------------
