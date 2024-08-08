@@ -226,7 +226,6 @@ that is optimized; suitable for distribution or production installation.
 
 
 Link Time Optimization
-^^^^^^^^^^^^^^^^^^^^^^
 
 Enabled via configure's ``--with-lto`` flag.  LTO takes advantage of the
 ability of recent compiler toolchains to optimize across the otherwise
