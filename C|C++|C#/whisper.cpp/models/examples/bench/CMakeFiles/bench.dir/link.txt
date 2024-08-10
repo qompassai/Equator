@@ -1,0 +1,1 @@
+/bin/c++ -O3 -DNDEBUG CMakeFiles/bench.dir/bench.cpp.o -o ../../bin/bench  -Wl,-rpath,/home/phaedrus/Forge/GH/whisper.cpp/models/src:/home/phaedrus/Forge/GH/whisper.cpp/models/ggml/src ../../src/libwhisper.so.1.6.2 ../../ggml/src/libggml.so

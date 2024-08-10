@@ -1,0 +1,9 @@
+[package]
+name = "bruciare"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bend-lang = "0.2.36"
+burn = "0.13.2"
+ggml = "0.1.1"

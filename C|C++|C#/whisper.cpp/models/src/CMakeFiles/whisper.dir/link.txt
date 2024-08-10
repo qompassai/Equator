@@ -1,0 +1,1 @@
+/bin/c++ -fPIC -O3 -DNDEBUG -shared -Wl,-soname,libwhisper.so.1 -o libwhisper.so.1.6.2 CMakeFiles/whisper.dir/whisper.cpp.o  -Wl,-rpath,/home/phaedrus/Forge/GH/whisper.cpp/models/ggml/src: ../ggml/src/libggml.so -lMKL::MKL
