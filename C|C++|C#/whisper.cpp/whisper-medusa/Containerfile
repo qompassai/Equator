@@ -1,0 +1,39 @@
+FROM nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu20.04
+
+# Install wget
+RUN apt-get update && apt-get install -y wget git git-lfs
+
+# Install Miniconda
+RUN wget -q https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    bash Miniconda3-latest-Linux-x86_64.sh -b -p /miniconda3 && \
+    rm Miniconda3-latest-Linux-x86_64.sh
+
+# Add Miniconda to PATH
+ENV PATH=/miniconda3/bin:$PATH
+
+# Initialize Conda environment
+RUN conda init
+
+# Create a new environment
+RUN conda create -n whisper-medusa python=3.11 -y
+
+# Activate the environment
+ENV PATH=/miniconda3/envs/whisper-medusa/bin:$PATH
+
+# Install PyTorch and Torchaudio
+RUN pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 --index-url https://download.pytorch.org/whl/cu118
+
+# Clone the Whisper Medusa repository
+RUN git clone https://github.com/aiola-lab/whisper-medusa.git
+
+# Change into the repository directory
+WORKDIR /whisper-medusa
+
+# Copy the app.py file into the container
+COPY app.py /whisper-medusa/
+
+# Install the package
+RUN pip install -e .
+
+# Set the command to run the application
+CMD ["python", "app.py"]

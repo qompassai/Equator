@@ -1,0 +1,1 @@
+/bin/c++ -O3 -DNDEBUG CMakeFiles/server.dir/server.cpp.o -o ../../bin/server  -Wl,-rpath,/home/phaedrus/Forge/GH/whisper.cpp/models/src:/home/phaedrus/Forge/GH/whisper.cpp/models/ggml/src ../libcommon.a ../../src/libwhisper.so.1.6.2 ../../ggml/src/libggml.so

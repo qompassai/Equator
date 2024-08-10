@@ -1,0 +1,1 @@
+/bin/cc -fPIC -O3 -DNDEBUG -shared -Wl,-soname,libggml.so -o libggml.so CMakeFiles/ggml.dir/ggml.c.o "CMakeFiles/ggml.dir/ggml-alloc.c.o" "CMakeFiles/ggml.dir/ggml-backend.c.o" "CMakeFiles/ggml.dir/ggml-quants.c.o"  -lm /usr/lib/libgomp.so /usr/lib/libpthread.a
