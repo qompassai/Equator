@@ -45,6 +45,11 @@ curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh -o ~/
 bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
 rm -rf ~/miniconda3/miniconda.sh
 ```
+- After installing, initialize your newly-installed Miniconda. The following commands initialize for bash and zsh shells:
+```bash
+~/miniconda3/bin/conda init bash
+~/miniconda3/bin/conda init zsh
+```
 
 ## Windows
 ```bash
@@ -52,3 +57,4 @@ curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe -o
 start /wait "" miniconda.exe /S
 del miniconda.exe
 ```
+- After installing, open the “Anaconda Prompt (miniconda3)” program to use Miniconda3. For the Powershell version, use “Anaconda Powershell Prompt (miniconda3)”.
