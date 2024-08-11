@@ -58,3 +58,6 @@ start /wait "" miniconda.exe /S
 del miniconda.exe
 ```
 - After installing, open the “Anaconda Prompt (miniconda3)” program to use Miniconda3. For the Powershell version, use “Anaconda Powershell Prompt (miniconda3)”.
+
+## Reference
+https://docs.anaconda.com/miniconda/
