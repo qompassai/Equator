@@ -1,0 +1,99 @@
+const std = @import("std");
+const Builder = std.build.Builder;
+const Step = std.build.Step;
+const ArrayList = std.ArrayList;
+const allocator = std.heap.page_allocator;
+
+const Target = struct {
+    triple: []const u8,
+    status: []const u8,
+};
+
+const targets = [_]Target{
+    .{ .triple = "aarch64_be-linux-gnu", .status = "not tested" },
+    .{ .triple = "aarch64_be-linux-musl", .status = "not tested" },
+    .{ .triple = "aarch64_be-windows-gnu", .status = "not tested" },
+    .{ .triple = "aarch64-linux-gnu", .status = "OK" },
+    .{ .triple = "aarch64-linux-musl", .status = "OK" },
+    .{ .triple = "aarch64-windows-gnu", .status = "OK" },
+    .{ .triple = "aarch64-macos-none", .status = "OK" },
+    .{ .triple = "armeb-linux-gnueabi", .status = "not tested" },
+    .{ .triple = "armeb-linux-gnueabihf", .status = "not tested" },
+    .{ .triple = "armeb-linux-musleabi", .status = "not tested" },
+    .{ .triple = "armeb-linux-musleabihf", .status = "not tested" },
+    .{ .triple = "armeb-windows-gnu", .status = "not tested" },
+    .{ .triple = "arm-linux-gnueabi", .status = "not tested" },
+    .{ .triple = "arm-linux-gnueabihf", .status = "not tested" },
+    .{ .triple = "arm-linux-musleabi", .status = "not tested" },
+    .{ .triple = "arm-linux-musleabihf", .status = "OK" },
+    .{ .triple = "arm-windows-gnu", .status = "not tested" },
+    .{ .triple = "i386-linux-gnu", .status = "not tested" },
+    .{ .triple = "i386-linux-musl", .status = "OK" },
+    .{ .triple = "i386-windows-gnu", .status = "OK" },
+    .{ .triple = "mips64el-linux-gnuabi64", .status = "not tested" },
+    .{ .triple = "mips64el-linux-gnuabin32", .status = "not tested" },
+    .{ .triple = "mips64el-linux-musl", .status = "not tested" },
+    .{ .triple = "mips64-linux-gnuabi64", .status = "not tested" },
+    .{ .triple = "mips64-linux-gnuabin32", .status = "not tested" },
+    .{ .triple = "mips64-linux-musl", .status = "not tested" },
+    .{ .triple = "mipsel-linux-gnu", .status = "not tested" },
+    .{ .triple = "mipsel-linux-musl", .status = "not tested" },
+    .{ .triple = "mips-linux-gnu", .status = "not tested" },
+    .{ .triple = "mips-linux-musl", .status = "not tested" },
+    .{ .triple = "powerpc64le-linux-gnu", .status = "not tested" },
+    .{ .triple = "powerpc64le-linux-musl", .status = "OK" },
+    .{ .triple = "powerpc64-linux-gnu", .status = "not tested" },
+    .{ .triple = "powerpc64-linux-musl", .status = "OK" },
+    .{ .triple = "powerpc-linux-gnu", .status = "not tested" },
+    .{ .triple = "powerpc-linux-musl", .status = "OK" },
+    .{ .triple = "riscv64-linux-gnu", .status = "not tested" },
+    .{ .triple = "riscv64-linux-musl", .status = "OK" },
+    .{ .triple = "s390x-linux-gnu", .status = "not tested" },
+    .{ .triple = "s390x-linux-musl", .status = "not tested" },
+    .{ .triple = "sparc-linux-gnu", .status = "not tested" },
+    .{ .triple = "sparcv9-linux-gnu", .status = "not tested" },
+    .{ .triple = "x86_64-freebsd-gnu", .status = "not tested" },
+    .{ .triple = "x86_64-linux-gnu", .status = "OK" },
+    .{ .triple = "x86_64-linux-gnux32", .status = "not tested" },
+    .{ .triple = "x86_64-linux-musl", .status = "OK" },
+    .{ .triple = "x86_64-windows-gnu", .status = "OK" },
+    .{ .triple = "x86_64-macos-none", .status = "OK" },
+    .{ .triple = "loongarch64-linux-musl", .status = "not tested" },
+    .{ .triple = "loongarch64-linux-gnu", .status = "not tested" },
+};
+
+pub fn build(b: *Builder) !void {
+    const optimize = b.standardOptimizeOption(.{});
+
+    var build_steps = ArrayList(*Step).init(allocator);
+    defer build_steps.deinit();
+
+    for (targets) |target| {
+        const build_step = try createBuildStep(b, target, optimize);
+        try build_steps.append(&build_step.step);
+    }
+
+    const build_all = b.step("build-all", "Build Zig for all targets");
+    for (build_steps.items) |step| {
+        build_all.dependOn(step);
+    }
+
+    b.default_step = build_all;
+}
+
+fn createBuildStep(b: *Builder, target: Target, optimize: std.builtin.OptimizeMode) !*Step.Run {
+    const args = &[_][]const u8{
+        "./build",
+        target.triple,
+        "baseline",
+    };
+
+    const build_step = b.addSystemCommand(args);
+    build_step.setName(std.fmt.allocPrint(
+        allocator,
+        "Build Zig for {s} ({s})",
+        .{ target.triple, target.status }
+    ) catch unreachable);
+
+    return build_step;
+}
