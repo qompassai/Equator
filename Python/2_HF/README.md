@@ -1,6 +1,7 @@
 ## HuggingFace: Open Source AI For the Win
 
-[Little guide to building Large Language Models in 2024](Little%20guide%20to%20building%20Large%20Language%20Models%20in%202024.pdf) A comprehensive guide on constructing Large Language Models, updated for
+[Little guide to building Large Language Models in 2024](Little%20guide%20to%20building%20Large%20Language%20Models%20in%202024.pdf)
+
 
 # The most energy efficient way to access Open Source models from Huggingface 
 
