@@ -9,7 +9,7 @@
 - Lua: The OG for low level functionality and use of Neovim as our built-from-scratch code-editor
 - Go: Highly Concurrent language for Microservices
 - Zig: Solving the Conundrum of Cross-compilation
-- Python: The OG of AI
+- Python: The OG of AI. Pytorch > Tensorflow.
 - Mojo: Superset of Python, made by the creator Swift, MLIR, Clang and LLVM
 - Git: All things Git & Github
 - Anaconda: For Data Science & Robust GenAI Workloads
