@@ -3,17 +3,18 @@
 - Amplifying Human Intelligence by democratizing quality system-building practices across industry standard programming languages and practices. 
 
 # Navigation
-- Rust: Systems level programming that as of August 2024 is now a priority for the Federal Government to migrate legacy C & C++ to Rust via the TRACTOR project (TRAnsition C TO Rust)
+- Rust: Systems level programming that as of August 2024 is now a priority for the Federal Government to migrate legacy C & C++ to Rust via the TRACTOR project (TRAnsition C TO Rust): https://www.darpa.mil/program/translating-all-c-to-rust
 - Lua: The OG for low level functionality and use of vim/neovim
 - Go: Highly Concurrent language for Microservices
-- Zig: Cross-compilation
+- Zig: Solving the Conundrum of Cross-compilation
 - Python: The OG of AI
-- Mojo: Superset of Python
+- Mojo: Superset of Python, made by the creator Swift, MLIR, Clang and LLVM
 - Git: All things Git & Github
 - Anaconda: For Data Science & Robust GenAI Workloads
+- C: What the Linux Kernel is made of. 
+
 # To be added 
 - Swift: Made for Apple
-- C: What the Linux Kernel is made of. 
 
 
 # Why these languages? 
