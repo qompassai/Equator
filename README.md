@@ -6,7 +6,7 @@
 
 # Navigation
 - Rust: Systems level programming that as of August 2024 is now a priority for the Federal Government to migrate legacy C & C++ to Rust via the TRACTOR project (TRAnsition C TO Rust): https://www.darpa.mil/program/translating-all-c-to-rust
-- Lua: The OG for low level functionality and use of vim/neovim
+- Lua: The OG for low level functionality and use of Neovim as our built-from-scratch code-editor
 - Go: Highly Concurrent language for Microservices
 - Zig: Solving the Conundrum of Cross-compilation
 - Python: The OG of AI
