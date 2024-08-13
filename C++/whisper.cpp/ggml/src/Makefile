@@ -132,14 +132,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp/CMakeFiles /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(CMAKE_COMMAND) -E cmake_progress_start /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp/CMakeFiles /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp/ggml/src//CMakeFiles/progress.marks
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ggml/src/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ggml/src/clean
 .PHONY : clean
 
 # The main clean target
@@ -148,109 +148,128 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ggml/src/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ggml/src/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named ggml
+# Convenience name for target.
+ggml/src/CMakeFiles/ggml.dir/rule:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ggml/src/CMakeFiles/ggml.dir/rule
+.PHONY : ggml/src/CMakeFiles/ggml.dir/rule
 
-# Build rule for target.
-ggml: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ggml
+# Convenience name for target.
+ggml: ggml/src/CMakeFiles/ggml.dir/rule
 .PHONY : ggml
 
 # fast build rule for target.
 ggml/fast:
-	$(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml.dir/build.make ggml/src/CMakeFiles/ggml.dir/build
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml.dir/build.make ggml/src/CMakeFiles/ggml.dir/build
 .PHONY : ggml/fast
 
-#=============================================================================
-# Target rules for targets named whisper
+ggml-alloc.o: ggml-alloc.c.o
+.PHONY : ggml-alloc.o
 
-# Build rule for target.
-whisper: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 whisper
-.PHONY : whisper
+# target to build an object file
+ggml-alloc.c.o:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml.dir/build.make ggml/src/CMakeFiles/ggml.dir/ggml-alloc.c.o
+.PHONY : ggml-alloc.c.o
 
-# fast build rule for target.
-whisper/fast:
-	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/whisper.dir/build.make src/CMakeFiles/whisper.dir/build
-.PHONY : whisper/fast
+ggml-alloc.i: ggml-alloc.c.i
+.PHONY : ggml-alloc.i
 
-#=============================================================================
-# Target rules for targets named common
+# target to preprocess a source file
+ggml-alloc.c.i:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml.dir/build.make ggml/src/CMakeFiles/ggml.dir/ggml-alloc.c.i
+.PHONY : ggml-alloc.c.i
 
-# Build rule for target.
-common: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 common
-.PHONY : common
+ggml-alloc.s: ggml-alloc.c.s
+.PHONY : ggml-alloc.s
 
-# fast build rule for target.
-common/fast:
-	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/common.dir/build.make examples/CMakeFiles/common.dir/build
-.PHONY : common/fast
+# target to generate assembly for a file
+ggml-alloc.c.s:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml.dir/build.make ggml/src/CMakeFiles/ggml.dir/ggml-alloc.c.s
+.PHONY : ggml-alloc.c.s
 
-#=============================================================================
-# Target rules for targets named main
+ggml-backend.o: ggml-backend.c.o
+.PHONY : ggml-backend.o
 
-# Build rule for target.
-main: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main
-.PHONY : main
+# target to build an object file
+ggml-backend.c.o:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml.dir/build.make ggml/src/CMakeFiles/ggml.dir/ggml-backend.c.o
+.PHONY : ggml-backend.c.o
 
-# fast build rule for target.
-main/fast:
-	$(MAKE) $(MAKESILENT) -f examples/main/CMakeFiles/main.dir/build.make examples/main/CMakeFiles/main.dir/build
-.PHONY : main/fast
+ggml-backend.i: ggml-backend.c.i
+.PHONY : ggml-backend.i
 
-#=============================================================================
-# Target rules for targets named server
+# target to preprocess a source file
+ggml-backend.c.i:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml.dir/build.make ggml/src/CMakeFiles/ggml.dir/ggml-backend.c.i
+.PHONY : ggml-backend.c.i
 
-# Build rule for target.
-server: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 server
-.PHONY : server
+ggml-backend.s: ggml-backend.c.s
+.PHONY : ggml-backend.s
 
-# fast build rule for target.
-server/fast:
-	$(MAKE) $(MAKESILENT) -f examples/server/CMakeFiles/server.dir/build.make examples/server/CMakeFiles/server.dir/build
-.PHONY : server/fast
+# target to generate assembly for a file
+ggml-backend.c.s:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml.dir/build.make ggml/src/CMakeFiles/ggml.dir/ggml-backend.c.s
+.PHONY : ggml-backend.c.s
 
-#=============================================================================
-# Target rules for targets named bench
+ggml-quants.o: ggml-quants.c.o
+.PHONY : ggml-quants.o
 
-# Build rule for target.
-bench: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bench
-.PHONY : bench
+# target to build an object file
+ggml-quants.c.o:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml.dir/build.make ggml/src/CMakeFiles/ggml.dir/ggml-quants.c.o
+.PHONY : ggml-quants.c.o
 
-# fast build rule for target.
-bench/fast:
-	$(MAKE) $(MAKESILENT) -f examples/bench/CMakeFiles/bench.dir/build.make examples/bench/CMakeFiles/bench.dir/build
-.PHONY : bench/fast
+ggml-quants.i: ggml-quants.c.i
+.PHONY : ggml-quants.i
 
-#=============================================================================
-# Target rules for targets named quantize
+# target to preprocess a source file
+ggml-quants.c.i:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml.dir/build.make ggml/src/CMakeFiles/ggml.dir/ggml-quants.c.i
+.PHONY : ggml-quants.c.i
 
-# Build rule for target.
-quantize: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 quantize
-.PHONY : quantize
+ggml-quants.s: ggml-quants.c.s
+.PHONY : ggml-quants.s
 
-# fast build rule for target.
-quantize/fast:
-	$(MAKE) $(MAKESILENT) -f examples/quantize/CMakeFiles/quantize.dir/build.make examples/quantize/CMakeFiles/quantize.dir/build
-.PHONY : quantize/fast
+# target to generate assembly for a file
+ggml-quants.c.s:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml.dir/build.make ggml/src/CMakeFiles/ggml.dir/ggml-quants.c.s
+.PHONY : ggml-quants.c.s
+
+ggml.o: ggml.c.o
+.PHONY : ggml.o
+
+# target to build an object file
+ggml.c.o:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml.dir/build.make ggml/src/CMakeFiles/ggml.dir/ggml.c.o
+.PHONY : ggml.c.o
+
+ggml.i: ggml.c.i
+.PHONY : ggml.i
+
+# target to preprocess a source file
+ggml.c.i:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml.dir/build.make ggml/src/CMakeFiles/ggml.dir/ggml.c.i
+.PHONY : ggml.c.i
+
+ggml.s: ggml.c.s
+.PHONY : ggml.s
+
+# target to generate assembly for a file
+ggml.c.s:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml.dir/build.make ggml/src/CMakeFiles/ggml.dir/ggml.c.s
+.PHONY : ggml.c.s
 
 # Help Target
 help:
@@ -264,13 +283,19 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... bench"
-	@echo "... common"
 	@echo "... ggml"
-	@echo "... main"
-	@echo "... quantize"
-	@echo "... server"
-	@echo "... whisper"
+	@echo "... ggml-alloc.o"
+	@echo "... ggml-alloc.i"
+	@echo "... ggml-alloc.s"
+	@echo "... ggml-backend.o"
+	@echo "... ggml-backend.i"
+	@echo "... ggml-backend.s"
+	@echo "... ggml-quants.o"
+	@echo "... ggml-quants.i"
+	@echo "... ggml-quants.s"
+	@echo "... ggml.o"
+	@echo "... ggml.i"
+	@echo "... ggml.s"
 .PHONY : help
 
 
@@ -282,6 +307,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

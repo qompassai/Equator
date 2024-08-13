@@ -132,14 +132,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp/CMakeFiles /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(CMAKE_COMMAND) -E cmake_progress_start /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp/CMakeFiles /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp/examples//CMakeFiles/progress.marks
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/clean
 .PHONY : clean
 
 # The main clean target
@@ -148,109 +148,104 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named ggml
+# Convenience name for target.
+examples/CMakeFiles/common.dir/rule:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/CMakeFiles/common.dir/rule
+.PHONY : examples/CMakeFiles/common.dir/rule
 
-# Build rule for target.
-ggml: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ggml
-.PHONY : ggml
-
-# fast build rule for target.
-ggml/fast:
-	$(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml.dir/build.make ggml/src/CMakeFiles/ggml.dir/build
-.PHONY : ggml/fast
-
-#=============================================================================
-# Target rules for targets named whisper
-
-# Build rule for target.
-whisper: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 whisper
-.PHONY : whisper
-
-# fast build rule for target.
-whisper/fast:
-	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/whisper.dir/build.make src/CMakeFiles/whisper.dir/build
-.PHONY : whisper/fast
-
-#=============================================================================
-# Target rules for targets named common
-
-# Build rule for target.
-common: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 common
+# Convenience name for target.
+common: examples/CMakeFiles/common.dir/rule
 .PHONY : common
 
 # fast build rule for target.
 common/fast:
-	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/common.dir/build.make examples/CMakeFiles/common.dir/build
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/common.dir/build.make examples/CMakeFiles/common.dir/build
 .PHONY : common/fast
 
-#=============================================================================
-# Target rules for targets named main
+common-ggml.o: common-ggml.cpp.o
+.PHONY : common-ggml.o
 
-# Build rule for target.
-main: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main
-.PHONY : main
+# target to build an object file
+common-ggml.cpp.o:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/common.dir/build.make examples/CMakeFiles/common.dir/common-ggml.cpp.o
+.PHONY : common-ggml.cpp.o
 
-# fast build rule for target.
-main/fast:
-	$(MAKE) $(MAKESILENT) -f examples/main/CMakeFiles/main.dir/build.make examples/main/CMakeFiles/main.dir/build
-.PHONY : main/fast
+common-ggml.i: common-ggml.cpp.i
+.PHONY : common-ggml.i
 
-#=============================================================================
-# Target rules for targets named server
+# target to preprocess a source file
+common-ggml.cpp.i:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/common.dir/build.make examples/CMakeFiles/common.dir/common-ggml.cpp.i
+.PHONY : common-ggml.cpp.i
 
-# Build rule for target.
-server: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 server
-.PHONY : server
+common-ggml.s: common-ggml.cpp.s
+.PHONY : common-ggml.s
 
-# fast build rule for target.
-server/fast:
-	$(MAKE) $(MAKESILENT) -f examples/server/CMakeFiles/server.dir/build.make examples/server/CMakeFiles/server.dir/build
-.PHONY : server/fast
+# target to generate assembly for a file
+common-ggml.cpp.s:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/common.dir/build.make examples/CMakeFiles/common.dir/common-ggml.cpp.s
+.PHONY : common-ggml.cpp.s
 
-#=============================================================================
-# Target rules for targets named bench
+common.o: common.cpp.o
+.PHONY : common.o
 
-# Build rule for target.
-bench: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bench
-.PHONY : bench
+# target to build an object file
+common.cpp.o:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/common.dir/build.make examples/CMakeFiles/common.dir/common.cpp.o
+.PHONY : common.cpp.o
 
-# fast build rule for target.
-bench/fast:
-	$(MAKE) $(MAKESILENT) -f examples/bench/CMakeFiles/bench.dir/build.make examples/bench/CMakeFiles/bench.dir/build
-.PHONY : bench/fast
+common.i: common.cpp.i
+.PHONY : common.i
 
-#=============================================================================
-# Target rules for targets named quantize
+# target to preprocess a source file
+common.cpp.i:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/common.dir/build.make examples/CMakeFiles/common.dir/common.cpp.i
+.PHONY : common.cpp.i
 
-# Build rule for target.
-quantize: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 quantize
-.PHONY : quantize
+common.s: common.cpp.s
+.PHONY : common.s
 
-# fast build rule for target.
-quantize/fast:
-	$(MAKE) $(MAKESILENT) -f examples/quantize/CMakeFiles/quantize.dir/build.make examples/quantize/CMakeFiles/quantize.dir/build
-.PHONY : quantize/fast
+# target to generate assembly for a file
+common.cpp.s:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/common.dir/build.make examples/CMakeFiles/common.dir/common.cpp.s
+.PHONY : common.cpp.s
+
+grammar-parser.o: grammar-parser.cpp.o
+.PHONY : grammar-parser.o
+
+# target to build an object file
+grammar-parser.cpp.o:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/common.dir/build.make examples/CMakeFiles/common.dir/grammar-parser.cpp.o
+.PHONY : grammar-parser.cpp.o
+
+grammar-parser.i: grammar-parser.cpp.i
+.PHONY : grammar-parser.i
+
+# target to preprocess a source file
+grammar-parser.cpp.i:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/common.dir/build.make examples/CMakeFiles/common.dir/grammar-parser.cpp.i
+.PHONY : grammar-parser.cpp.i
+
+grammar-parser.s: grammar-parser.cpp.s
+.PHONY : grammar-parser.s
+
+# target to generate assembly for a file
+grammar-parser.cpp.s:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f examples/CMakeFiles/common.dir/build.make examples/CMakeFiles/common.dir/grammar-parser.cpp.s
+.PHONY : grammar-parser.cpp.s
 
 # Help Target
 help:
@@ -264,13 +259,16 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... bench"
 	@echo "... common"
-	@echo "... ggml"
-	@echo "... main"
-	@echo "... quantize"
-	@echo "... server"
-	@echo "... whisper"
+	@echo "... common-ggml.o"
+	@echo "... common-ggml.i"
+	@echo "... common-ggml.s"
+	@echo "... common.o"
+	@echo "... common.i"
+	@echo "... common.s"
+	@echo "... grammar-parser.o"
+	@echo "... grammar-parser.i"
+	@echo "... grammar-parser.s"
 .PHONY : help
 
 
@@ -282,6 +280,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

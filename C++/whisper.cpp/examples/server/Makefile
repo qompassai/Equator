@@ -132,14 +132,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp/CMakeFiles /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(CMAKE_COMMAND) -E cmake_progress_start /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp/CMakeFiles /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp/examples/server//CMakeFiles/progress.marks
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/server/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/server/clean
 .PHONY : clean
 
 # The main clean target
@@ -148,109 +148,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/server/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/server/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named ggml
+# Convenience name for target.
+examples/server/CMakeFiles/server.dir/rule:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 examples/server/CMakeFiles/server.dir/rule
+.PHONY : examples/server/CMakeFiles/server.dir/rule
 
-# Build rule for target.
-ggml: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ggml
-.PHONY : ggml
-
-# fast build rule for target.
-ggml/fast:
-	$(MAKE) $(MAKESILENT) -f ggml/src/CMakeFiles/ggml.dir/build.make ggml/src/CMakeFiles/ggml.dir/build
-.PHONY : ggml/fast
-
-#=============================================================================
-# Target rules for targets named whisper
-
-# Build rule for target.
-whisper: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 whisper
-.PHONY : whisper
-
-# fast build rule for target.
-whisper/fast:
-	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/whisper.dir/build.make src/CMakeFiles/whisper.dir/build
-.PHONY : whisper/fast
-
-#=============================================================================
-# Target rules for targets named common
-
-# Build rule for target.
-common: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 common
-.PHONY : common
-
-# fast build rule for target.
-common/fast:
-	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/common.dir/build.make examples/CMakeFiles/common.dir/build
-.PHONY : common/fast
-
-#=============================================================================
-# Target rules for targets named main
-
-# Build rule for target.
-main: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main
-.PHONY : main
-
-# fast build rule for target.
-main/fast:
-	$(MAKE) $(MAKESILENT) -f examples/main/CMakeFiles/main.dir/build.make examples/main/CMakeFiles/main.dir/build
-.PHONY : main/fast
-
-#=============================================================================
-# Target rules for targets named server
-
-# Build rule for target.
-server: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 server
+# Convenience name for target.
+server: examples/server/CMakeFiles/server.dir/rule
 .PHONY : server
 
 # fast build rule for target.
 server/fast:
-	$(MAKE) $(MAKESILENT) -f examples/server/CMakeFiles/server.dir/build.make examples/server/CMakeFiles/server.dir/build
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f examples/server/CMakeFiles/server.dir/build.make examples/server/CMakeFiles/server.dir/build
 .PHONY : server/fast
 
-#=============================================================================
-# Target rules for targets named bench
+server.o: server.cpp.o
+.PHONY : server.o
 
-# Build rule for target.
-bench: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bench
-.PHONY : bench
+# target to build an object file
+server.cpp.o:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f examples/server/CMakeFiles/server.dir/build.make examples/server/CMakeFiles/server.dir/server.cpp.o
+.PHONY : server.cpp.o
 
-# fast build rule for target.
-bench/fast:
-	$(MAKE) $(MAKESILENT) -f examples/bench/CMakeFiles/bench.dir/build.make examples/bench/CMakeFiles/bench.dir/build
-.PHONY : bench/fast
+server.i: server.cpp.i
+.PHONY : server.i
 
-#=============================================================================
-# Target rules for targets named quantize
+# target to preprocess a source file
+server.cpp.i:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f examples/server/CMakeFiles/server.dir/build.make examples/server/CMakeFiles/server.dir/server.cpp.i
+.PHONY : server.cpp.i
 
-# Build rule for target.
-quantize: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 quantize
-.PHONY : quantize
+server.s: server.cpp.s
+.PHONY : server.s
 
-# fast build rule for target.
-quantize/fast:
-	$(MAKE) $(MAKESILENT) -f examples/quantize/CMakeFiles/quantize.dir/build.make examples/quantize/CMakeFiles/quantize.dir/build
-.PHONY : quantize/fast
+# target to generate assembly for a file
+server.cpp.s:
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(MAKE) $(MAKESILENT) -f examples/server/CMakeFiles/server.dir/build.make examples/server/CMakeFiles/server.dir/server.cpp.s
+.PHONY : server.cpp.s
 
 # Help Target
 help:
@@ -264,13 +211,10 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... bench"
-	@echo "... common"
-	@echo "... ggml"
-	@echo "... main"
-	@echo "... quantize"
 	@echo "... server"
-	@echo "... whisper"
+	@echo "... server.o"
+	@echo "... server.i"
+	@echo "... server.s"
 .PHONY : help
 
 
@@ -282,6 +226,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

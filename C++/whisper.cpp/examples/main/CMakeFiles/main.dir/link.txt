@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/main.dir/main.cpp.o -o ../../bin/main  -Wl,-rpath,/home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp/src:/home/phaedrus/Forge/GH/Qompass/Equator/C++/whisper.cpp/ggml/src ../libcommon.a ../../src/libwhisper.so.1.6.2 ../../ggml/src/libggml.so 
