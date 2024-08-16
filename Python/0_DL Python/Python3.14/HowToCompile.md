@@ -1,4 +1,4 @@
-# Qompass CPython Compilation of Python 3.14 without Global Interpreter Lock (GIL)
+# Qompass CPython Compilation of Python 3.14 with and without Global Interpreter Lock (GIL)
 - Disclaimer: The Python Foundation has made clear that compiling CPython without the GIL is experimental. By extension, this is not something we recommend inexperienced developers do. Any system errors that occur as a result of following these instructions are done at the risk of the user.
 
 # Arch Linux x86_64
