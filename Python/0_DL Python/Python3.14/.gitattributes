@@ -21,7 +21,7 @@
 PC/classicAppCompat.* binary
 
 # Text files that should not be subject to eol conversion
-[attr]noeol -text
+### [attr]noeol -text
 
 Lib/test/cjkencodings/*                    noeol
 Lib/test/tokenizedata/coding20731.py       noeol
@@ -36,7 +36,7 @@ Lib/venv/scripts/common/activate text eol=lf
 Lib/venv/scripts/posix/* text eol=lf
 
 # CRLF files
-[attr]dos text eol=crlf
+### [attr]dos text eol=crlf
 
 *.bat               dos
 *.proj              dos
@@ -63,7 +63,7 @@ PCbuild/readme.txt  dos
 # To always hide generated files in local diffs, mark them as binary:
 # $ git config diff.generated.binary true
 #
-[attr]generated linguist-generated=true diff=generated
+### [attr]generated linguist-generated=true diff=generated
 
 **/clinic/*.c.h                                     generated
 **/clinic/*.cpp.h                                   generated
