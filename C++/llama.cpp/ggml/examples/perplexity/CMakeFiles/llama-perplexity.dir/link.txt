@@ -1,0 +1,1 @@
+/bin/g++ -O3 -DNDEBUG "CMakeFiles/llama-perplexity.dir/perplexity.cpp.o" -o ../../bin/llama-perplexity  -Wl,-rpath,/home/phaedrus/Forge/GH/Qompass/Equator/C++/llama.cpp/ggml/src:/home/phaedrus/Forge/GH/Qompass/Equator/C++/llama.cpp/ggml/ggml/src: ../../common/libcommon.a ../../src/libllama.so ../../ggml/src/libggml.so

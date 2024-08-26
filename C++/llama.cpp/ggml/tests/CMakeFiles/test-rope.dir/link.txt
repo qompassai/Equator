@@ -1,0 +1,1 @@
+/bin/g++ -O3 -DNDEBUG "CMakeFiles/test-rope.dir/test-rope.cpp.o" "CMakeFiles/test-rope.dir/get-model.cpp.o" -o ../bin/test-rope  -Wl,-rpath,/home/phaedrus/Forge/GH/Qompass/Equator/C++/llama.cpp/ggml/src:/home/phaedrus/Forge/GH/Qompass/Equator/C++/llama.cpp/ggml/ggml/src: ../common/libcommon.a ../src/libllama.so ../ggml/src/libggml.so

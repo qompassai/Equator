@@ -1,0 +1,1 @@
+/bin/g++ -fPIC -O3 -DNDEBUG -shared -Wl,-soname,libllava_shared.so -o libllava_shared.so CMakeFiles/llava.dir/llava.cpp.o CMakeFiles/llava.dir/clip.cpp.o  -Wl,-rpath,/home/phaedrus/Forge/GH/Qompass/Equator/C++/llama.cpp/ggml/src:/home/phaedrus/Forge/GH/Qompass/Equator/C++/llama.cpp/ggml/ggml/src: ../../src/libllama.so ../../ggml/src/libggml.so

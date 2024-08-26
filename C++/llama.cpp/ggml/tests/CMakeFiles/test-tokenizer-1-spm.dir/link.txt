@@ -1,0 +1,1 @@
+/bin/g++ -O3 -DNDEBUG "CMakeFiles/test-tokenizer-1-spm.dir/test-tokenizer-1-spm.cpp.o" -o ../bin/test-tokenizer-1-spm  -Wl,-rpath,/home/phaedrus/Forge/GH/Qompass/Equator/C++/llama.cpp/ggml/src:/home/phaedrus/Forge/GH/Qompass/Equator/C++/llama.cpp/ggml/ggml/src: ../common/libcommon.a ../src/libllama.so ../ggml/src/libggml.so

@@ -1,0 +1,1 @@
+/bin/g++ -O3 -DNDEBUG "CMakeFiles/test-grammar-parser.dir/test-grammar-parser.cpp.o" "CMakeFiles/test-grammar-parser.dir/get-model.cpp.o" -o ../bin/test-grammar-parser  -Wl,-rpath,/home/phaedrus/Forge/GH/Qompass/Equator/C++/llama.cpp/ggml/src:/home/phaedrus/Forge/GH/Qompass/Equator/C++/llama.cpp/ggml/ggml/src: ../common/libcommon.a ../src/libllama.so ../ggml/src/libggml.so
