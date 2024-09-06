@@ -117,3 +117,8 @@ map("n", "<leader>cc", function()
     end
   end
 end, { desc = "blankline jump to current context" })
+
+-- Zoxide mappings
+map("n", "<leader>z", "<cmd>Telescope zoxide list<cr>", { desc = "Zoxide (Telescope)" })
+map("n", "<leader>zi", "<cmd>Zi<cr>", { desc = "Zoxide interactive" })
+map("n", "<leader>zq", "<cmd>Z<space>", { desc = "Zoxide query" })
