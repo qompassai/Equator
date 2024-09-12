@@ -1,0 +1,17 @@
+<script title="Instrucciones de la Cascada de Pexes">
+  <page>
+    <bkgd src="main_bkg.png">
+    <img src="tux/stand-.png" x="100" y="330">
+    <text color="#FFFFFF" align="center" size="32">¡Ayuda a Tux a Comer Pexes!</text>
+    <text color="#FFFFFF" align="center">¡Tux ta afamiáu! Pero los pexes</text>
+    <text color="#FFFFFF" align="center">con lletres dan-y</text>
+    <text color="#FFFFFF" align="center">dolor de barriga. ¡Ayuda a Tux</text>
+    <text color="#FFFFFF" align="center">a comer pexes calcando</text>
+    <text color="#FFFFFF" align="center">les lletres nos pexes</text>
+    <text color="#FFFFFF" align="center">pa que desapaezan</text>
+    <text color="#FFFFFF" align="center">y los puea comer toos!</text>
+    <text></text>
+    <text color="#ffffff" align="center" size="22">¡Calca espaciu pa siguir!</text>
+  </page>
+   <waitforinput/>
+  </page></lesson>

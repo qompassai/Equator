@@ -1,0 +1,178 @@
+# SOME DESCRIPTIVE TITLE.
+# This file is put in the public domain.
+# Giannis Konstantinidis <gloooabvoe9a@gmail.com>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: tuxtype 1.8.2\n"
+"Report-Msgid-Bugs-To: tux4kids-tuxtype-dev@lists.alioth.debian.org\n"
+"POT-Creation-Date: 2012-02-02 20:16-0600\n"
+"PO-Revision-Date: 2010-12-25 00:04+0200\n"
+"Last-Translator: Giannis Konstantinidis <gloooabvoe9a@gmail.com>\n"
+"Language-Team: Giannis Konstantinidis <gloooabvoe9a@gmail.com>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Greek\n"
+"X-Poedit-Country: GREECE\n"
+
+#: src/loaders.c:98 src/main.c:161 src/playgame.c:654
+msgid "Fish"
+msgstr "Ψάρια"
+
+#: src/pause.c:289
+msgid "Sound Effects Volume"
+msgstr "Ένταση ηχητικών εφέ"
+
+#: src/pause.c:298
+msgid "Music Volume"
+msgstr "Ένταση Μουσικής"
+
+#: src/pause.c:309
+msgid "Sound & Music Disabled"
+msgstr "Ο ήχος και η μουσική απενεργοποιήθηκαν"
+
+#: src/pause.c:319
+msgid "Paused!"
+msgstr "Παύση!"
+
+#: src/pause.c:328
+msgid "Press escape again to return to menu"
+msgstr "Πατήστε ξανά escape για να επιστρέψετε στο μενού"
+
+#: src/pause.c:337
+msgid "Press space bar to return to game"
+msgstr "Πατήστε το space bar για να επιστρέψετε στο παιχνίδι"
+
+#: src/playgame.c:652
+msgid "Level"
+msgstr "Επίπεδο"
+
+#: src/playgame.c:653
+msgid "Lives"
+msgstr "Ζωές"
+
+#: src/playgame.c:656 src/titlescreen.c:99
+msgid "Easy"
+msgstr "Εύκολο"
+
+#: src/playgame.c:657 src/titlescreen.c:100
+msgid "Medium"
+msgstr "Μεσαίο"
+
+#: src/playgame.c:658 src/titlescreen.c:101
+msgid "Hard"
+msgstr "Δύσκολο"
+
+#: src/playgame.c:659
+msgid "Practice"
+msgstr "Εξάσκηση"
+
+#: src/playgame.c:670
+msgid "Congratulations"
+msgstr "Συγχαρητήρια"
+
+#: src/playgame.c:674
+msgid "Oh No!"
+msgstr "Ωχ Όχι!"
+
+#: src/practice.c:626
+msgid "sec"
+msgstr "δευτ."
+
+#: src/practice.c:1440
+msgid "Time"
+msgstr "Χρόνος"
+
+#: src/practice.c:1444
+msgid "Chars"
+msgstr "Χαρακτήρες"
+
+#: src/practice.c:1448
+msgid "CPM"
+msgstr "CRM"
+
+#: src/practice.c:1452
+msgid "WPM"
+msgstr "WPM"
+
+#: src/practice.c:1456
+msgid "Errors"
+msgstr "Σφάλματα"
+
+#: src/practice.c:1460
+msgid "Accuracy"
+msgstr "Ευστοχία"
+
+#: src/titlescreen.c:99
+msgid "Fish Cascade"
+msgstr "Καταρράκτης με ψάρια"
+
+#: src/titlescreen.c:99
+msgid "Space Cadet"
+msgstr "Αστροναύτης"
+
+#: src/titlescreen.c:99
+msgid "Edit Word Lists"
+msgstr "Επεξεργασία καταλόγων με λέξεις"
+
+#: src/titlescreen.c:100
+msgid "Comet Zap"
+msgstr "Βροχή από Κομήτες"
+
+#: src/titlescreen.c:100
+msgid "Pilot"
+msgstr "Πιλότος"
+
+#: src/titlescreen.c:100
+msgid "Phrase Typing"
+msgstr "Δακτυλογράφηση Φράσεων"
+
+#: src/titlescreen.c:101
+msgid "Lessons"
+msgstr "Μαθήματα"
+
+#: src/titlescreen.c:101
+msgid "Ace"
+msgstr "Άσσος"
+
+#: src/titlescreen.c:101
+msgid "Project Info"
+msgstr "Πληροφορίες Έργου"
+
+#: src/titlescreen.c:102
+msgid "Options"
+msgstr "Επιλογές"
+
+#: src/titlescreen.c:102
+msgid "Instructions"
+msgstr "Οδηγίες"
+
+#: src/titlescreen.c:102
+msgid "Commander"
+msgstr "Διοικητής"
+
+#: src/titlescreen.c:102
+msgid "Setup Language"
+msgstr "Ρυθμίσεις Γλώσσας"
+
+#: src/titlescreen.c:103
+msgid "Quit"
+msgstr "Έξοδος"
+
+#: src/titlescreen.c:103
+msgid "Main Menu"
+msgstr "Κύριο Μενού"
+
+#: src/titlescreen.c:1129
+msgid "Work In Progress!"
+msgstr "Εργασία σε Εξέλιξη!"
+
+#: src/titlescreen.c:1130
+msgid "This feature is not ready yet"
+msgstr "Αυτο το στοιχείο δεν είναι έτοιμο ακόμα"
+
+#: src/titlescreen.c:1131
+msgid "Discuss the future of TuxTyping at"
+msgstr "Συζητήστε το μέλλον του TuxTyping στο"
