@@ -1,6 +1,22 @@
 local autocmd = vim.api.nvim_create_autocmd
 
--- user event that loads after UIEnter + only if file buf is there
+
+-- Signature Help Autocmd
+autocmd("TextChangedI", {
+  callback = function()
+    vim.schedule(function()
+      local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+      if #clients > 0 then
+        local client = clients[1]
+        if client.server_capabilities.signatureHelpProvider then
+          vim.lsp.buf.signature_help()
+        end
+      end
+    end)
+  end,
+})
+
+-- FilePost Autocmd
 autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
   group = vim.api.nvim_create_augroup("NvFilePost", { clear = true }),
   callback = function(args)
@@ -19,9 +35,13 @@ autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
         vim.api.nvim_exec_autocmds("FileType", {})
 
         if vim.g.editorconfig then
-          require("editorconfig").config(args.buf)
+          pcall(require, "editorconfig")
+          if package.loaded["editorconfig"] then
+            require("editorconfig").config(args.buf)
+          end
         end
       end)
     end
   end,
 })
+

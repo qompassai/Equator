@@ -1,5 +1,5 @@
 local map = vim.keymap.set
-
+-- general mapping
 map("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line" })
 map("i", "<C-e>", "<End>", { desc = "move end of line" })
 map("i", "<C-h>", "<Left>", { desc = "move left" })
@@ -29,7 +29,7 @@ end, { desc = "format files" })
 map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "lsp diagnostic loclist" })
 
 -- tabufline
-map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
+map("n", "<leader>b", "<cmd>new<CR>", { desc = "buffer new" })
 
 map("n", "<tab>", function()
   require("nvchad.tabufline").next()
@@ -119,6 +119,144 @@ map("n", "<leader>cc", function()
 end, { desc = "blankline jump to current context" })
 
 -- Zoxide mappings
-map("n", "<leader>z", "<cmd>Telescope zoxide list<cr>", { desc = "Zoxide (Telescope)" })
-map("n", "<leader>zi", "<cmd>Zi<cr>", { desc = "Zoxide interactive" })
-map("n", "<leader>zq", "<cmd>Z<space>", { desc = "Zoxide query" })
+map("n", "<leader>z", "<cmd>Telescope zoxide list<CR>", { desc = "Zoxide (Telescope)" })
+map("n", "<leader>zi", "<cmd>Zi<CR>", { desc = "Zoxide interactive" })
+map("n", "<leader>zq", ":Z ", { desc = "Zoxide query" })
+
+--Rustacean mappings
+local bufopts = { noremap = true, silent = true, buffer = true }
+map("n", "gD", vim.lsp.buf.declaration, bufopts)
+map("n", "gd", vim.lsp.buf.definition, bufopts)
+map("n", "K", vim.lsp.buf.hover, bufopts)
+map("n", "gi", vim.lsp.buf.implementation, bufopts)
+map("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+map("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
+map("n", "<space>rn", vim.lsp.buf.rename, bufopts)
+map("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
+map("n", "gr", vim.lsp.buf.references, bufopts)
+map("n", "<space>f", function()
+  vim.lsp.buf.format { async = true }
+end, bufopts)
+map("n", "<leader>rr", "<cmd>RustRunnables<CR>", { desc = "Rust Runnables" })
+map("n", "<leader>rd", "<cmd>RustDebuggables<CR>", { desc = "Rust Debuggables" })
+map("n", "<leader>rt", "<cmd>RustExpandMacro<CR>", { desc = "Rust Expand Macro" })
+map("n", "<leader>rc", "<cmd>RustOpenCargo<CR>", { desc = "Rust Open Cargo" })
+map("n", "<leader>rp", "<cmd>RustParentModule<CR>", { desc = "Rust Parent Module" })
+map("n", "gd", vim.lsp.buf.declaration, bufopts)
+map("n", "gd", vim.lsp.buf.definition, bufopts)
+map("n", "k", vim.lsp.buf.hover, bufopts)
+map("n", "gi", vim.lsp.buf.implementation, bufopts)
+map("n", "<c-k>", vim.lsp.buf.signature_help, bufopts)
+map("n", "<space>d", vim.lsp.buf.type_definition, bufopts)
+map("n", "<space>rn", vim.lsp.buf.rename, bufopts)
+map("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
+map("n", "gr", vim.lsp.buf.references, bufopts)
+map("n", "<space>f", function()
+  vim.lsp.buf.format { async = true }
+end, bufopts)
+map("n", "<leader>tc", function()
+  local current = vim.opt.formatoptions:get()
+  if vim.tbl_contains(current, "c") then
+    vim.opt.formatoptions:remove "c"
+    vim.opt.formatoptions:remove "r"
+    vim.opt.formatoptions:remove "o"
+    print "Comment continuation disabled"
+  else
+    vim.opt.formatoptions:append "c"
+    vim.opt.formatoptions:append "r"
+    vim.opt.formatoptions:append "o"
+    print "Comment continuation enabled"
+  end
+end, { desc = "Toggle comment continuation" })
+
+--null-ls
+local null_ls = require "null-ls"
+
+map("n", "<leader>tn", function()
+  if null_ls.is_registered "diagnostics" then
+    null_ls.disable "diagnostics"
+    print "null-ls diagnostics disabled"
+  else
+    null_ls.enable "diagnostics"
+    print "null-ls diagnostics enabled"
+  end
+end, { desc = "Toggle null-ls diagnostics" })
+
+--lsp diag
+map("n", "<leader>tl", function()
+  local clients = vim.lsp.get_active_clients()
+  if #clients > 0 then
+    vim.diagnostic.enable(false)
+    for _, client in ipairs(clients) do
+      client.stop()
+    end
+    print "LSP diagnostics disabled"
+  else
+    vim.diagnostic.enable()
+    vim.cmd "LspStart"
+    print "LSP diagnostics enabled"
+  end
+end, { desc = "Toggle LSP diagnostics" })
+
+-- Jupyter Notebook Mappings
+map("n", "<leader>jc", "<cmd>JupyterConnect<CR>", { desc = "Connect to Jupyter kernel" })
+map("n", "<leader>jr", "<cmd>JupyterRunCell<CR>", { desc = "Run current Jupyter cell" })
+map("n", "<leader>ja", "<cmd>JupyterRunAll<CR>", { desc = "Run all Jupyter cells" })
+map("n", "<leader>jn", "<cmd>JupyterNewCell<CR>", { desc = "Create new cell below" })
+map("n", "<leader>jb", "<cmd>JupyterNewCellAbove<CR>", { desc = "Create new cell above" })
+map("n", "<leader>jd", "<cmd>JupyterDeleteCell<CR>", { desc = "Delete current cell" })
+map("n", "<leader>js", "<cmd>JupyterSplitCell<CR>", { desc = "Split current cell" })
+map("n", "<leader>jm", "<cmd>JupyterMergeCellBelow<CR>", { desc = "Merge cell with cell below" })
+map("n", "<leader>jt", "<cmd>JupyterToggleCellType<CR>", { desc = "Toggle cell type (code/markdown)" })
+map("n", "<leader>jp", "<cmd>JupyterTogglePythonRepl<CR>", { desc = "Toggle Python REPL" })
+map("n", "<leader>jv", "<cmd>JupyterViewOutput<CR>", { desc = "View output of last executed cell" })
+map("n", "<leader>jh", "<cmd>JupyterCommandHistory<CR>", { desc = "Show Jupyter command history" })
+map("n", "<leader>ji", "<cmd>JupyterInsertImports<CR>", { desc = "Insert cell with common Python imports" })
+map("n", "<leader>jf", "<cmd>JupyterFormatNotebook<CR>", { desc = "Format entire notebook" })
+
+-- Jupyter Notebook Mappings
+-- Jupytext
+map("n", "<leader>jx", ":Jupytext<CR>", { desc = "Convert between notebook and script" })
+
+-- Jupyter connection and file operations
+map("n", "<leader>jc", ":JupyterConnect<CR>", { desc = "Connect to Jupyter kernel" })
+map("n", "<leader>jr", ":JupyterRunFile<CR>", { desc = "Run current file in Jupyter" })
+map("n", "<leader>ji", ":PythonImportThisFile<CR>", { desc = "Import current file in Jupyter" })
+map("n", "<leader>jd", ":JupyterCd %:p:h<CR>", { desc = "Change Jupyter working directory to current file" })
+
+-- Cell operations
+map("n", "<leader>jn", ":JupyterNewCell<CR>", { desc = "Create new cell below" })
+map("n", "<leader>jb", ":JupyterNewCellAbove<CR>", { desc = "Create new cell above" })
+map("n", "<leader>jD", ":JupyterDeleteCell<CR>", { desc = "Delete current cell" })
+map("n", "<leader>js", ":JupyterSplitCell<CR>", { desc = "Split current cell" })
+map("n", "<leader>jm", ":JupyterMergeCellBelow<CR>", { desc = "Merge cell with cell below" })
+map("n", "<leader>jt", ":JupyterToggleCellType<CR>", { desc = "Toggle cell type (code/markdown)" })
+
+-- Cell execution
+map("n", "<leader>je", ":JupyterSendCell<CR>", { desc = "Execute current cell" })
+map("n", "<leader>jE", ":JupyterCellExecuteCellJump<CR>", { desc = "Execute current cell and jump to next" })
+map("n", "<leader>ja", ":JupyterRunAllCells<CR>", { desc = "Run all cells" })
+map("n", "<leader>jA", ":JupyterRunAllCellsAbove<CR>", { desc = "Run all cells above" })
+map("n", "<leader>jB", ":JupyterRunAllCellsBelow<CR>", { desc = "Run all cells below" })
+
+-- Output and REPL
+map("n", "<leader>jp", ":JupyterTogglePythonRepl<CR>", { desc = "Toggle Python REPL" })
+map("n", "<leader>jv", ":JupyterViewOutput<CR>", { desc = "View output of last executed cell" })
+map("n", "<leader>jh", ":JupyterCommandHistory<CR>", { desc = "Show Jupyter command history" })
+map("n", "<leader>jC", ":JupyterCellClear<CR>", { desc = "Clear current cell output" })
+
+-- Navigation
+map("n", "[c", ":JupyterCellPrev<CR>", { desc = "Go to previous cell" })
+map("n", "]c", ":JupyterCellNext<CR>", { desc = "Go to next cell" })
+
+-- ToggleTerm for Jupyter Lab
+map(
+  "n",
+  "<leader>jl",
+  "<cmd>ToggleTerm direction=float<CR>jupyter lab<CR>",
+  { desc = "Open Jupyter Lab in floating terminal" }
+)
+
+-- Additional operations
+map("n", "<leader>jf", ":JupyterFormatNotebook<CR>", { desc = "Format entire notebook" })
+map("n", "<leader>jU", ":JupyterUpdateShell<CR>", { desc = "Update Jupyter shell" })

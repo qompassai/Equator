@@ -1,7 +1,22 @@
 local M = {}
 local map = vim.keymap.set
+local on_attach = require("plugins.configs.lspconfig").on_attach
+local capabilities = require("plugins.configs.lspconfig").capabilities
+local lspconfig = require "lspconfig"
+local servers = { "html", "pyright", "tsserver", "lua_ls", "gopls", "jdtls",
+  "clangd", "omnisharp", "dockerls", "docker_compose_language_service", "jsonls",
+  "yamlls", "matlab_ls", "r_language_server" }
 
--- export on_attach & capabilities
+for _, lsp in ipairs(servers) do
+  if lsp ~= "rust_analyzer" then
+    lspconfig[lsp].setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    }
+  end
+end
+
+
 M.on_attach = function(_, bufnr)
   local function opts(desc)
     return { buffer = bufnr, desc = "LSP " .. desc }
@@ -70,18 +85,22 @@ M.defaults = function()
           globals = { "vim" },
         },
         workspace = {
+          library = vim.api.nvim_get_runtime_file("", true),
+      },
           library = {
             vim.fn.expand "$VIMRUNTIME/lua",
             vim.fn.expand "$VIMRUNTIME/lua/vim/lsp",
             vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types",
             vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy",
           },
+         telemetry = {
+        enable = false,
+      },
           maxPreload = 100000,
           preloadFileSize = 10000,
         },
       },
-    },
-  }
+    }
 end
 
 return M

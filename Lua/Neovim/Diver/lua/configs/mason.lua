@@ -1,7 +1,7 @@
 dofile(vim.g.base46_cache .. "mason")
 
 local options = {
-  PATH = "skip",
+  PATH = "prepend",
 
   ui = {
     icons = {
@@ -13,5 +13,7 @@ local options = {
 
   max_concurrent_installers = 10,
 }
+
+
 
 return options

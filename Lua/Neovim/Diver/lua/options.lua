@@ -25,6 +25,10 @@ o.ignorecase = true
 o.smartcase = true
 o.mouse = "a"
 
+-- Files
+opt.redrawtime = 1500
+opt.synmaxcol = 200
+
 -- Numbers
 o.number = true
 o.numberwidth = 2

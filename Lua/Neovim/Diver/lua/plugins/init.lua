@@ -15,9 +15,20 @@ return {
       "nvim-telescope/telescope.nvim",
     },
     config = function()
-      require("telescope").load_extension("zoxide")
+      require("telescope").load_extension "zoxide"
     end,
-    lazy = false
+    lazy = false,
+  },
+
+  {
+    "goolord/alpha-nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      local startify = require "alpha.themes.startify"
+      startify.file_icons.provider = "devicons"
+      require("alpha").setup(startify.config)
+    end,
+    lazy = false,
   },
 
   {
@@ -26,152 +37,275 @@ return {
   },
 
   {
-  "jamessan/vim-gnupg",
-  event = "BufReadPre",
-  config = function()
-    vim.g.GPGPreferSymmetric = 1
-  end,
-  lazy = false
+    "jamessan/vim-gnupg",
+    event = "BufReadPre",
+    config = function()
+      vim.g.GPGPreferSymmetric = 1
+    end,
+    lazy = false,
   },
 
   {
-  "akinsho/toggleterm.nvim",
-  config = function()
-    require("toggleterm").setup()
-  end,
-  lazy = false
+    "akinsho/toggleterm.nvim",
+    config = function()
+      require("toggleterm").setup()
+    end,
+    lazy = false,
   },
 
   {
-  "goerz/jupytext.vim",
-  lazy = false,
-  ft = {"ipynb"}
+    "tpope/vim-fugitive",
+    lazy = false,
+    cmd = { "G", "Git" },
   },
 
   {
-  "tpope/vim-fugitive",
-  lazy = false,
-  cmd = {"G", "Git"},
+    "bfrg/vim-cuda-syntax",
+    lazy = false,
+    ft = { "cuda" },
   },
 
   {
-  "bfrg/vim-cuda-syntax",
-  lazy = false,
-  ft = {"cuda"}
+    "rust-lang/rust.vim",
+    ft = "rust",
+    init = function()
+      vim.g.rustfmt_autosave = 1
+    end,
   },
 
   {
-  'stevearc/oil.nvim',
-  opts = {},
-  dependencies = { "nvim-tree/nvim-web-devicons" },
-  lazy = false
+    "mfussenegger/nvim-dap",
+    config = function() end,
   },
 
   {
-  "jose-elias-alvarez/null-ls.nvim",
-  dependencies = { "nvim-lua/plenary.nvim" },
-  config = function()
-    local null_ls = require("null-ls")
-    null_ls.setup({
-      sources = {
-        -- Shell
-        null_ls.builtins.diagnostics.shellcheck,
-        null_ls.builtins.code_actions.shellcheck,
-
-        -- Dockerfile/Containerfile
-        null_ls.builtins.diagnostics.hadolint,
-
-        -- Lua
-        null_ls.builtins.formatting.stylua,
-        null_ls.builtins.diagnostics.luacheck,
-
-        -- Ruby
-        null_ls.builtins.formatting.rubocop,
-        null_ls.builtins.diagnostics.rubocop,
-
-        -- Java
-        null_ls.builtins.diagnostics.checkstyle.with({
-          extra_args = { "-c", "/google_checks.xml" }, -- Adjust path as needed
-        }),
-
-        -- JavaScript/TypeScript
-        null_ls.builtins.diagnostics.eslint,
-        null_ls.builtins.formatting.prettier,
-
-        -- Jupyter Notebooks
-        null_ls.builtins.diagnostics.flake8,  -- For Python in notebooks
-        null_ls.builtins.formatting.black,    -- For Python in notebooks
-
-        -- Rust
-        null_ls.builtins.formatting.rustfmt,
-
-        -- Go
-        null_ls.builtins.formatting.gofmt,
-        null_ls.builtins.diagnostics.golangci_lint,
-
-        -- Python
-        null_ls.builtins.diagnostics.pylint,
-        null_ls.builtins.formatting.black,
-        null_ls.builtins.diagnostics.mypy,
-
-        -- General
-        null_ls.builtins.completion.spell,
-        null_ls.builtins.code_actions.gitsigns,
-      },
-    })
-  end,
-  lazy = false
-},
-
-  {
-  "David-Kunz/gen.nvim",
-  lazy = false,
-  cmd = { "Gen" },  -- Lazy load on command
-  keys = {
-    { "<leader>g", ":Gen<CR>", desc = "Generate with Gen.nvim" },  -- Lazy load on keybinding
-  },
-  opts = {
-    model = "codellama", -- The default model to use.
-    display_mode = "float", -- The display mode. Can be "float" or "split".
-    show_prompt = false, -- Shows the Prompt submitted to Ollama.
-    show_model = false, -- Displays which model you are using at the beginning of your chat session.
-    no_auto_close = false, -- Never closes the window automatically.
-  },
-  config = function(_, opts)
-    require("gen").setup(opts)
-    -- Initialize Ollama
-    pcall(io.popen, "ollama serve > /dev/null 2>&1 &")
-  end,
-},
-  {
-  "vim-scripts/LargeFile",
-  lazy = false,
-  config = function()
-    vim.g.LargeFile = 10  -- in MB
-  end
-  },
-  {
-  "jamessan/vim-gnupg",
-  event = "BufReadPre",
-  config = function()
-    vim.g.GPGPreferSymmetric = 1
-  end,
-  lazy = false,
+    "stevearc/oil.nvim",
+    opts = {},
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    lazy = false,
   },
 
   {
-  "akinsho/toggleterm.nvim",
-  config = function()
-    require("toggleterm").setup()
-    vim.api.nvim_set_keymap("n", "<leader>jl", "<cmd>ToggleTerm direction=float<CR>jupyter lab<CR>", {noremap = true, silent = true})
-  end,
-  lazy = false,
+    "jmbuhr/otter.nvim",
+    lazy = false,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {},
   },
 
   {
-  "Vimjas/vim-python-pep8-indent",
-  lazy = false,
-  ft = {"python"}
+    "mrcjkb/rustaceanvim",
+    lazy = false,
+    version = "^4",
+    ft = { "rust" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "mfussenegger/nvim-dap",
+      "neovim/nvim-lspconfig",
+      "hrsh7th/nvim-cmp",
+      "simrat39/rust-tools.nvim",
+    },
+    config = function()
+      local on_attach = function(bufnr)
+        vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+      end
+
+      vim.g.rustaceanvim = {
+        -- Plugin configuration
+        tools = {
+          autoSetHints = true,
+          hover_with_actions = true,
+          inlay_hints = {
+            show_parameter_hints = true,
+            parameter_hints_prefix = "<- ",
+            other_hints_prefix = "=> ",
+          },
+        },
+        -- LSP configuration
+        server = {
+          on_attach = on_attach,
+          settings = {
+            ["rust-analyzer"] = {
+              assist = {
+                importGranularity = "module",
+                importPrefix = "self",
+              },
+              cargo = {
+                loadOutDirsFromCheck = true,
+              },
+              procMacro = {
+                enable = true,
+              },
+              checkOnSave = {
+                command = "clippy",
+              },
+            },
+          },
+        },
+        -- DAP configuration
+        dap = {
+          adapter = {
+            type = "executable",
+            command = "lldb-vscode",
+            name = "rt_lldb",
+          },
+        },
+      }
+
+      -- Set up formatting on save
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = "*.rs",
+        callback = function()
+          vim.lsp.buf.format { async = false }
+        end,
+      })
+    end,
+  },
+
+  {
+    "nvimtools/none-ls.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "rust-lang/rust.vim",
+      "mfussenegger/nvim-dap",
+      "williamboman/mason.nvim",
+      "jay-babu/mason-null-ls.nvim",
+    },
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      local null_ls = require "null-ls"
+      local mason_null_ls = require "mason-null-ls"
+      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+      mason_null_ls.setup {
+        ensure_installed = {
+          "hadolint",
+          "stylua",
+          "rubocop",
+          "checkstyle",
+          "prettier",
+          "black",
+          "gofmt",
+          "golangci_lint",
+          "pylint",
+          "mypy",
+        },
+        automatic_installation = true,
+        handlers = {
+          function(source_name, methods)
+            require("mason-null-ls").default_setup(source_name, methods)
+          end,
+        },
+      }
+
+      null_ls.setup {
+        sources = {
+
+          -- Dockerfile/Containerfile
+          null_ls.builtins.diagnostics.hadolint,
+
+          -- Lua
+          null_ls.builtins.formatting.stylua,
+
+          -- Ruby
+          null_ls.builtins.formatting.rubocop,
+          null_ls.builtins.diagnostics.rubocop,
+
+          -- Java
+          null_ls.builtins.diagnostics.checkstyle.with {
+            extra_args = { "-c", "/google_checks.xml" }, -- Adjust path as needed
+          },
+          null_ls.builtins.formatting.prettier,
+
+          -- Jupyter Notebooks
+          null_ls.builtins.formatting.black, -- For Python in notebooks
+
+          -- Go
+          null_ls.builtins.formatting.gofmt,
+          null_ls.builtins.diagnostics.golangci_lint,
+
+          -- Python
+          null_ls.builtins.diagnostics.pylint,
+          null_ls.builtins.formatting.black,
+          null_ls.builtins.diagnostics.mypy,
+
+          -- General
+          null_ls.builtins.completion.spell,
+          null_ls.builtins.code_actions.gitsigns,
+        },
+        diagnostics_format = "#{m}",
+        diagnostics = false, -- This disables diagnostics by default
+        on_attach = function(client, bufnr)
+          if client.supports_method "textDocument/formatting" then
+            vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              group = augroup,
+              buffer = bufnr,
+              callback = function()
+                vim.lsp.buf.format { bufnr = bufnr }
+              end,
+            })
+          end
+        end,
+      }
+    end,
+    lazy = false,
+  },
+
+  {
+    "David-Kunz/gen.nvim",
+    lazy = false,
+    cmd = { "Gen" }, -- Lazy load on command
+    keys = {
+      { "<leader>g", ":Gen<CR>", desc = "Generate with Gen.nvim" }, -- Lazy load on keybinding
+    },
+    opts = {
+      model = "phi3.5",
+      display_mode = "float",
+      show_prompt = false,
+      show_model = false,
+      no_auto_close = false,
+    },
+    config = function(_, opts)
+      require("gen").setup(opts)
+      pcall(io.popen, "ollama serve > /dev/null 2>&1 &")
+    end,
+  },
+  {
+    "vim-scripts/LargeFile",
+    lazy = false,
+    config = function()
+      vim.g.LargeFile = 10
+    end,
+  },
+  {
+    "jamessan/vim-gnupg",
+    event = "BufReadPre",
+    config = function()
+      vim.g.GPGPreferSymmetric = 1
+    end,
+    lazy = false,
+  },
+
+  {
+    "akinsho/toggleterm.nvim",
+    config = function()
+      require("toggleterm").setup()
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>jl",
+        "<cmd>ToggleTerm direction=float<CR>jupyter lab<CR>",
+        { noremap = true, silent = true }
+      )
+    end,
+    lazy = false,
+  },
+
+  {
+    "Vimjas/vim-python-pep8-indent",
+    lazy = false,
+    ft = { "python" },
   },
 
   {
@@ -179,6 +313,50 @@ return {
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
     opts = function()
       return require "nvchad.configs.mason"
+    end,
+    lazy = false,
+  },
+
+  {
+    'huggingface/llm.nvim',
+    opts = {
+      api_token = nil, -- You'll need to set this to your Hugging Face API token
+      model = "bigcode/starcoder2-15b",
+      backend = "huggingface",
+      url = nil,
+      tokens_to_clear = { "<|endoftext|>" },
+      request_body = {
+        parameters = {
+          max_new_tokens = 60,
+          temperature = 0.2,
+          top_p = 0.95,
+        },
+      },
+      fim = {
+        enabled = true,
+        prefix = "<fim_prefix>",
+        middle = "<fim_middle>",
+        suffix = "<fim_suffix>",
+      },
+      debounce_ms = 150,
+      accept_keymap = "<Tab>",
+      dismiss_keymap = "<S-Tab>",
+      tls_skip_verify_insecure = false,
+      lsp = {
+        bin_path = nil,
+        host = nil,
+        port = nil,
+        cmd_env = nil,
+        version = "0.5.3",
+      },
+      tokenizer = nil,
+      context_window = 1024,
+      enable_suggestions_on_startup = true,
+      enable_suggestions_on_files = "*",
+      disable_url_path_completion = false,
+    },
+    config = function(_, opts)
+      require('llm').setup(opts)
     end,
     lazy = false
   },
@@ -191,8 +369,9 @@ return {
       ensure_installed = {
         "rust_analyzer",
         "solargraph",
+        "salt_ls",
         "pyright",
-        "tsserver",
+        "ts_ls",
         "gopls",
         "jdtls",
         "clangd",
@@ -201,12 +380,12 @@ return {
         "docker_compose_language_service",
         "jsonls",
         "yamlls",
---         "hls",  -- Haskell Language Server
-        "matlab_ls",  -- MATLAB Language Server
-        "r_language_server",  -- R Language Server
+        "matlab_ls",
+        "r_language_server",
       },
     },
   },
+
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
@@ -218,23 +397,44 @@ return {
     config = function()
       require("nvchad.configs.lspconfig").defaults()
 
-      local lspconfig = require("lspconfig")
+      local lspconfig = require "lspconfig"
+      vim.diagnostic.config({
+      virtual_text = false,
+      signs = false,
+      underline = false,
+      update_in_insert = false,
+      severity_sort = false,
+    })
+ 
+    -- Common on_attach function to disable diagnostics for all servers
+    local on_attach = function(client, bufnr)
+      -- Disable diagnostics for this buffer
+      vim.diagnostic.disable(bufnr)
+    end
 
-      -- Existing configurations
-      lspconfig.rust_analyzer.setup{}
-      lspconfig.solargraph.setup{}
-      lspconfig.tsserver.setup{}
-      lspconfig.gopls.setup{}
-      lspconfig.jdtls.setup{}
-      lspconfig.clangd.setup{}
-      lspconfig.omnisharp.setup{}
-      lspconfig.dockerls.setup{}
-      lspconfig.docker_compose_language_service.setup{}
-      lspconfig.jsonls.setup{}
-      lspconfig.yamlls.setup{}
-
-      -- Python with enhanced support for Jupyter and ML libraries
-      lspconfig.pyright.setup{
+      lspconfig.rust_analyzer.setup {}
+      lspconfig.solargraph.setup {}
+      lspconfig.lua_ls.setup {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" },
+              disable = { "mixed-table-concat", "different-requires" },
+            },
+          },
+        },
+      }
+      lspconfig.ts_ls.setup {}
+      lspconfig.hls.setup {}
+      lspconfig.gopls.setup {}
+      lspconfig.jdtls.setup {}
+      lspconfig.clangd.setup {}
+      lspconfig.omnisharp.setup {}
+      lspconfig.dockerls.setup {}
+      lspconfig.docker_compose_language_service.setup {}
+      lspconfig.jsonls.setup {}
+      lspconfig.yamlls.setup {}
+      lspconfig.pyright.setup {
         settings = {
           python = {
             analysis = {
@@ -245,56 +445,59 @@ return {
               typeCheckingMode = "basic",
               autoSearchPaths = true,
               useLibraryCodeForTypes = true,
-            }
-          }
+            },
+          },
         },
-        filetypes = {"python", "jupyter", "ipynb"}
+        filetypes = { "python", "jupyter", "ipynb", "mojo" },
       }
+      lspconfig.matlab_ls.setup {}
+      lspconfig.r_language_server.setup {}
+      vim.g.jupytext_fmt = "py"
+      vim.g.jupytext_style = "hydrogen"
 
-      -- Haskell
-      lspconfig.hls.setup{}
-
-      -- Octave/MATLAB
-      lspconfig.matlab_ls.setup{}
-
-      -- R
-      lspconfig.r_language_server.setup{}
-
-      -- Jupyter Notebook support
-      vim.g.jupytext_fmt = 'py'
-      vim.g.jupytext_style = 'hydrogen'
-
-      -- Mojo support (experimental)
-      lspconfig.efm.setup{
-        init_options = {documentFormatting = true},
-        filetypes = {"mojo"},
+      lspconfig.efm.setup {
+        init_options = { documentFormatting = false },
+        filetypes = { "mojo" },
         settings = {
-          rootMarkers = {".git/"},
+          rootMarkers = { ".git/" },
           languages = {
             mojo = {
-              {formatCommand = "mojo format -", formatStdin = true}
-            }
-          }
-        }
+              { formatCommand = "mojo format -", formatStdin = true },
+            },
+          },
+        },
       }
     end,
   },
-  -- Additional plugins for Jupyter support
+
   {
-    "goerz/jupytext.vim",
-    lazy = false,
-    ft = {"ipynb"}
+  "GCBallesteros/jupytext.nvim",
+  config = true,
+  lazy = false,
   },
+
+  {
+  "kiyoon/jupynium.nvim",
+  lazy = false,
+  build = "pip3 install --user . --break-system-packages ",
+  -- If using conda, use this build command instead:
+  -- build = "conda run --no-capture-output -n jupynium pip install .",
+  dependencies = {
+    "rcarriga/nvim-notify",
+    "stevearc/dressing.nvim", -- optional, UI for :JupyniumKernelSelect
+  },
+  },
+
   {
     "jupyter-vim/jupyter-vim",
     lazy = false,
-    ft = {"python", "jupyter", "r", "haskell", "octave", "mojo"}
+    ft = { "python", "jupyter", "r", "haskell", "octave", "mojo" },
   },
-  -- Add support for SageMath
+
   {
     "petRUShka/vim-sage",
     lazy = false,
-    ft = {"sage"}
+    ft = { "sage" },
   },
 
   {
@@ -330,10 +533,9 @@ return {
 
       dofile(vim.g.base46_cache .. "blankline")
     end,
-    lazy = false
+    lazy = false,
   },
 
-  -- file managing , picker etc
   {
     "nvim-tree/nvim-tree.lua",
     lazy = false,
@@ -354,7 +556,6 @@ return {
     end,
   },
 
-  -- formatting!
   {
     "stevearc/conform.nvim",
     lazy = false,
@@ -365,7 +566,6 @@ return {
     },
   },
 
-  -- git stuff
   {
     "lewis6991/gitsigns.nvim",
     lazy = false,
@@ -373,18 +573,6 @@ return {
     opts = function()
       return require "nvchad.configs.gitsigns"
     end,
-  },
-
-  -- lsp stuff
-  {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
-    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
-    opts = function()
-      return require "nvchad.configs.mason"
-    end,
-    lazy = false,
   },
 
   {
@@ -396,13 +584,11 @@ return {
     lazy = false,
   },
 
-  -- load luasnips + cmp related in insert mode only
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
       {
-        -- snippet plugin
         "L3MON4D3/LuaSnip",
         dependencies = "rafamadriz/friendly-snippets",
         opts = { history = true, updateevents = "TextChanged,TextChangedI" },
@@ -413,7 +599,6 @@ return {
         lazy = false,
       },
 
-      -- autopairing of (){}[] etc
       {
         "windwp/nvim-autopairs",
         opts = {
@@ -423,13 +608,11 @@ return {
         config = function(_, opts)
           require("nvim-autopairs").setup(opts)
 
-          -- setup cmp for autopairs
           local cmp_autopairs = require "nvim-autopairs.completion.cmp"
           require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
         end,
       },
 
-      -- cmp sources plugins
       {
         "saadparwaiz1/cmp_luasnip",
         "hrsh7th/cmp-nvim-lua",
@@ -447,9 +630,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
-    init = function()
-      require("core.utils").load_mappings("telescope")
-    end,
+    keys = function() end,
     opts = function()
       return require "nvchad.configs.telescope"
     end,
@@ -457,7 +638,7 @@ return {
       local telescope = require "telescope"
       telescope.setup(opts)
     end,
-    lazy = false
+    lazy = false,
   },
 
   {
@@ -473,15 +654,14 @@ return {
     config = function(_, opts)
       require("colorizer").setup(opts)
 
-      -- execute colorizer as soon as possible
       vim.defer_fn(function()
         require("colorizer").attach_to_buffer(0)
       end, 0)
     end,
-    lazy = false
+    lazy = false,
   },
 
- {
+  {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPost", "BufNewFile" },
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
@@ -492,7 +672,6 @@ return {
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
     end,
-    lazy = false
-  }
+    lazy = false,
+  },
 }
-
