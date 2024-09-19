@@ -1,6 +1,5 @@
 return {
   "nvimtools/none-ls.nvim",
-  lazy = false,
   dependencies = {
     "davidmh/cspell.nvim",
     "gbprod/none-ls-shellcheck.nvim",
@@ -17,42 +16,292 @@ return {
     "nvimtools/none-ls-extras.nvim",
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope.nvim",
+    {"nvim-tree/nvim-tree.lua",
+      lazy = false,
+      cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+      opts = function()
+        return require "nvchad.configs.nvimtree"
+      end,
+  },
     "nvim-tree/nvim-web-devicons",
-    "nvim-treesitter/nvim-treesitter",
+    {"nvim-treesitter/nvim-treesitter",
+
+    },
+    {"jvgrootveld/telescope-zoxide",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+    },
+    config = function()
+      require("telescope").load_extension "zoxide"
+    end,
+    lazy = false,
+  },
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "Zeioth/none-ls-external-sources.nvim",
   },
+    lazy = false,
+  event = { "BufReadPre", "BufNewFile"},
   config = function()
     require("null-ls").setup()
+
   local null_ls = require("null-ls")
 
   null_ls.setup({
+
   sources = {
 
+        --.env--
 
-        --Make--
+        --dotenv_linter | Lightning-fast linter for .env files.
+        null_ls.builtins.diagnostics.dotenv_linter.with({
+            ft = {"sh"},
+            cmd = {"dotenv-linter"},
+                }),
 
-  --checkmake | make linter.
-        null_ls.builtins.diagnostics.checkmake.with({
-    ft = {"make"},
-    cmd = {"checkmake"},
-    extra_args = {"--format='{{.LineNumber}}:{{.Rule}}:{{.Violation}}\n'", "$FILENAME"},
-  }),
+        --Bazel--
+        null_ls.builtins.diagnostics.buildifier.with({
+            ft = {"bzl"},
+            cmd = {"buildifier"},
+                    extra_args = {"-mode=check", "-lint=warn", "-format=json", "-path=$FILENAME"}
+                }),
+
+        --Bean--
+        null_ls.builtins.diagnostics.bean_check.with({
+            ft = {"beancount"},
+                }),
+        --bean_format | This pure text processing tool will reformat beancount input to right-align all the numbers at the same, minimal column.
+        null_ls.builtins.formatting.bean_format.with({
+            ft = {"beancount"},
+            cmd = {"bean-format"},
+                }),
+
+        --BibTeX
+
+        --bibclean | A portable program (written in C) that will pretty-print, syntax check, and generally sort out a BibTeX database file.
+        null_ls.builtins.formatting.bibclean.with({
+            ft = {"bib"},
+            cmd = {"bibclean"},
+            extra_args = {"-align-equals", "-delete-empty-values"},
+                }),
+
+        --brighterscript--
+
+        --bslint | A brighterscript CLI tool to lint your code without compiling your project.
+        null_ls.builtins.diagnostics.bslint.with({
+            ft = {"brs"},
+            cmd = {"bslint"},
+            extra_args = { "--files", "$FILENAME" }
+                }),
+
+        --buffer--
+        null_ls.builtins.diagnostics.buf.with({
+            ft = {"proto"},
+            cmd = {"buf"}
+                }),
+        --buf | A new way of working with Protocol Buffers.
+        null_ls.builtins.formatting.buf.with({
+            ft = {"proto"},
+            cmd = {"buf"},
+            extra_args = {"format", "-w", "$FILENAME"},
+                }),
+
+        --CSS--
+
+        --stylint | A linter for the Stylus CSS preprocessor.
+        null_ls.builtins.diagnostics.stylint.with({
+            ft = {"stylus"},
+            cmd = {""},
+            extra_args ={"$FILENAME"},
+                }),
+
+        --C++--
+
+        --cppcheck | A tool for fast static analysis of C/C++ code.
+        null_ls.builtins.diagnostics.cppcheck.with({
+                    ft = {"cpp", "c"},
+                    cmd = {"cppcheck"},
+                    extra_args = { "--enable=warning,style,performance,portability", "--template=gcc", "$FILENAME" },
+                }),
+        --gccdiag | gccdiag is a wrapper for any C/C++ compiler (gcc, avr-gcc, arm-none-eabi-gcc, etc)
+                --that automatically uses the correct compiler arguments for a file in your project by parsing the
+                --compile_commands.json file at the root of your project.
+        null_ls.builtins.diagnostics.gdlint.with({
+                    ft = {"gdscript"},
+                    cmd = {"gdlint"},
+                    extra_args = {"$FILENAME"},
+                }),
+
+        --Clang--
+
+        --clang_format | Tool to format C/C++/… code according to a set of rules and heuristics.
+        null_ls.builtins.formatting.clang_format.with({
+            ft = { "c", "cpp", "cs", "java", "cuda", "proto" },
+            cmd = {"clang-format"},
+                }),
+        null_ls.builtins.diagnostics.clazy.with({
+                    ft = {"cpp"},
+                    cmd = {"clazy-standalone"},
+                    extra_args = {"--ignore-included-files", "--header-filter=$ROOT/.*", "$FILENAME"},
+                }),
+
+        --CMake--
+
+        --cmake_format | Parse cmake listfiles and format them nicely
+        null_ls.builtins.formatting.cmake_format.with({
+            ft = {"cmake"},
+            cmd = {"cmake-format"},
+            extra_args = {"-"},
+                }),
+
+        --cmake_lint | Check cmake listfiles for style violations, common mistakes, and anti-patterns.
+        null_ls.builtins.diagnostics.cmake_lint.with({
+                    ft = {"cmake"},
+                    cmd = {"cmake-lint"},
+                    extra_args ={"$FILENAME"},
+                }),
+        --gersemi | A formatter to make your CMake code the real treasure
+        null_ls.builtins.formatting.gersemi.with({
+            ft = {"cmake"},
+            cmd = {"gersemi"},
+            extra_args = {"-"},
+                }),
+
+        --C#--
+
+        --csharpier | CSharpier is an opinionated code formatter for c#
+        null_ls.builtins.formatting.csharpier.with({
+            ft = {"cs"},
+            cmd = {"dotnet-sharpier"},
+            extra_args ={"write-stdout"},
+                }),
+
+        --D2--
+
+        --d2_fmt | d2 fmt is a tool built into the d2 compiler for formatting d2 diagram source
+        null_ls.builtins.formatting.d2_fmt.with({
+            ft = {"d2"},
+            cmd = {"d2"},
+            extra_args = {"fmt", "-"},
+                }),
+
+        --Dart--
+
+        --dart_format | Replace the whitespace in your program with formatting that follows Dart guidelines.
+        null_ls.builtins.formatting.dart_format.with({
+            ft = {"dart"},
+            cmd = {"dart"},
+            extra_args = {"format"},
+                }),
+
+        --Elixir--
+        --credo | Static analysis of elixir files for enforcing code consistency.
+        null_ls.builtins.diagnostics.credo.with({
+            ft = {"elixir"},
+            cmd = {"mix"},
+            extra_args = { "credo", "suggest", "--format", "json", "--read-from-stdin", "$FILENAME" },
+                }),
+
+        --Elm--
+
+        --elm_format--
+        --formats Elm source code according to a standard set of rules based on the official Elm Style Guide.
+        null_ls.builtins.formatting.elm_format.with({
+            ft = {"elm"},
+            cmd = {"elm-format"},
+            extra_args = {"--stdin"},
+                }),
+
+        --Gleam--
+
+        --gleam_format | Default formatter for the Gleam programming language
+        null_ls.builtins.formatting.gleam_format.with({
+                ft = {"cmake"},
+                cmd = {"gleam"},
+                extra_args = {"format", "--stdin"},
+                }),
+
 
         -- Grammar/spelling --
 
+      --codespell | Fix common misspellings in text files.
+      null_ls.builtins.diagnostics.codespell.with({
+          ft = {""},
+                    cmd = {"codespell"},
+                    extra_args = {"-"},
+                }),
+      --crystal_format | A tool for automatically checking and correcting the style of code in a project.
+      null_ls.builtins.formatting.crystal_format.with({
+            ft = {"crystal"},
+            cmd = {"crystal"},
+            extra_args = {"tool", "format", "-"},
+                }),
+      --dictionary |Shows the first available definition for the current word under the cursor.
+        null_ls.builtins.hover.dictionary.with({
+          ft = {"org", "text", "markdown"},
+        }),
+      --editorconfig_checker | A tool to verify that your files are in harmony with your .editorconfig.
+      null_ls.builtins.diagnostics.editorconfig_checker.with({
+                    ft = {""},
+                    cmd = {"editorconfig-checker"},
+                    extra_args ={"-no-color", "$FILENAME"},
+                }),
+      --refactoring | The Refactoring library based off the Refactoring book by Martin Fowler.
+      null_ls.builtins.code_actions.refactoring.with({
+          ft = {"go", "javascript", "lua", "python", "typescript"},
+          cmd = {"code_action"},
+                }),
+
+      --proselint | An English prose linter. Can fix some issues via code actions.
+      null_ls.builtins.code_actions.proselint.with({
+          ft = {"markdown", "tex"},
+          cmd = {"proselint"},
+                }),
+      --rstchek | Checks syntax of reStructuredText and code blocks nested within it.
+      null_ls.builtins.diagnostics.rstcheck.with({
+            ft = {"rst"},
+            cmd = {"rstcheck"},
+            extra_args = {"-r", "$DIRNAME"},
+                }),
+      --semgrep--
+    -- Semgrep is a fast, open-source, static analysis tool
+    --for finding bugs and enforcing code standards at editor, commit, and CI time.
+      null_ls.builtins.diagnostics.semgrep.with({
+            ft = {"typescript", "typescriptreact", "ruby", "python", "java", "go" },
+            cmd = {"semgrep"},
+            extra_args = {"-q", "--json", "$FILENAME" },
+                }),
       --spell | Spell suggestions completion source.
         null_ls.builtins.completion.spell.with({
           ft = {""},
         }),
-        --dictionary |Shows the first available definition for the current word under the cursor.
-        null_ls.builtins.hover.dictionary.with({
-          ft = {"org", "text", "markdown"},
-        }),
-
+        --styleint | A mighty, modern linter that helps you avoid errors and enforce conventions in your styles.
+        null_ls.builtins.diagnostics.stylelint.with({
+            ft = {"scss", "less", "css", "sass"},
+            cmd = {"stylelint"},
+                }),
+      --tags | Tags completion source
+      null_ls.builtins.completion.tags.with({
+      ft = {""},
+                }),
+      --ts_node_action | A framework for running functions on Tree-sitter nodes, and updating the buffer with the result.
+      null_ls.builtins.code_actions.ts_node_action.with({
+          ft = {""},
+                }),
+      --write_good | English prose linter
+      null_ls.builtins.diagnostics.write_good.with({
+      ft = {"markdown"},
+      cmd = {"write-good"},
+      extra_args = {"--text=$TEXT", "--parse"},
+                }),
 
         --Git--
+    --commitlint |
+      null_ls.builtins.diagnostics.commitlint.with({
+                    ft = {"gitcommit"},
+                    cmd = {"commitlint"},
+                    extra_args = {"--format", "commitlint-format-json"},
+                }),
     --Gitsigns | Injects code actions for Git operations at the current cursor position (stage / preview / reset hunks, blame, etc.).
       gitsigns = null_ls.builtins.code_actions.gitsigns.with({
     config = {
@@ -62,17 +311,40 @@ return {
     },
 }),
     --Gitrebase | Injects actions to change gitrebase command (e.g. using squash instead of pick).
-        null_ls.builtins.code_actions.gitrebase.with({
-    filetypes = {"gitrebase"},
-  }),
+    null_ls.builtins.code_actions.gitrebase.with({
+                    ft = {"gitrebase"},
+                }),
 
-        -- Go--
-    --gofmt | Formats go programs.
+    -- Go--
+
+        --asmfmt | Format your assembler code in a similar way that gofmt formats your go code.
+        null_ls.builtins.formatting.asmfmt.with({
+            ft = {"asm"},
+            cmd = {"asmfmt"},
+                }),
+        --goimports | Updates your Go import lines, adding missing ones and removing unreferenced ones.
+        null_ls.builtins.formatting.goimports.with({
+            ft = {"go"},
+            cmd = {"goimports"},
+            extra_args = {"-srcdir", "$DIRNAME"},
+                }),
+        --goimportsreviser | Tool for Golang to sort goimports by 3 groups: std, general and project dependencies.
+        null_ls.builtins.formatting.goimports_reviser.with({
+            ft = {"go"},
+            cmd = {"goimport-reviser"},
+            extra_args = {"$FILENAME"},
+                }),
+
+        --gofmt | Formats go programs.
         null_ls.builtins.formatting.gofmt.with({
-    filetypes = {"go"},
-    command = {"gofmt"},
-  }),
-
+        ft = {"go"},
+        cmd = {"gofmt"},
+                }),
+        --gofumpt | Enforce a stricter format than gofmt, while being backwards compatible. That is, gofumpt is happy with a subset of the formats that gofmt is happy with.
+        null_ls.builtins.formatting.gofumpt.with({
+        ft = {"go"},
+        cmd = {"gofumpt"},
+                }),
         --gomodifytags | Go tool to modify struct field tags
         null_ls.builtins.code_actions.gomodifytags,
         --golangcli_lint | A go linter aggregator
@@ -81,12 +353,65 @@ return {
           cmd = {"golangcli-lint"},
           extra_args = {"run", "--fix=false", "--out-format=json"},
         }),
+        --golines | Applies a base formatter (eg. goimports or gofmt), then shortens long lines of code.
+        null_ls.builtins.formatting.golines.with({
+            ft = {"go"},
+            cmd = {"golines"},
+                }),
         --revive | Fast, configurable, extensible, flexible, and beautiful linter for Go.
         null_ls.builtins.diagnostics.revive.with({
           ft = {"go"},
           cmd = {"revive"},
           extra_args ={"-formatter", "json", "./..."},
         }),
+        --staticcheck | Advanced Go linter.
+         null_ls.builtins.diagnostics.staticcheck.with({
+            ft = {"go"},
+            cmd = {"staticcheck"},
+            extra_args = { "-f", "json", "./..." },
+                }),
+        --vacuum | The world's fastest and most scalable OpenAPI linter
+        null_ls.builtins.diagnostics.vacuum.with({
+            ft = {"yaml", "json"},
+            cmd = {"vacuum"},
+            extra_args = {"report", "--stdin", "--stdout"},
+                }),
+        --verilator | Verilog and SystemVerilog linter power by verilator
+        null_ls.builtins.diagnostics.verilator.with({
+            ft = {"verilog", "systemverilog"},
+            cmd = {"verilator"},
+            extra_args = {"-lint-only", "-Wno-fatal", "$FILENAME"},
+                }),
+
+        --Fortran--
+
+        --findent | findent indents/beautifies/converts and can optionally generate the dependencies of Fortran sources.
+        null_ls.builtins.formatting.findent.with({
+            ft = {"fortran"},
+            cmd = {"findent"},
+            extra_args = {""},
+                }),
+        --fnlfmt | fnlfmt is a Fennel code formatter which follows established Lisp conventions when determining how to format a given piece of code.
+        null_ls.builtins.formatting.fnlfmt.with({
+            ft = {"fennel", "fnl"},
+            cmd = {"fnlfmt"},
+            extra_args = {""},
+                }),
+        -- fprettify | fprettify is an auto-formatter for modern Fortran code that imposes strict whitespace formatting, written in Python.
+        null_ls.builtins.formatting.fprettify.with({
+            ft = {"fortran"},
+            cmd = {"fprettify"},
+            extra_args = {"--silent"},
+                }),
+
+        --Godot--
+
+        --gdformat | A formatter for Godot's gdscript
+        null_ls.builtins.formatting.gdformat.with({
+        fmt = {"gd", "gdscript", "gdscript3"},
+        cmd = {"gdformat"},
+        extra_args = {"-"},
+                }),
 
         --Groovy--
 
@@ -97,58 +422,134 @@ return {
         extra_args = {"-o", "json", "-"},
       }),
 
+        --HAML--
+
+        --haml_lint | Tool for writing clean and consistent HAML.
+        null_ls.builtins.diagnostics.haml_lint.with({
+            ft = {"haml"},
+            cmd = {"haml-lint"},
+            extra_args = {"--reporter", "json", "$FILENAME"},
+                }),
+
         --Html--
 
-        --Tidy corrects and cleans up HTML and XML documents by fixing markup errors and upgrading legacy code to modern standards.
+        --djhtml | A pure-Python Django/Jinja template indenter without dependencies.
+        null_ls.builtins.formatting.djhtml.with({
+            ft = {"django", "jinja.html", "htmldjango"},
+            cmd = {"djhtml"},
+            extra_args = {"-"},
+                }),
+
+        --djlint | ✨ 📜 🪄 ✨ HTML Template Linter and Formatter.
+        null_ls.builtins.diagnostics.djlint.with({
+            ft = {"django", "jinja.html", "htmldjango"},
+            cmd = {"djlint"},
+            extra_args = {{ "--quiet", "-" }}
+                }),
+        --Tidy corrects and cleans up HTML and XML documents by fixing markup errors and modernizing legacy code.
         null_ls.builtins.formatting.tidy.with({
       ft = {"html", "xml"},
       cmd = {"tidy"},
       extra_args = {"--tidy-mark", "no", "-quiet", "-indent", "-wrap", "-"}
     }),
 
-      --Lua--
+        --Laravel--
+        null_ls.builtins.formatting.blade_formatter.with({
+            ft = {"blade"},
+            cmd = {"blade-formatter"},
+            extra_args = {"--write", "$FILENAME"},
+                }),
+        --blade_formatter | An opinionated blade template formatter for Laravel that respects readability
 
-    --stylua | An opinionated code formatter for Lua.
-    null_ls.builtins.formatting.stylua.with({
-    filetypes = {"lua", "luau"},
-    command = {"stylua"},
-  }),
+        --Lua--
 
-    --luasnip | Snippet engine for Neovim, written in Lua.
+        --luasnip | Snippet engine for Neovim, written in Lua.
   null_ls.builtins.completion.luasnip.with({
         ft = {""},
       }),
   require("none-ls-luacheck.diagnostics.luacheck"),
 
+      --selene | Command line tool designed to help write correct and idiomatic Lua code.
+      null_ls.builtins.diagnostics.selene.with({
+            ft = {"lua", "luau"},
+            cmd = {"selene"},
+            extra_args = {"--display-style", "quiet", "-"},
+                }),
+      --stylua | An opinionated code formatter for Lua.
+    null_ls.builtins.formatting.stylua.with({
+    filetypes = {"lua", "luau"},
+    command = {"stylua"},
+  }),
+
+      --teal | The compiler for Teal, a typed dialect of Lua.
+      null_ls.builtins.diagnostics.teal.with({
+            ft = {"teal"},
+            cmd = {"tl"},
+            extra_args = { "check", "$FILENAME" },
+                }),
+      --todo_comments | Uses inbuilt Lua code and treesitter to detect lines with TODO comments warning by line.
+      null_ls.builtins.diagnostics.todo_comments.with({
+            ft = {""},
+                }),
+      --trail_space | Uses inbuilt Lua code to detect lines with trailing whitespace with a diagnostic warning by line.
+      null_ls.builtins.diagnostics.trail_space.with({
+            ft = {},
+                }),
 
         --Java--
+
         null_ls.builtins.diagnostics.checkstyle.with({
-          extra_args = { "-c", "/google_checks.xml" },
+                    ft = {"java"},
+                    cmd = {"checkstyle"},
+          extra_args = { "-f", "sarif", "-c", "$ROOT", "/google_checks.xml" },
         }),
+        --google_java_format | Reformats Java source code according to Google Java Style.
+        null_ls.builtins.formatting.google_java_format.with({
+            ft = {"java"},
+            cmd = {"google-java-format"},
+                }),
 
         --Javascript--
 
         --prettierd | prettier, as a daemon, for ludicrous formatting speed.
         null_ls.builtins.formatting.prettierd.with({
-        filetypes =  {"javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "css", "scss", "less", "html", "json", "jsonc", "yaml", "markdown", "markdown.mdx", "graphql", "handlebars", "svelte", "astro", "htmlangular"},
+        filetypes =  {"javascript", "javascriptreact", "typescript", "typescriptreact", "vue",
+                        "css", "scss", "less", "html", "json", "jsonc", "yaml", "markdown", "markdown.mdx",
+                        "graphql", "handlebars", "svelte", "astro", "htmlangular"},
         cmd = {"prettierd"},
       }),
 
       require("none-ls.diagnostics.eslint"),
       require("none-ls-ecs.formatting"),
+      --biome | Formatter, linter, bundler, and more for JavaScript, TypeScript, JSON, HTML, Markdown, and CSS.
         null_ls.builtins.formatting.biome.with({
           ft = {"javascript", "typescript", "javascriptreact", "typescriptreact", "json", "jsonc" },
           cmd = {"biome"},
           extra_args = { "format", "--stdin-file-path", "$FILENAME" },
         }),
 
-        --Markdown
+        --Make--
+
+        --checkmake | make linter.
+        null_ls.builtins.diagnostics.checkmake.with({
+    ft = {"make"},
+    cmd = {"checkmake"},
+    extra_args = {"--format='{{.LineNumber}}:{{.Rule}}:{{.Violation}}\n'", "$FILENAME"},
+  }),
+
+        --Markdown--
+        --cbfmt | A tool to format codeblocks inside markdown and org documents
+        null_ls.builtins.formatting.cbfmt.with({
+            ft = {"markdown", "org"},
+            cmd = {"cbfmt"},
+            extra_args = { "--stdin-filepath", "$FILENAME", "--best-effort" },
+                }),
         --markdownlint | Markdown style and syntax checker
         null_ls.builtins.formatting.markdownlint.with({
           ft = {"markdown"},
           cmd = {"markdownlint"},
         }),
-        --markdownlint_cli2 | A fast, flexible, configuration-based command-line interface for linting Markdown/CommonMark files with the markdownlint library.
+        --markdownlint_cli2 | A fast, flexible, configuration-based cli tool for linting via markdownlint library.
         null_ls.builtins.diagnostics.markdownlint_cli2.with({
           ft = {"markdown"},
         cmd = {"markdownlint-cli2"}
@@ -169,22 +570,103 @@ return {
           cmd = {"mdl"},
           extra_args ={"--json"},
         }),
+        --mdformat | An opinionated Markdown formatter that can be used to enforce a consistent style in Markdown files
+        null_ls.builtins.formatting.mdformat.with({
+            ft = {"markdown"},
+            cmd = {"mdformat"},
+            extra_args = {"$FILENAME"},
+                }),
         --textlint | The pluggable linting tool for text and Markdown.
         null_ls.builtins.formatting.textlint.with({
           ft = {"txt", "markdown"},
           cmd = {"textlint"},
+          extra_args = { "-f", "json", "--stdin", "--stdin-filename", "$FILENAME" },
         }),
+        --vale | Syntax-aware linter for prose built with speed and extensibility in mind.
+        null_ls.builtins.diagnostics.vale.with({
+            ft = {"markdown", "tex", "asciidoc"},
+            command = {"vale"},
+                }),
 
+        --LaTeX--
+
+        --textidote | Spelling, grammar and style checking on LaTeX documents.
+        null_ls.builtins.diagnostics.textidote.with({
+            ft = {"markdown", "text"},
+            cmd = {"textidote"},
+            extra_args = { "--read-all", "--output", "singleline", "--no-color", "--check", "en", "--quiet",
+                        "$FILENAME" },
+                }),
 
         --MATLAB--
-        null_ls.builtins.diagnostics.mlint,
+        null_ls.builtins.diagnostics.mlint.with({
+            ft = {"matlab", "octave"},
+            cmd = {"mlint"},
+            extra_args = {"$FILENAME"},
+                }),
 
-        --PHP
+        --Nix--
+
+        --deadnix | Scan Nix files for dead code.
+        null_ls.builtins.diagnostics.deadnix.with({
+            ft = {"nix"},
+            cmd = {"deadnix"},
+                }),
+
+        --statix | Lints and suggestions for the nix programming language.
+        null_ls.builtins.code_actions.statix.with({
+            ft = {"nix"},
+            cmd = {"statix"},
+            extra_args = { "check", "--stdin", "--format=json" },
+                }),
+
+        --Perl--
+
+        null_ls.builtins.diagnostics.perlimports.with({
+            ft = {"perl"},
+            cmd = {"perlimports"},
+            extra_args = {"--lint", "--read-stdin", "--filename", "$FILENAME"}
+                }),
+        --perlimports | A command line utility for cleaning up imports in your Perl code
+
+        --PHP--
+
         require("none-ls-php.diagnostics.php"),
         require("none-ls-psalm.diagnostics"),
-      --PHP_CodeSniffer is a script that tokenizes PHP, JavaScript and CSS files to detect violations of a defined coding standard.
-        null_ls.builtins.diagnostics.phpcs,
+        --phpstan | PHP static analysis tool.
+        null_ls.builtins.diagnostics.phpstan.with({
+            ft = {"php"},
+            cmd = {"phpstan"},
+            extra_args ={"analyze", "--error-format", "json", "--no-progress", "$FILENAME" },
+                }),
+        --PHP_CodeSniffer is a script that tokenizes PHP, JavaScript and CSS files to detect violations of a defined coding standard.
+        null_ls.builtins.diagnostics.phpcs.with({
+            ft = {"php"},
+            cmd = {"phpcs"},
+            extra_args = {"--report=json", "-q", "-s", "--runtime-set", "ignore_warnings_on_exit", "1", "--runtime-set", "ignore_errors_on_exit", "1", "--stdin-path=$FILENAME", "--basepath="},
+                }),
+        --phpmd | Runs PHP Mess Detector against PHP files
+        null_ls.builtins.diagnostics.phpmd.with({
+            ft = {"php"},
+            cmd = {"phpmd"},
+            extra_args ={"$FILENAME", "json"},
+                }),
 
+        --PostgreSQL--
+        --pg_format | PostgreSQL SQL syntax beautifier
+         null_ls.builtins.formatting.pg_format.with({
+            ft = {"sql", "pgsql"},
+            cmd = {"pq_format"},
+                }),
+
+        --Puppet--
+
+        --puppet_lint | Check that your Puppet manifest conforms to the style guide.
+        null_ls.builtins.diagnostics.puppet_lint.with({
+            ft = {"puppet", "epuppet"},
+            cmd = {"puppet-lint"},
+            extra_args = {"--json", "$FILENAME"},
+                }),
       --Python--
 
       --black | The uncompromising Python code formatter
@@ -192,35 +674,81 @@ return {
           ft = {"python"},
           cmd = {"black"},
         }),
-      --blackd |
-        null_ls.builtins.formatting.blackd.with({
+      --blackd | blackd is a small HTTP server that exposes Black’s functionality over a simple protocol. The main benefit of using it is to avoid the cost of starting up a new Black process every time you want to blacken a file. The only way to configure the formatter is by using the provided config options, it will not pick up on config files.
+      null_ls.builtins.formatting.blackd.with({
           ft = {"python"},
         }),
-      --mypy | An optional static type checker for Python that aims to combine the benefits of dynamic (or "duck") typing and static typing.
-        null_ls.builtins.diagnostics.mypy.with({
-        filetypes = {"python"},
-        command = {"mypy"},
-      }),
-    --pylint | is a Python static code analysis tool which looks for programming errors, helps enforcing a coding standard, sniffs for code smells and offers simple refactoring suggestions.
-        null_ls.builtins.diagnostics.pylint.with({
-      ft = {"python"},
-      command = {"pylint"},
-    }),
-    --isort | Python utility / library to sort imports alphabetically and automatically separate them into sections and by type.
-        null_ls.builtins.formatting.isort.with({
+      --isort | Python utility / library to sort imports alphabetically and automatically separate them into sections and by type.
+    null_ls.builtins.formatting.isort.with({
             ft = {"python"},
             cmd = {"isort"},
           extra_args = {"--stdout", "--filename", "$FILENAME", "-"},
             }),
+      --mypy | An optional static type checker for Python that aims to combine the benefits of dynamic (or "duck") typing and static typing.
+      null_ls.builtins.diagnostics.mypy.with({
+        ft = {"python"},
+        cmd = {"mypy"},
+      }),
+      --pyink | The Google Python code formatter
+      null_ls.builtins.formatting.pyink.with({
+        ft = {"python"},
+        cmd = {"pyink"},
+        }),
+      --pylint | is a Python static code analysis tool which looks for programming errors, helps enforcing a coding standard, sniffs for code smells and offers simple refactoring suggestions.
+      null_ls.builtins.diagnostics.pylint.with({
+      ft = {"python"},
+      cmd = {"pylint"},
+    }),
+
+        --yapf | Formatter for Python
+        null_ls.builtins.formatting.yapf.with({
+            ft = {"python"},
+            cmd = {"yapf"},
+                }),
+
+        --R--
+
+        null_ls.builtins.formatting.forge_fmt.with({
+            ft = {"r", "rmd"},
+            cmd = {"R"},
+                }),
 
         --Ruby--
 
+        --erb_format | Format ERB files with speed and precision.
+            null_ls.builtins.formatting.erb_format.with({
+                ft = {"eruby"},
+            cmd = {"erb-format"},
+            extra_args = {"--stdin"},
+            }),
+
+        --erb_lint | Lint your ERB or HTML files
+            ft = {"eruby"},
+            cmd = {"erblint"},
+            extra_args = {"--format", "json", "--stdin", "$FILENAME" },
+        --reek | Code smell detector for Ruby
+        null_ls.builtins.diagnostics.reek.with({
+            ft = {"ruby"},
+            cmd = {"reek"},
+            extra_args =  {"--format", "json", "--stdin-filename", "$FILENAME" },
+                }),
+        --rpmspec | Command line tool to parse RPM spec files.
+        null_ls.builtins.diagnostics.rpmspec.with({
+            ft = {"spec"},
+            cmd = {"rpmspec"},
+            extra_args = {"-r", "$DIRNAME"},
+                }),
         --rubyfmt | Format your ruby code!
         null_ls.builtins.formatting.rubyfmt.with({
             ft = {"ruby"},
             cmd = {"rubyfmt"},
         }),
-        null_ls.builtins.diagnostics.rubocop,
+        --rubocop | The Ruby Linter/Formatter that Serves and Protects.
+        null_ls.builtins.diagnostics.rubocop.with({
+                    ft = {"ruby"},
+                    cmd = {"rubocop"},
+                    extra_args = { "-f", "json", "--force-exclusion", "--stdin", "$FILENAME" },
+                }),
         null_ls.builtins.formatting.rubocop,
         --Regal is a linter for Rego, with the goal of making your Rego magnificent!.
         null_ls.builtins.diagnostics.regal.with({
@@ -230,11 +758,44 @@ return {
 
         --Rust--
 
+        --dxfmt | Format rust files with dioxus cli
+        null_ls.builtins.formatting.dxfmt.with({
+            ft = {"rust"},
+            cmd = {"dx"},
+            extra_args = {"fmt", "--file", "$FILENAME"},
+                }),
+
         --LanguageTool-Rust (LTRS) is both an executable and a Rust library that aims to provide correct and safe bindings for the LanguageTool API.
         null_ls.builtins.diagnostics.ltrs.with({
             ft = {"text", "markdown", "markdown"},
             cmd = {"ltrs"},
         }),
+
+        --Salt--
+
+        --saltlint | A command-line utility that checks for best practices in SaltStack.
+        null_ls.builtins.diagnostics.saltlint.with({
+            ft = {"sls"},
+            cmd = {"salt_lint"},
+            extra_args = {"--nocolor", "--json", "$FILENAME"},
+                }),
+
+        --Solidity--
+            null_ls.builtins.formatting.forge_fmt.with({
+            ft = {"solidity"},
+            cmd = {"forge"},
+            extra_args = {"fmt", "$FILENAME"},
+                }),
+
+
+        --SPIR--
+
+        --glslc | Shader to SPIR-V compiler.
+        null_ls.builtins.diagnostics.glslc.with({
+        ft = {"glsl"},
+        cmd = {"glslc"},
+        extra_args = { "--target-env=opengl" },-- use opengl instead of vulkan1.0
+                }),
 
         --Shell--
 
@@ -248,7 +809,109 @@ return {
       cmd = {"shfmt"},
       extra_args = { "-i", "2", "-ci" },
     }),
-    }
+
+        --SQL--
+
+        --sqlfluff | A SQL linter and auto-formatter for Humans
+        null_ls.builtins.diagnostics.sqlfluff.with({
+        ft = {"sql"},
+        cmd = {"sqlfluff"},
+        extra_args = { "--dialect", "postgres", "lint", "--disable-progress-bar", "-f", "github-annotation", "-n", "$FILENAME" }, -- change to your dialect
+    }),
+        --sqlfmt | Formats your dbt SQL files so you don't have too
+        null_ls.builtins.formatting.sqlfmt.with({
+        ft = {"sql", "jinja"},
+        cmd = {"sqlfmt"},
+        extra_args = {"-"},
+                }),
+                --Notes: SQLFluff needs a mandatory --dialect argument. Use extra_args to add yours,
+                --or create a .sqlfluff file in the same directory as the SQL file to specify the dialect.
+
+        --Swift--
+
+        --swiftlint | A tool to enforce Swift style and conventions.
+        null_ls.builtins.diagnostics.swiftlint.with({
+            ft = {"swift"},
+            cmd = {"swiftlint"},
+            extra_args = {"{--reporter", "json", "--use-stdin", "--quiet" },
+                }),
+
+        --Terraform--
+
+        --terraform_validate | Terraform validate is is a subcommand of terraform to validate configuration files in a directory
+        null_ls.builtins.diagnostics.terraform_validate.with({
+            ft = {"terraform", "tf", "terraform-vars"},
+            cmd = {"terraform"},
+            extra_args = {"validate", "-json"},
+                }),
+        --terragrunt | Terragrunt validate is is a subcommand of terragrunt to validate configuration files in a directory
+        null_ls.builtins.diagnostics.terragrunt_validate.with({
+            ft = {"hcl"},
+            cmd = {"terragrunt"},
+            extra_args = {"hclvalidate", "--terragrunt-hclvalidate-json" },
+                }),
+        --tfsec | Security scanner for Terraform code
+        null_ls.builtins.diagnostics.tfsec.with({
+            ft = {"terraform", "tf", "terraform-vars"},
+            cmd = {"tfsec"},
+            extra_args = {"-s", "-f", "json", "$DIRNAME"},
+                }),
+        --trivy | Find misconfigurations and vulnerabilities
+      null_ls.builtins.diagnostics.trivy.with({
+            ft = {"terraform", "tf", "terraform-vars"},
+            cmd = {"trivy"},
+                }),
+
+        --Twig--
+
+        --twigcs | Runs Twigcs against Twig files.
+        null_ls.builtins.diagnostics.twigcs.with({
+            ft = {"twig"},
+            cmd = {"twigcs"},
+            extra_args = {"--reporter", "json", "$FILENAME"},
+                }),
+
+        --Vim--
+
+        --vint | Linter for Vimscript
+        null_ls.builtins.diagnostics.vint.with({
+            ft = {"vim"},
+            cmd = {"vint"},
+            extra_args = {"--style-problem", "--json", "$FILENAME"},
+                }),
+
+        --vsnip | Snippets managed by vim-vsnip
+        null_ls.builtins.completion.vsnip.with({
+            ft = {""},
+                }),
+
+        --yaml--
+
+        --yamlfmt | is an extensible command line tool or library to format yaml files.
+        null_ls.builtins.formatting.yamlfmt.with({
+        ft = {"yaml"},
+        cmd = {"yamlft"},
+        extra_args = {"-"},
+                }),
+
+        --yamllint | A Linter for YAML Files
+        null_ls.builtins.diagnostics.yamllint.with({
+        ft = {"yaml"},
+        cmd = {"yamllint"},
+        extra_args = {"--format", "parsable", "-"}
+                }),
+
+        --Zsh--
+
+        --zsh | Uses zsh's own -n option to evaluate, but not execute, zsh scripts.
+        null_ls.builtins.diagnostics.zsh.with({
+            ft = {"zsh"},
+            cmd = {"zsh"},
+            extra_args = {"-n", "$FILENAME"},
+                }),
+
+
+      },
     })
     end,
   requires = {"nvim-lua/plenary.nvim" },
