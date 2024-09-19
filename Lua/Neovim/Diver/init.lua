@@ -52,16 +52,14 @@ require("lazy").setup({
 }, lazy_config)
 
 -- providers
-vim.g.python3_host_prog = "/bin/python3"
-vim.g.node_host_prog = "/bin/node"
+vim.g.python3_host_prog = "/bin/python"
 vim.g.perl_host_prog = "/bin/perl"
 vim.g.ruby_host_prog = "/bin/ruby"
 vim.g.ruby_host_prog = "/bin/jupyter"
-vim.g.loaded_node_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_python3_provider = 0
-vim.g.loaded_ruby_provider = 0
-vim.g.jupyter_highlight_cells = 0
+vim.g.loaded_perl_provider = 1
+vim.g.loaded_python3_provider = 1
+vim.g.loaded_ruby_provider = 1
+vim.g.jupyter_highlight_cells = 1
 -- theme
 local function safe_dofile(file)
   local success, err = pcall(dofile, file)

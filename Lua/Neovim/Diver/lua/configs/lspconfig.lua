@@ -3,9 +3,66 @@ local map = vim.keymap.set
 local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
 local lspconfig = require "lspconfig"
-local servers = { "html", "pyright", "tsserver", "lua_ls", "gopls", "jdtls",
-  "clangd", "omnisharp", "dockerls", "docker_compose_language_service", "jsonls",
-  "yamlls", "matlab_ls", "r_language_server" }
+local configs = require("lspconfig.configs")
+local nvim_lsp = require("lspconfig")
+if not configs.neocmake then
+    configs.neocmake = {
+        default_config = {
+            cmd = { "neocmakelsp", "--stdio" },
+            filetypes = { "cmake" },
+            root_dir = function(fname)
+                return nvim_lsp.util.find_git_ancestor(fname)
+            end,
+            single_file_support = true,-- suggested
+            on_attach = on_attach, -- on_attach is the on_attach function you defined
+            init_options = {
+                format = {
+                    enable = true
+                },
+                lint = {
+                    enable = true
+                },
+                scan_cmake_in_package = true -- default is true
+            }
+        }
+    }
+    nvim_lsp.neocmake.setup({})
+end
+local servers = {
+  "html",
+  "pyright",
+  "tsserver",
+  "lua_ls",
+  "gopls",
+  "jdtls",
+  "clangd",
+  "omnisharp",
+  "dockerls",
+  "docker_compose_language_service",
+  "jsonls",
+  "yamlls",
+  "matlab_ls",
+  "r_language_server",
+}
+
+lspconfig.lua_ls.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        version = "LuaJIT",
+      },
+      diagnostics = {
+        globals = { "vim" },
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
 
 for _, lsp in ipairs(servers) do
   if lsp ~= "rust_analyzer" then
@@ -15,7 +72,6 @@ for _, lsp in ipairs(servers) do
     }
   end
 end
-
 
 M.on_attach = function(_, bufnr)
   local function opts(desc)
@@ -72,7 +128,7 @@ M.capabilities.textDocument.completion.completionItem = {
 
 M.defaults = function()
   dofile(vim.g.base46_cache .. "lsp")
-  require ("nvchad.lsp").diagnostic_config()
+  require("nvchad.lsp").diagnostic_config()
 
   require("lspconfig").lua_ls.setup {
     on_attach = M.on_attach,
@@ -86,21 +142,21 @@ M.defaults = function()
         },
         workspace = {
           library = vim.api.nvim_get_runtime_file("", true),
-      },
-          library = {
-            vim.fn.expand "$VIMRUNTIME/lua",
-            vim.fn.expand "$VIMRUNTIME/lua/vim/lsp",
-            vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types",
-            vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy",
-          },
-         telemetry = {
-        enable = false,
-      },
-          maxPreload = 100000,
-          preloadFileSize = 10000,
         },
+        library = {
+          vim.fn.expand "$VIMRUNTIME/lua",
+          vim.fn.expand "$VIMRUNTIME/lua/vim/lsp",
+          vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types",
+          vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy",
+        },
+        telemetry = {
+          enable = false,
+        },
+        maxPreload = 100000,
+        preloadFileSize = 10000,
       },
-    }
+    },
+  }
 end
 
 return M

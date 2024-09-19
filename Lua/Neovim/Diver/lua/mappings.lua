@@ -260,3 +260,7 @@ map(
 -- Additional operations
 map("n", "<leader>jf", ":JupyterFormatNotebook<CR>", { desc = "Format entire notebook" })
 map("n", "<leader>jU", ":JupyterUpdateShell<CR>", { desc = "Update Jupyter shell" })
+
+--alpha
+map("n", "<leader>as", ":AlphaTheme startify<CR>", { desc = "Alpha Startify Theme" })
+map("n", "<leader>ad", ":AlphaTheme dashboard<CR>", { desc = "Alpha Dashboard Theme" })

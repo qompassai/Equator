@@ -2,6 +2,74 @@ return {
   "nvim-lua/plenary.nvim",
 
   {
+    "williamboman/mason.nvim",
+    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
+    opts = function()
+      return require "nvchad.configs.mason"
+    end,
+    lazy = false,
+  },
+
+  {
+    "nvimtools/none-ls.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "mfussenegger/nvim-dap",
+      "williamboman/mason.nvim",
+    },
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      local null_ls = require "null-ls"
+      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+      mason_null_ls.setup {
+        ensure_installed = {
+          "lua_ls",
+          "luacheck",
+          "shellcheck",
+          "hadolint",
+          "stylua",
+          "rubocop",
+          "checkstyle",
+          "prettier",
+          "black",
+          "gofmt",
+          "golangci_lint",
+          "pylint",
+          "mypy",
+        },
+        automatic_installation = true,
+        handlers = {
+          function(source_name, methods)
+            require("mason-null-ls").default_setup(source_name, methods)
+          end,
+        },
+      }
+
+      null_ls.setup {
+        sources = {
+
+        },
+        diagnostics_format = "#{m}",
+        diagnostics = true,
+        on_attach = function(client, bufnr)
+          if client.supports_method "textDocument/formatting" then
+            vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              group = augroup,
+              buffer = bufnr,
+              callback = function()
+                vim.lsp.buf.format { bufnr = bufnr }
+              end,
+            })
+          end
+        end,
+      }
+    end,
+    lazy = true,
+  },
+
+  {
     "NvChad/base46",
     lazy = false,
     build = function()
@@ -26,15 +94,13 @@ return {
     config = function()
       local startify = require "alpha.themes.startify"
       startify.file_icons.provider = "devicons"
-      require("alpha").setup(startify.config)
+      require("alpha").setup(
+        startify.config
+      )
     end,
-    lazy = false,
+    lazy = true,
   },
 
-  {
-    "nanotee/zoxide.vim",
-    lazy = false,
-  },
 
   {
     "jamessan/vim-gnupg",
@@ -71,6 +137,7 @@ return {
     init = function()
       vim.g.rustfmt_autosave = 1
     end,
+    lazy = false
   },
 
   {
@@ -96,8 +163,7 @@ return {
 
   {
     "mrcjkb/rustaceanvim",
-    lazy = false,
-    version = "^4",
+    version = "^5",
     ft = { "rust" },
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -114,10 +180,10 @@ return {
       vim.g.rustaceanvim = {
         -- Plugin configuration
         tools = {
-          autoSetHints = true,
-          hover_with_actions = true,
+          autoSetHints = false,
+          hover_with_actions = false,
           inlay_hints = {
-            show_parameter_hints = true,
+            show_parameter_hints = false,
             parameter_hints_prefix = "<- ",
             other_hints_prefix = "=> ",
           },
@@ -161,96 +227,7 @@ return {
         end,
       })
     end,
-  },
-
-  {
-    "nvimtools/none-ls.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "rust-lang/rust.vim",
-      "mfussenegger/nvim-dap",
-      "williamboman/mason.nvim",
-      "jay-babu/mason-null-ls.nvim",
-    },
-    event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      local null_ls = require "null-ls"
-      local mason_null_ls = require "mason-null-ls"
-      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
-      mason_null_ls.setup {
-        ensure_installed = {
-          "hadolint",
-          "stylua",
-          "rubocop",
-          "checkstyle",
-          "prettier",
-          "black",
-          "gofmt",
-          "golangci_lint",
-          "pylint",
-          "mypy",
-        },
-        automatic_installation = true,
-        handlers = {
-          function(source_name, methods)
-            require("mason-null-ls").default_setup(source_name, methods)
-          end,
-        },
-      }
-
-      null_ls.setup {
-        sources = {
-
-          -- Dockerfile/Containerfile
-          null_ls.builtins.diagnostics.hadolint,
-
-          -- Lua
-          null_ls.builtins.formatting.stylua,
-
-          -- Ruby
-          null_ls.builtins.formatting.rubocop,
-          null_ls.builtins.diagnostics.rubocop,
-
-          -- Java
-          null_ls.builtins.diagnostics.checkstyle.with {
-            extra_args = { "-c", "/google_checks.xml" }, -- Adjust path as needed
-          },
-          null_ls.builtins.formatting.prettier,
-
-          -- Jupyter Notebooks
-          null_ls.builtins.formatting.black, -- For Python in notebooks
-
-          -- Go
-          null_ls.builtins.formatting.gofmt,
-          null_ls.builtins.diagnostics.golangci_lint,
-
-          -- Python
-          null_ls.builtins.diagnostics.pylint,
-          null_ls.builtins.formatting.black,
-          null_ls.builtins.diagnostics.mypy,
-
-          -- General
-          null_ls.builtins.completion.spell,
-          null_ls.builtins.code_actions.gitsigns,
-        },
-        diagnostics_format = "#{m}",
-        diagnostics = false, -- This disables diagnostics by default
-        on_attach = function(client, bufnr)
-          if client.supports_method "textDocument/formatting" then
-            vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
-            vim.api.nvim_create_autocmd("BufWritePre", {
-              group = augroup,
-              buffer = bufnr,
-              callback = function()
-                vim.lsp.buf.format { bufnr = bufnr }
-              end,
-            })
-          end
-        end,
-      }
-    end,
-    lazy = false,
+    lazy = true,
   },
 
   {
@@ -309,21 +286,14 @@ return {
   },
 
   {
-    "williamboman/mason.nvim",
-    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
-    opts = function()
-      return require "nvchad.configs.mason"
-    end,
-    lazy = false,
-  },
-
-  {
-    'huggingface/llm.nvim',
+    "huggingface/llm.nvim",
     opts = {
-      api_token = nil, -- You'll need to set this to your Hugging Face API token
-      model = "bigcode/starcoder2-15b",
+      api_token = function()
+        return vim.fn.system("pass show hf"):gsub("\n", "")
+      end,
+      model = "qompass/r3",
       backend = "huggingface",
-      url = nil,
+      url = "https://localhost:3000",
       tokens_to_clear = { "<|endoftext|>" },
       request_body = {
         parameters = {
@@ -356,34 +326,9 @@ return {
       disable_url_path_completion = false,
     },
     config = function(_, opts)
-      require('llm').setup(opts)
+      require("llm").setup(opts)
     end,
-    lazy = false
-  },
-
-  {
-    "williamboman/mason-lspconfig.nvim",
-    event = "BufReadPre",
-    dependencies = { "williamboman/mason.nvim" },
-    opts = {
-      ensure_installed = {
-        "rust_analyzer",
-        "solargraph",
-        "salt_ls",
-        "pyright",
-        "ts_ls",
-        "gopls",
-        "jdtls",
-        "clangd",
-        "omnisharp",
-        "dockerls",
-        "docker_compose_language_service",
-        "jsonls",
-        "yamlls",
-        "matlab_ls",
-        "r_language_server",
-      },
-    },
+    lazy = true,
   },
 
   {
@@ -396,36 +341,57 @@ return {
     },
     config = function()
       require("nvchad.configs.lspconfig").defaults()
+      require("mason").setup()
+      require("mason-lspconfig").setup()
 
       local lspconfig = require "lspconfig"
-      vim.diagnostic.config({
-      virtual_text = false,
-      signs = false,
-      underline = false,
-      update_in_insert = false,
-      severity_sort = false,
-    })
- 
-    -- Common on_attach function to disable diagnostics for all servers
-    local on_attach = function(client, bufnr)
-      -- Disable diagnostics for this buffer
-      vim.diagnostic.disable(bufnr)
-    end
-
+      vim.diagnostic.config {
+        virtual_text = false,
+        signs = false,
+        underline = false,
+        update_in_insert = false,
+        severity_sort = false,
+      }
       lspconfig.rust_analyzer.setup {}
       lspconfig.solargraph.setup {}
       lspconfig.lua_ls.setup {
+        capabilities = require("cmp_nvim_lsp").default_capabilities(),
         settings = {
           Lua = {
+            runtime = {
+              version = "LuaJIT",
+            },
             diagnostics = {
-              globals = { "vim" },
+              globals = {
+                "vim",
+                "use",
+                "require",
+                "pcall",
+                "pairs",
+                "ipairs",
+                "error",
+                "assert",
+                "print",
+                "table",
+                "string",
+                "math",
+                "os",
+                "io",
+                "debug",
+                "package",
+                "coroutine",
+                "bit32",
+                "utf8",
+              },
+              workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+              },
               disable = { "mixed-table-concat", "different-requires" },
             },
           },
         },
       }
       lspconfig.ts_ls.setup {}
-      lspconfig.hls.setup {}
       lspconfig.gopls.setup {}
       lspconfig.jdtls.setup {}
       lspconfig.clangd.setup {}
@@ -471,33 +437,21 @@ return {
   },
 
   {
-  "GCBallesteros/jupytext.nvim",
-  config = true,
-  lazy = false,
-  },
-
-  {
-  "kiyoon/jupynium.nvim",
-  lazy = false,
-  build = "pip3 install --user . --break-system-packages ",
-  -- If using conda, use this build command instead:
-  -- build = "conda run --no-capture-output -n jupynium pip install .",
-  dependencies = {
-    "rcarriga/nvim-notify",
-    "stevearc/dressing.nvim", -- optional, UI for :JupyniumKernelSelect
-  },
-  },
-
-  {
-    "jupyter-vim/jupyter-vim",
+    "GCBallesteros/jupytext.nvim",
+    config = true,
     lazy = false,
-    ft = { "python", "jupyter", "r", "haskell", "octave", "mojo" },
   },
 
   {
-    "petRUShka/vim-sage",
+    "kiyoon/jupynium.nvim",
     lazy = false,
-    ft = { "sage" },
+    build = "pip3 install --user . --break-system-packages ",
+    -- If using conda, use this build command instead:
+    -- build = "conda run --no-capture-output -n jupynium pip install .",
+    dependencies = {
+      "rcarriga/nvim-notify",
+      "stevearc/dressing.nvim", -- optional, UI for :JupyniumKernelSelect
+    },
   },
 
   {
