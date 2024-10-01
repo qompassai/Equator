@@ -1,8 +1,14 @@
 return {
   "zeioth/none-ls-autoload.nvim",
+    lazy = false,
   event = "BufEnter",
+require("mason").setup(),
+require("mason-lspconfig").setup(),
   dependencies = {
     "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+    "nvimtools/none-ls.nvim",
     "zeioth/none-ls-external-sources.nvim"
   },
   opts = {

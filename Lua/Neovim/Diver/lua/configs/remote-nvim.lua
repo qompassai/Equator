@@ -18,16 +18,22 @@ return {
   ssh_config = {
     ssh_binary = "ssh", -- Binary to use for running SSH command
     scp_binary = "scp", -- Binary to use for running SSH copy commands
-    ssh_config_file_paths = { "$HOME/.ssh/config" }, -- Which files should be considered to contain the ssh host configurations. NOTE: `Include` is respected in the provided files.
+    ssh_config_file_paths = { "$HOME/.ssh/config" }, -- Which files will contain ssh host configurations.
+        NOTE: `Include` is respected in the provided files.
 
     -- These are useful for password-based SSH authentication.
     -- It provides parsing pattern for the plugin to detect that an input is requested.
     -- Each element contains the following attributes:
     -- match - The string to match (plain matching is done)
-    -- type - Supports two values "plain"|"secret". Secret means when you provide the value, it should not be stored in the completion history of Neovim.
+    -- type - Supports two values "plain"|"secret". 
+        -- Secret means when you provide the value.
+    -- it should NOT be stored in the completion history of Neovim.
     -- value - Default value for the prompt
-    -- value_type - "static"|"dynamic". For things like password, it would be needed for each new connection that the plugin initiates which could be obtrusive.
-    -- So, we save the value (only for current session's interval) to ease the process. If set to "dynamic", we do not save the value even for the session. You have to provide a fresh value each time.
+    -- value_type - "static"|"dynamic". 
+        -- Needed for things like password, it would be needed for each new connection that the plugin initiates which could be obtrusive.
+    -- So, we save the value (only for current session's interval) to ease the process. 
+    -- If set to "dynamic", we do not save the value even for the session. 
+    -- You have to provide a fresh value each time.
     ssh_prompts = {
       {
         match = "password:",

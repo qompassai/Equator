@@ -3,17 +3,20 @@
     "library": {
       "enabled": true,
       "plugins": [
+        "plenary.nvim",
+        "nvim-web-devicons",
+        "telescope.nvim",
+        "lazy.nvim",
         "nvim-dap",
         "toggleterm.nvim",
-        "neotest",
+        "neotest"
       ]
     }
   },
-  "neoconf": {
-    "plugins": {
+  "lspconfig": {
       "lua_ls": {
-        "enabled": true
-      }
+        "Lua.runtime.version": "LuaJIT",
+        "Lua.workspace.checkThirdParty": false
     }
-  },
+  }
 }

@@ -1,4 +1,5 @@
 local map = vim.keymap.set
+
 -- general mapping
 map("i", "<C-b>", "<ESC>^i", { desc = "move beginning of line" })
 map("i", "<C-e>", "<End>", { desc = "move end of line" })
@@ -43,6 +44,52 @@ map("n", "<leader>x", function()
   require("nvchad.tabufline").close_buffer()
 end, { desc = "buffer close" })
 
+-- barbar
+local opts = { noremap = true, silent = true }
+
+-- Move to previous/next
+map('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
+map('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
+-- Re-order to previous/next
+map('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
+map('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
+-- Goto buffer in position...
+map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
+map('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
+map('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
+map('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
+map('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
+map('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
+map('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
+map('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
+map('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
+map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
+-- Pin/unpin buffer
+map('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
+-- Goto pinned/unpinned buffer
+--                 :BufferGotoPinned
+--                 :BufferGotoUnpinned
+-- Close buffer
+map('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
+-- Wipeout buffer
+--                 :BufferWipeout
+-- Close commands
+--                 :BufferCloseAllButCurrent
+--                 :BufferCloseAllButPinned
+--                 :BufferCloseAllButCurrentOrPinned
+--                 :BufferCloseBuffersLeft
+--                 :BufferCloseBuffersRight
+-- Magic buffer-picking mode
+map('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
+-- Sort automatically by...
+map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
+map('n', '<Space>bn', '<Cmd>BufferOrderByName<CR>', opts)
+map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)
+map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', opts)
+map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
+
+-- Other:
+--  :BarbarEnable - enables barbar (enabled by default)
 -- Comment
 map("n", "<leader>/", "gcc", { desc = "comment toggle", remap = true })
 map("v", "<leader>/", "gc", { desc = "comment toggle", remap = true })
@@ -120,7 +167,7 @@ end, { desc = "blankline jump to current context" })
 
 -- Zoxide mappings
 map("n", "<leader>z", "<cmd>Telescope zoxide list<CR>", { desc = "Zoxide (Telescope)" })
-map("n", "<leader>zi", "<cmd>Zi<CR>", { desc = "Zoxide interactive" })
+map("n", "<leader>zI", "<cmd>Zi<CR>", { desc = "Zoxide interactive" })
 map("n", "<leader>zq", ":Z ", { desc = "Zoxide query" })
 
 --Rustacean mappings
@@ -144,7 +191,7 @@ map("n", "<leader>rc", "<cmd>RustOpenCargo<CR>", { desc = "Rust Open Cargo" })
 map("n", "<leader>rp", "<cmd>RustParentModule<CR>", { desc = "Rust Parent Module" })
 map("n", "gd", vim.lsp.buf.declaration, bufopts)
 map("n", "gd", vim.lsp.buf.definition, bufopts)
-map("n", "k", vim.lsp.buf.hover, bufopts)
+map("n", "H", vim.lsp.buf.hover, bufopts)
 map("n", "gi", vim.lsp.buf.implementation, bufopts)
 map("n", "<c-k>", vim.lsp.buf.signature_help, bufopts)
 map("n", "<space>d", vim.lsp.buf.type_definition, bufopts)
@@ -182,9 +229,45 @@ map("n", "<leader>tn", function()
   end
 end, { desc = "Toggle null-ls diagnostics" })
 
+-- mason-null-ls
+local _ = require('mason-core.functional')
+local Optional = require('mason-core.optional')
+
+
+
+---Maps null_ls source name to its corresponding package name.
+
+local null_ls_to_package = {
+	['cmake_lint'] = 'cmakelint',
+	['cmake_format'] = 'cmakelang',
+	['eslint_d'] = 'eslint_d',
+	['goimports_reviser'] = 'goimports_reviser',
+	['phpcsfixer'] = 'php-cs-fixer',
+	['verible_verilog_format'] = 'verible',
+	['lua_format'] = 'luaformatter',
+	['ansiblelint'] = 'ansible-lint',
+	['deno_fmt'] = 'deno',
+	['ruff_format'] = 'ruff',
+	['xmlformat'] = 'xmlformatter',
+}
+
+local package_to_null_ls = _.invert(null_ls_to_package)
+local M = {}
+---@param source string: Source Name from NullLs
+---@return string: Package Name from Mason
+M.getPackageFromNullLs = _.memoize(function(source)
+	return Optional.of_nilable(null_ls_to_package[source]):or_else_get(_.always(source:gsub('%_', '-')))
+end)
+
+---@param package string: Package Name from Mason
+---@return string: NullLs Source Name
+M.getNullLsFromPackage = _.memoize(function(package)
+	return Optional.of_nilable(package_to_null_ls[package]):or_else_get(_.always(package:gsub('%-', '_')))
+end)
+
 --lsp diag
 map("n", "<leader>tl", function()
-  local clients = vim.lsp.get_active_clients()
+  local clients = vim.lsp.get_clients()
   if #clients > 0 then
     vim.diagnostic.enable(false)
     for _, client in ipairs(clients) do
@@ -215,7 +298,6 @@ map("n", "<leader>ji", "<cmd>JupyterInsertImports<CR>", { desc = "Insert cell wi
 map("n", "<leader>jf", "<cmd>JupyterFormatNotebook<CR>", { desc = "Format entire notebook" })
 
 -- Jupyter Notebook Mappings
--- Jupytext
 map("n", "<leader>jx", ":Jupytext<CR>", { desc = "Convert between notebook and script" })
 
 -- Jupyter connection and file operations
@@ -237,7 +319,7 @@ map("n", "<leader>je", ":JupyterSendCell<CR>", { desc = "Execute current cell" }
 map("n", "<leader>jE", ":JupyterCellExecuteCellJump<CR>", { desc = "Execute current cell and jump to next" })
 map("n", "<leader>ja", ":JupyterRunAllCells<CR>", { desc = "Run all cells" })
 map("n", "<leader>jA", ":JupyterRunAllCellsAbove<CR>", { desc = "Run all cells above" })
-map("n", "<leader>jB", ":JupyterRunAllCellsBelow<CR>", { desc = "Run all cells below" })
+map("n", "<leader>jB", ":JupyterRunAllhellsBelow<CR>", { desc = "Run all cells below" })
 
 -- Output and REPL
 map("n", "<leader>jp", ":JupyterTogglePythonRepl<CR>", { desc = "Toggle Python REPL" })
@@ -261,6 +343,14 @@ map(
 map("n", "<leader>jf", ":JupyterFormatNotebook<CR>", { desc = "Format entire notebook" })
 map("n", "<leader>jU", ":JupyterUpdateShell<CR>", { desc = "Update Jupyter shell" })
 
---alpha
-map("n", "<leader>as", ":AlphaTheme startify<CR>", { desc = "Alpha Startify Theme" })
-map("n", "<leader>ad", ":AlphaTheme dashboard<CR>", { desc = "Alpha Dashboard Theme" })
+-- Hover
+--local hover = require("hover")
+--map("n", "K", hover.hover, { desc = "hover.nvim" })
+--map("n", "gK", hover.hover_select, { desc = "hover.nvim (select)" })
+--map("n", "<C-p>", function()
+--    hover.hover_switch("previous")
+--end, { desc = "hover.nvim (previous source)" })
+--map("n", "<C-n>", function()
+--    hover.hover_switch("next")
+--end, { desc = "hover.nvim (next source)" })
+return M

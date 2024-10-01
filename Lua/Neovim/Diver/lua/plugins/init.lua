@@ -1,6 +1,13 @@
-return {
-  "nvim-lua/plenary.nvim",
-
+return
+    {"nvim-lua/plenary.nvim",
+    config = function()
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = {"*.sh", "*.bash", "*.zsh", "*rc"},
+        callback = function()
+          --vim.lsp.buf.format()
+        end,
+        })
+    end,
   {
     "williamboman/mason.nvim",
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
@@ -9,66 +16,6 @@ return {
     end,
     lazy = false,
   },
-
-  {
-    "nvimtools/none-ls.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "mfussenegger/nvim-dap",
-      "williamboman/mason.nvim",
-    },
-    event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      local null_ls = require "null-ls"
-      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
-      mason_null_ls.setup {
-        ensure_installed = {
-          "lua_ls",
-          "luacheck",
-          "shellcheck",
-          "hadolint",
-          "stylua",
-          "rubocop",
-          "checkstyle",
-          "prettier",
-          "black",
-          "gofmt",
-          "golangci_lint",
-          "pylint",
-          "mypy",
-        },
-        automatic_installation = true,
-        handlers = {
-          function(source_name, methods)
-            require("mason-null-ls").default_setup(source_name, methods)
-          end,
-        },
-      }
-
-      null_ls.setup {
-        sources = {
-
-        },
-        diagnostics_format = "#{m}",
-        diagnostics = true,
-        on_attach = function(client, bufnr)
-          if client.supports_method "textDocument/formatting" then
-            vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
-            vim.api.nvim_create_autocmd("BufWritePre", {
-              group = augroup,
-              buffer = bufnr,
-              callback = function()
-                vim.lsp.buf.format { bufnr = bufnr }
-              end,
-            })
-          end
-        end,
-      }
-    end,
-    lazy = true,
-  },
-
   {
     "NvChad/base46",
     lazy = false,
@@ -76,31 +23,6 @@ return {
       require("base46").load_all_highlights()
     end,
   },
-
-  {
-    "jvgrootveld/telescope-zoxide",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-    },
-    config = function()
-      require("telescope").load_extension "zoxide"
-    end,
-    lazy = false,
-  },
-
-  {
-    "goolord/alpha-nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      local startify = require "alpha.themes.startify"
-      startify.file_icons.provider = "devicons"
-      require("alpha").setup(
-        startify.config
-      )
-    end,
-    lazy = true,
-  },
-
 
   {
     "jamessan/vim-gnupg",
@@ -132,15 +54,6 @@ return {
   },
 
   {
-    "rust-lang/rust.vim",
-    ft = "rust",
-    init = function()
-      vim.g.rustfmt_autosave = 1
-    end,
-    lazy = false
-  },
-
-  {
     "mfussenegger/nvim-dap",
     config = function() end,
   },
@@ -158,82 +71,13 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
-    opts = {},
-  },
-
-  {
-    "mrcjkb/rustaceanvim",
-    version = "^5",
-    ft = { "rust" },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "mfussenegger/nvim-dap",
-      "neovim/nvim-lspconfig",
-      "hrsh7th/nvim-cmp",
-      "simrat39/rust-tools.nvim",
-    },
-    config = function()
-      local on_attach = function(bufnr)
-        vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-      end
-
-      vim.g.rustaceanvim = {
-        -- Plugin configuration
-        tools = {
-          autoSetHints = false,
-          hover_with_actions = false,
-          inlay_hints = {
-            show_parameter_hints = false,
-            parameter_hints_prefix = "<- ",
-            other_hints_prefix = "=> ",
-          },
-        },
-        -- LSP configuration
-        server = {
-          on_attach = on_attach,
-          settings = {
-            ["rust-analyzer"] = {
-              assist = {
-                importGranularity = "module",
-                importPrefix = "self",
-              },
-              cargo = {
-                loadOutDirsFromCheck = true,
-              },
-              procMacro = {
-                enable = true,
-              },
-              checkOnSave = {
-                command = "clippy",
-              },
-            },
-          },
-        },
-        -- DAP configuration
-        dap = {
-          adapter = {
-            type = "executable",
-            command = "lldb-vscode",
-            name = "rt_lldb",
-          },
-        },
-      }
-
-      -- Set up formatting on save
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        pattern = "*.rs",
-        callback = function()
-          vim.lsp.buf.format { async = false }
-        end,
-      })
-    end,
-    lazy = true,
-  },
+    opts = {}
+      },
 
   {
     "David-Kunz/gen.nvim",
     lazy = false,
-    cmd = { "Gen" }, -- Lazy load on command
+    cmd = { "Gen" },
     keys = {
       { "<leader>g", ":Gen<CR>", desc = "Generate with Gen.nvim" }, -- Lazy load on keybinding
     },
@@ -249,6 +93,7 @@ return {
       pcall(io.popen, "ollama serve > /dev/null 2>&1 &")
     end,
   },
+
   {
     "vim-scripts/LargeFile",
     lazy = false,
@@ -363,7 +208,7 @@ return {
             },
             diagnostics = {
               globals = {
-                "vim",
+                'vim',
                 "use",
                 "require",
                 "pcall",
@@ -491,15 +336,6 @@ return {
   },
 
   {
-    "nvim-tree/nvim-tree.lua",
-    lazy = false,
-    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-    opts = function()
-      return require "nvchad.configs.nvimtree"
-    end,
-  },
-
-  {
     "folke/which-key.nvim",
     lazy = false,
     keys = { "<leader>", "<c-r>", "<c-w>", '"', "'", "`", "c", "v", "g" },
@@ -516,6 +352,20 @@ return {
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },
+        rust = {"rustfmt"},
+        go = { "gofmt", "goimports" },
+      python = { "black", "isort" },
+      ruby = { "rubocop" },
+      javascript = { "prettierd" },
+      typescript = { "prettierd" },
+      javascriptreact = { "prettierd" },
+      typescriptreact = { "prettierd"},
+      json = { "prettierd" },
+      yaml = { "prettierd" },
+      markdown = { "prettierd" },
+      html = { "prettierd" },
+      css = { "prettierd" },
+      scss = { "prettierd" },
       },
     },
   },

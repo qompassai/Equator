@@ -15,6 +15,14 @@ autocmd("TextChangedI", {
     end)
   end,
 })
+--save on formatting
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.rc",
+  callback = function()
+    vim.lsp.buf.format()
+  end,
+})
+
 
 -- FilePost Autocmd
 autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {

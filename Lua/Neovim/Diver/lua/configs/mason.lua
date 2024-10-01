@@ -9,6 +9,9 @@ M.setup = function()
       "lua_ls",
       "pyright",
       "tsserver",
+      "neocmakelsp",
+      "gitlab_ci_lint",
+      "rust_analyzer",
       -- Add more LSP servers as needed
     },
     automatic_installation = true,

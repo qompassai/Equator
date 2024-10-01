@@ -8,13 +8,13 @@ M.ui = {
   italic_comments = false,
 
   -- theme to be used, to see all available themes, open the theme switcher by <leader> + th
-  theme = "palenight",
+  theme = "bearded-arc",
 
   -- theme toggler, toggle between two themes, see theme_toggleer mappings
   theme_toggler = {
     enabled = false,
     fav_themes = {
-      "palenight",
+      "bearded-arc",
       "gruvchad",
     },
   },

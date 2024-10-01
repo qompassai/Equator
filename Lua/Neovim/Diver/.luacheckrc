@@ -1,10 +1,7 @@
-ignore = {
-  "631",    -- max_line_length
-  "122",    -- read-only field of global variable
-}
-read_globals = {
+-- vim: ft=lua tw=80
+
+self = false
+
+globals = {
   "vim",
-  "describe",
-  "it",
-  "assert"
 }
