@@ -1,0 +1,73 @@
+name: install_requirements
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - 'main'
+      - 'latest'
+    paths:
+      - '.github/workflows/install_requirements.yml'
+      - 'check_install.py'
+
+permissions:
+  contents: read
+
+jobs:
+  build_install_requirements:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-20.04, ubuntu-22.04, windows-2019, windows-2022, macos-11, macos-12]
+        python: ['3.9', '3.10', '3.11', '3.12']
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      - name: Dotenv Action
+        id: dotenv
+        uses: xom9ikk/dotenv@ac290ca23a42155a0cba1031d23afa46240116a9 # v2.3.0
+        with:
+          path: ./.github/workflows
+      - name: Set up Python
+        uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5.1.0
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Cache OpenVINO Pip Packages
+        id: cachepip
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+        with:
+          path: |
+            pipcache
+          key: ${{ env.PIP_CACHE_KEY }}-${{ matrix.os }}-${{ matrix.python }}
+      - name: Cache openvino packages
+        if: steps.cachepip.outputs.cache-hit != 'true'
+        run: |
+          python -m pip install --upgrade pip
+          mkdir pipcache
+          python -m pip install --cache-dir pipcache --no-deps openvino openvino-dev nncf
+          cp -r pipcache pipcache_openvino
+          python -m pip uninstall -y openvino openvino-dev nncf
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r .ci/dev-requirements.txt --cache-dir pipcache
+          python -m ipykernel install --user --name openvino_env
+      - name: Make pipcache directory with OpenVINO packages
+        # Only cache OpenVINO packages. mv works cross-platform
+        if: steps.cachepip.outputs.cache-hit != 'true'
+        run: |
+          mv pipcache pipcache_full
+          mv pipcache_openvino pipcache
+      - name: Pip freeze
+        run: |
+          python -m pip freeze
+          python -m pip freeze > pip-freeze-${{ github.sha }}-${{matrix.os}}-${{ matrix.python }}.txt
+      - name: Archive pip freeze
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+        with:
+          name: pip-freeze-${{matrix.os}}-${{ matrix.python }}
+          path: pip-freeze-${{ github.sha }}-${{matrix.os}}-${{ matrix.python }}.txt
+      - name: Check install
+        run: |
+          python check_install.py

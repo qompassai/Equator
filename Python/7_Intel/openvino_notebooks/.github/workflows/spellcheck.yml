@@ -1,0 +1,69 @@
+name: spell_check
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - 'main'
+      - 'latest'
+    paths:
+      - '.ci/spellcheck/*'
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+      - 'notebooks/**.md'
+      - 'notebooks/**.ipynb'
+  push:
+    branches:
+      - 'main'
+      - 'latest'
+    paths:
+      - '.ci/spellcheck/*'
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+      - 'notebooks/**.md'
+      - 'notebooks/**.ipynb'
+
+permissions:
+  contents: read
+
+jobs:
+  build_spellcheck:
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-20.04 # change cachepip step when changing this
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+
+      - name: Dotenv Action
+        id: dotenv
+        uses: xom9ikk/dotenv@ac290ca23a42155a0cba1031d23afa46240116a9 # v2.3.0
+        with:
+          path: ./.github/workflows
+
+      - name: Set up Python
+        uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5.1.0
+        with:
+          python-version: 3.9 # change cachepip step when changing this
+
+      - name: Cache OpenVINO Pip Packages
+        id: cachepip
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+        with:
+          path: |
+            pipcache
+          key: ${{ env.PIP_CACHE_KEY }}-ubuntu-20.04-3.9
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r .ci/dev-requirements.txt --cache-dir pipcache
+          python -m ipykernel install --user --name openvino_env
+
+      - name: Install Aspell
+        run: |
+          sudo apt-get install aspell aspell-en
+
+      - name: Run spell check
+        run: |
+          python .ci/spellcheck/run_spellcheck.py

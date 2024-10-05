@@ -1,0 +1,80 @@
+# Build Docker image and test notebooks in Docker image
+# Test script location: .docker/.s2i/bin/test
+
+name: docker_treon
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 3 * * *'
+  push:
+    branches:
+      - 'main'
+      - 'latest'
+    paths:
+      - 'Dockerfile'
+      - '.docker/**'
+      - '.github/workflows/*.yml'
+      - '.github/workflows/.env'
+      - 'notebooks/**.ipynb'
+      - 'notebooks/**.py'
+      - 'requirements.txt'
+      - '.ci/*requirements.txt'
+  pull_request:
+    branches:
+      - 'main'
+      - 'latest'
+    paths:
+      - 'Dockerfile'
+      - '.docker/**'
+      - '.github/workflows/*.yml'
+      - '.github/workflows/.env'
+      - 'notebooks/**.ipynb'
+      - 'notebooks/**.py'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build_docker:
+    strategy:
+      fail-fast: false
+
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Maximize build space
+        run: |
+          sudo rm -rf /usr/local/lib/android # will release about 10 GB if you don't need Android
+          sudo rm -rf /usr/share/dotnet # will release about 20GB if you don't need .NET
+          sudo rm -rf /opt/ghc
+          echo "Available storage:"
+          df -h
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@cbda684547adc8c052d50711417fa61b428a9f88 # v41.1.2
+        with:
+          files: |
+            notebooks/*/**
+            requirements.txt
+
+      - name: List all changed files
+        run: |
+          touch .ci/test_notebooks.txt
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+            echo $file >> .ci/test_notebooks.txt
+          done
+        shell: bash
+      - name: Build Docker image
+        run: |
+          docker build . -t openvino_notebooks
+      - name: Test notebooks in Docker image
+        run: |
+          # Test script location: .docker/tests/test_precommit
+          docker run -v ${PWD}:/opt/app-root/openvino_notebooks --entrypoint /tmp/scripts/test_precommit openvino_notebooks

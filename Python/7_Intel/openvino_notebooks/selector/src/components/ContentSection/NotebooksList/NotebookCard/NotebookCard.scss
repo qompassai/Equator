@@ -1,0 +1,150 @@
+@import '@spark-design/css/components/typography/index.css';
+@import '@spark-design/css/components/card/index.css';
+
+.spark-card-horizontal {
+  min-inline-size: 0;
+  width: 100%;
+  z-index: auto;
+  flex-direction: column;
+
+  .card-wrapper.clickable {
+    cursor: pointer;
+
+    &:hover {
+      .spark-card-horizontal-title {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &:hover {
+    .card-image,
+    .card-image-placeholder {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.spark-card-border-normal:hover {
+  box-shadow: 0 0 0 var(--spark-card-box-shadow1) var(--spark-color-classic-blue) !important;
+}
+
+.card-wrapper {
+  display: flex;
+  flex-grow: 1;
+  min-height: 150px;
+
+  .card-image-container {
+    width: 150px;
+    height: 100%;
+    border-right: 1px solid var(--spark-color-carbon-tint2);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .card-image,
+    .card-image-placeholder {
+      height: auto;
+      width: 100%;
+      position: absolute;
+      transition: transform 0.2s ease;
+    }
+
+    .card-image-placeholder {
+      background-color: var(--spark-color-carbon-tint2);
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem 2rem;
+      box-sizing: border-box;
+
+      .openvino-logo {
+        fill: var(--spark-color-theme-light-gray600);
+      }
+
+      span {
+        margin-top: 0.25rem;
+        color: var(--spark-color-theme-light-gray600);
+      }
+    }
+  }
+
+  .card-content {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    padding: 1rem;
+    width: min-content;
+
+    .spark-card-horizontal-title {
+      max-inline-size: 100%;
+      white-space: normal;
+      overflow: visible;
+
+      & > :not(:last-child) {
+        margin-right: 0.5rem;
+      }
+    }
+
+    .card-description {
+      margin-top: 0.5rem;
+      color: var(--spark-color-theme-light-gray600);
+      font-weight: 500;
+    }
+
+    .card-footer {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 0;
+      margin-top: auto;
+
+      .card-actions {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+    }
+  }
+}
+
+.card-footer-panel {
+  --pointer-size: 10px;
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-top: 1px solid var(--spark-color-carbon-tint2);
+  background-color: var(--spark-color-theme-light-gray75);
+  padding: 1rem;
+
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 100%;
+    width: 0;
+    height: 0;
+  }
+
+  &:before {
+    left: calc(var(--pointer-left-offset) - 1px);
+    border: var(--pointer-size) solid transparent;
+    border-bottom-color: var(--spark-color-carbon-tint2);
+  }
+
+  &:after {
+    left: var(--pointer-left-offset);
+    border: calc(var(--pointer-size) - 2px) solid transparent;
+    border-bottom-color: var(--spark-color-theme-light-gray75);
+  }
+}

@@ -1,0 +1,46 @@
+name: treon
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - 'main'
+      - 'latest'
+    paths:
+      - 'notebooks/**.ipynb'
+      - 'notebooks/**.py'
+      - 'requirements.txt'
+      - '.ci/*'
+      - '.github/workflows/*.yml'
+      - '.github/workflows/.env'
+  push:
+    branches:
+      - 'main'
+      - 'latest'
+    paths:
+      - 'notebooks/**.ipynb'
+      - 'notebooks/**.py'
+      - 'requirements.txt'
+      - '.ci/*'
+      - '.github/workflows/*.yml'
+      - '.github/workflows/.env'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build_treon:
+    strategy:
+      fail-fast: true
+      matrix:
+        runs_on: [ubuntu-20.04, windows-2019, macos-12]
+        python: ['3.9', '3.10', '3.11', '3.12']
+    uses: ./.github/workflows/build_treon_reusable.yml
+    with:
+      runs_on: ${{ matrix.runs_on }}
+      python: ${{ matrix.python }}
+      test_only_changed: true
