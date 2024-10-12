@@ -40,13 +40,14 @@ def snake_game(stdscr):
     window.keypad(1)  # Enable keypad input
     window.timeout(100)  # Refresh every 100 milliseconds
 ```
+```text
     Explanation:
         curses.curs_set(0) hides the blinking cursor so it doesn't get in the way.
         stdscr.getmaxyx() gets the height and width of the terminal window. Imagine measuring the game screen so we know where the edges are.
         curses.newwin(screen_height, screen_width, 0, 0) creates a new "window" for our game, covering the whole terminal.
         window.keypad(1) enables input from arrow keys, so we can control the snake.
         window.timeout(100) makes the screen update every 100 milliseconds, which controls the speed of the snake.
-
+```
 Part 3: Set Up the Snake and Food
 
 ```python
@@ -60,22 +61,24 @@ Part 3: Set Up the Snake and Food
         [snake_y, snake_x - 2]
     ]
 ```
+```text
     Explanation:
         The snake starts as three blocks in the middle of the screen.
         snake_x and snake_y are the coordinates of the snake's head.
         Imagine this as the starting position of your character in a video game. We're placing the snake at the middle of the screen, ready to go!
-
+```
 ```python
 
     # Initial food position
     food = [screen_height // 2, screen_width // 2]
     window.addch(food[0], food[1], curses.ACS_PI)
 ```
+```text
     Explanation:
         The food is placed at the center of the screen.
         window.addch(food[0], food[1], curses.ACS_PI) draws the food on the screen using a special character (it looks like π).
         This is like placing a collectible item in a game, and we want our character (the snake) to reach it.
-
+```
 Part 4: Move the Snake
 
 ```python
@@ -83,9 +86,10 @@ Part 4: Move the Snake
     # Initial direction of the snake
     key = curses.KEY_RIGHT
 ```
+```text
     Explanation:
         The snake starts by moving to the right. This is like pressing the right arrow key at the beginning of the game.
-
+```
 ```python
 
     # Start the game loop
@@ -94,11 +98,12 @@ Part 4: Move the Snake
         next_key = window.getch()
         key = key if next_key == -1 else next_key
 ```
+```text
     Explanation:
         The while True loop keeps the game running until the snake crashes.
         window.getch() checks if any key has been pressed.
         This lets the player change the direction of the snake.
-
+```
 ```python
 
         # Calculate the new head position
@@ -112,10 +117,11 @@ Part 4: Move the Snake
         if key == curses.KEY_RIGHT:
             new_head[1] += 1
 ```
+```text
     Explanation:
         Here, we are calculating where the snake's head will move next based on the key pressed.
         For example, if the snake moves up, we subtract from its y position. This is like changing the character's direction in a game.
-
+```
 Part 5: Check for Crashes
 
 ```python
@@ -127,10 +133,11 @@ Part 5: Check for Crashes
             curses.endwin()
             quit()
 ```
+```text
     Explanation:
         If the snake hits the edge of the screen or runs into itself, the game ends.
         This is like a "Game Over" screen in other video games.
-
+```
 Part 6: Move and Grow the Snake
 
 ```python
@@ -138,10 +145,11 @@ Part 6: Move and Grow the Snake
         # Add the new head to the snake
         snake.insert(0, new_head)
 ```
+```text
     Explanation:
         We add the new head to the front of the snake.
         This makes the snake grow every time it moves forward, just like a train adding more cars.
-
+```
 ```python
 
         # Check if the snake has eaten the food
@@ -155,10 +163,11 @@ Part 6: Move and Grow the Snake
                 food = nf if nf not in snake else None
             window.addch(food[0], food[1], curses.ACS_PI)
 ```
+```text
     Explanation:
         If the snake’s head reaches the food, we generate a new piece of food at a random spot.
         This makes the snake longer and places a new item to collect, just like in other adventure games.
-
+```
 ```python
 
         else:
@@ -166,19 +175,21 @@ Part 6: Move and Grow the Snake
             tail = snake.pop()
             window.addch(tail[0], tail[1], ' ')
 ```
+```text
     Explanation:
         If the snake didn’t eat food, we remove the tail. This keeps the snake the same length as it moves.
         This is like the way a character moves forward by leaving behind their old position.
-
+```
 ```python
 
         # Draw the snake head
         window.addch(snake[0][0], snake[0][1], curses.ACS_CKBOARD)
 ```
+```text
     Explanation:
         We draw the new snake head on the screen.
         This is like updating the game graphics to show where the character is now.
-
+```
 Part 7: Writing instruction to run the Game
 
 ```python
@@ -186,16 +197,17 @@ Part 7: Writing instruction to run the Game
 # Run the game
 curses.wrapper(snake_game)
 ```
+```text
     Explanation:
         curses.wrapper(snake_game) starts the game and handles setting up and cleaning up the screen when the game ends.
         It’s like pressing the “Start” button on a game console to launch the game.
-
+```
 Part 8: Actually run the game
 ```python
 python snake.py
 ```
-
+```text
     Explanation: 
         You are telling python to execute the code that you wrote in your .py file. If you named your file something else, like mysnake.py then write python mysnake.py. The game is simple and stops when you hit a boundary and/or when the snake runs into itself. Because that's how we coded it. 
-
+```
 
