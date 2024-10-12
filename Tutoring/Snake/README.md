@@ -15,7 +15,7 @@
 
 - We'll break down into segments for you to write into your python file with explanations so you can understand how each part of the code relates to making the game run. You can reference the snake.py file here to check on your formatting, but no copy/pasting it until you've written every line yourself!
 
-Step 3: Coding Step-by-Step
+Step 3: Coding your first python application step-by-step
 
 Part 1: Import Libraries and Set Up the Screen
 
