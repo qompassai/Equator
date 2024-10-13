@@ -24,3 +24,6 @@
 - 1. Most of these languages (Pyton, Go, Rust, ) are either considered memory safe by the Five Eye Intelligence Community partners (UK/US/NZ/CA/AU): https://media.defense.gov/2023/Dec/06/2003352724/-1/-1/0/THE-CASE-FOR-MEMORY-SAFE-ROADMAPS-TLP-CLEAR.PDF
 - 2. Mojo is a superset of Python and made by Chris Lattener, the inventor of Swift as well as Clang and LLVM- it's going to be big.
 - 3. Zig lang is the "youngest" language but shows great promise for its ability to create applications that can be served up on any operating system.
+
+## Licensing
+This project is dual-licensed under the terms of the [LICENSE](LICENSE) and [AGPL-3.0](LICENSE-AGPL) licenses.
