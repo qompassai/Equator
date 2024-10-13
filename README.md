@@ -26,4 +26,4 @@
 - 3. Zig lang is the "youngest" language but shows great promise for its ability to create applications that can be served up on any operating system.
 
 ## Licensing
-This project is dual-licensed under the terms of the [LICENSE](LICENSE) and [AGPL-3.0](LICENSE-AGPL) licenses.
+This respitory and all applications within it are dual-licensed under the terms of the [LICENSE](LICENSE) and [AGPL-3.0](LICENSE-AGPL) licenses.
