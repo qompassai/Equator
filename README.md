@@ -25,5 +25,6 @@
 - 2. Mojo is a superset of Python and made by Chris Lattener, the inventor of Swift as well as Clang and LLVM- it's going to be big.
 - 3. Zig lang is the "youngest" language but shows great promise for its ability to create applications that can be served up on any operating system.
 
+
 ## Licensing
-This respitory and all applications within it are dual-licensed under the terms of the [LICENSE](LICENSE) and [AGPL-3.0](LICENSE-AGPL) licenses.
+This repository and all applications within it are dual-licensed under the terms of the [Qompass Commercial Distribution Agreement (CDA)](LICENSE) and [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE-AGPL) licenses.
