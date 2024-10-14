@@ -29,7 +29,6 @@
 ## Dual-License Notice
 This repository and all applications within it are dual-licensed under the terms of the [Qompass Commercial Distribution Agreement (CDA)](LICENSE) and [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE-AGPL) licenses.
 
-This software is released under dual licenses: the Qompass Commercial Distribution Agreement (CDA) and the GNU Affero General Public License v3.0 (AGPL-3.0). 
 ## What a Dual-License means
 
 ### Protection for Vulnerable Populations
