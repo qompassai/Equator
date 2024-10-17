@@ -30,6 +30,7 @@ pwd
 
 ```bash
 touch main.py
+![](/home/phaedrus/Forge/GH/Qompass/Equator/Tutoring/SpaceInvaders/wget%20https://raw.githubusercontent.com/qompassai/Equator/main/Tutoring/SpaceInvaders/background.png)
 ```
 
 ## Step 2: Install pygame
