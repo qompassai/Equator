@@ -12,11 +12,10 @@ Lets take your Python skills to the next level and create an awesome Space Invad
 
 In this step-by-step guide, we'll build the game together. By the end, you'll have a fun game to play and share with your friends, and you'll have learned a lot about programming along the way!
 
-Step 1: Create your game making-space
+## Step 1: Create your game making-space
 
-First, we need to install the Pygame library, which will help us create games with graphics and sound.
+In your home directory (~), make a new folder for your game called `spacegame`. Everything will be done in that folder
 
-1. In your home directory (~), make a new folder for your game called `spacegame`. Everything will be done in that folder
 
 ```~
 mkdir -p spacegame
@@ -27,7 +26,13 @@ pwd
 - `mkdir` is `make directory`
 - `pwd` is `print working directory`
 
-2. Install pygame
+- In your spacegame folder, create a new Python file called space_invaders.py and save it in your project folder.
+
+```bash
+touch main.py
+```
+
+## Step 2: Install pygame
 
 - Pygame is a python library made for creating simple games.
 
@@ -37,127 +42,91 @@ pip install pygame
 
 **If you get an error, you might need to use pip3 instead of pip.**
 
---
-
-Step 2: Lets build our Rocketship
-
-3. In our spacegame folder, create a new Python file called rocket.py and save it in your project folder.
-
-- Each 
-
 ---
 
-Step 3: Import Libraries
+## Step 3: Start to code, block-by-block
 
-At the top of your spacegame.py file, we need to import the libraries we'll use.
+-In your spacegame directory, open the space_invaders.py file with nvim to start coding
 
+```bash
+nvim space_invaders.py
+```
 
-```block_1
+Step 2: Setting Up the Game Code
+
+Let's break down the code you provided into small steps so that it's easy to understand. You’ll create a file called main.py and add the code step by step. Here is what we will do:
+
+    Set up the game window.
+    Add background music and sounds.
+    Add a player spaceship.
+    Add enemies.
+    Add bullets for shooting.
+    Show score and game over message.
+
+Step 3: Write the Code
+
+You can start by opening a text editor like VS Code or even a basic editor like Notepad. Save your file as main.py and start adding the following:
+1. Import Libraries
+
+```python
 import pygame
 import random
 import math
 from pygame import mixer
 ```
+    pygame: This is the main library we are using.
+    random: This helps us place enemies randomly.
+    math: We'll use this to calculate the distance between the bullet and the enemy.
+    mixer: This is used for handling the game's sounds.
 
-## Block 1 
+2. Initialize Pygame and Create the Game Window
 
-```Explanation
+```python
 
-pygame: The main library for creating the game.
-
-random: To place enemies at random positions.
-
-math: For calculating distances.
-
-mixer: For adding sound effects.
-```
-
-
----
-
-Block 2: Initialize Pygame
-
-# Initialize the pygame
+# Initialize pygame
 pygame.init()
-
-
----
-
-Step 5: Create the Game Window
 
 # Create the screen
 screen = pygame.display.set_mode((800, 600))
 
-We set the width to 800 pixels and the height to 600 pixels.
-
-
-Set the Title and Icon
-
-# Title and Icon
-pygame.display.set_caption("Space Invaders")
-icon = pygame.image.load('ufo.png')
-pygame.display.set_icon(icon)
-
-You'll need an image named ufo.png in your project folder for the icon.
-
-
-
----
-
-Step 6: Add Background Image
-
-# Background Image
+# Background image
 background = pygame.image.load('background.png')
 
-You'll need a background.png image for the game's background.
-
-
-
----
-
-Step 7: Background Music
-
-# Background Sound
-mixer.music.load('background.wav')
+# Background sound
+mixer.music.load("background.wav")
 mixer.music.play(-1)
 
-You'll need a background.wav sound file.
+# Set the title and icon for the game window
+pygame.display.set_caption("Space Invader")
+icon = pygame.image.load('ufo.png')
+pygame.display.set_icon(icon)
+```
+    The set_mode((800, 600)) creates an 800x600 pixel window.
+    background.png is the image we'll use as the background.
+    The music.load and music.play(-1) lines load and loop the background music.
 
-The -1 makes the music loop indefinitely.
 
+3. Add the Player
 
-
----
-
-Step 8: Create the Player
-
-Load Player Image and Set Starting Position
-
-# Player
+```python
+# Player image and starting position
 playerImg = pygame.image.load('player.png')
 playerX = 370
 playerY = 480
 playerX_change = 0
 
-You'll need a player.png image for the player's spaceship.
-
-
-Draw the Player
-
 def player(x, y):
     screen.blit(playerImg, (x, y))
+```
+    We load player.png as our spaceship image.
+    playerX and playerY are the coordinates where the player starts.
+    screen.blit() is used to draw the player image at the coordinates (x, y).
 
-screen.blit draws the image on the screen at coordinates (x, y).
+4. Add the Enemies
 
+```python
 
-
----
-
-Step 9: Create the Enemy
-
-Load Enemy Image and Set Starting Position
-
-# Enemy
+# Enemy image, position, and movement
 enemyImg = []
 enemyX = []
 enemyY = []
@@ -167,116 +136,88 @@ num_of_enemies = 6
 
 for i in range(num_of_enemies):
     enemyImg.append(pygame.image.load('enemy.png'))
-    enemyX.append(random.randint(0, 735))
+    enemyX.append(random.randint(0, 736))
     enemyY.append(random.randint(50, 150))
     enemyX_change.append(4)
     enemyY_change.append(40)
 
-You'll need an enemy.png image for the enemy.
-
-We create multiple enemies using lists.
-
-
-Draw the Enemy
-
 def enemy(x, y, i):
     screen.blit(enemyImg[i], (x, y))
+```
+    We create multiple enemies using lists, so we can have more than one on the screen.
+    The enemies are placed randomly along the top part of the screen using random.randint().
 
+5. Add the Bullet
 
----
-
-Step 10: Create the Bullet
-
-Load Bullet Image and Set Initial State
-
-# Bullet
-
-# Ready - You can't see the bullet on the screen
-# Fire - The bullet is moving
-
+```python
+# Bullet image, position, and state
 bulletImg = pygame.image.load('bullet.png')
 bulletX = 0
 bulletY = 480
-bulletX_change = 0
 bulletY_change = 10
 bullet_state = "ready"
-
-You'll need a bullet.png image.
-
-The bullet starts in a "ready" state.
-
-
-Fire the Bullet
 
 def fire_bullet(x, y):
     global bullet_state
     bullet_state = "fire"
     screen.blit(bulletImg, (x + 16, y + 10))
+```
+    The bullet starts in the "ready" state, meaning it's not visible.
+    When fired, its state changes to "fire" and it moves upward.
 
+6. Check for Collisions
 
----
-
-Step 11: Collision Detection
-
-We need to check if the bullet hits the enemy.
+```python
 
 def isCollision(enemyX, enemyY, bulletX, bulletY):
-    distance = math.sqrt((math.pow(enemyX - bulletX, 2)) + (math.pow(enemyY - bulletY, 2)))
+    distance = math.sqrt(math.pow(enemyX - bulletX, 2) + (math.pow(enemyY - bulletY, 2)))
     if distance < 27:
         return True
-    else:
-        return False
+    return False
+```
+    This function calculates the distance between the bullet and the enemy to see if they collide. If the distance is less than 27 pixels, it's a hit!
 
-
----
-
-Step 12: Display the Score
+7. Show Score and Game Over
 
 # Score
-
+```python
 score_value = 0
 font = pygame.font.Font('freesansbold.ttf', 32)
-
 textX = 10
 textY = 10
 
 def show_score(x, y):
     score = font.render("Score : " + str(score_value), True, (255, 255, 255))
     screen.blit(score, (x, y))
+# Game over text
 
 
----
-
-Step 13: Game Over Text
-
-# Game Over
+```python
 over_font = pygame.font.Font('freesansbold.ttf', 64)
 
 def game_over_text():
     over_text = over_font.render("GAME OVER", True, (255, 255, 255))
     screen.blit(over_text, (200, 250))
 
+    We use freesansbold.ttf to draw text on the screen.
+    The show_score() function displays the player's score, and game_over_text() displays "GAME OVER" when the player loses.
+```
 
----
+8. Main Game Loop
 
-Step 14: The Game Loop
-
-This is where everything comes together!
-
-# Game Loop
+```python
 running = True
 while running:
-
-    # RGB = Red, Green, Blue
+    # Fill screen with black
     screen.fill((0, 0, 0))
-    # Background Image
+    # Draw background image
     screen.blit(background, (0, 0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-        # If keystroke is pressed check whether it's right or left
+        # Check if a key is pressed
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 playerX_change = -5
@@ -284,9 +225,8 @@ while running:
                 playerX_change = 5
             if event.key == pygame.K_SPACE:
                 if bullet_state == "ready":
-                    bullet_Sound = mixer.Sound('laser.wav')
-                    bullet_Sound.play()
-                    # Get the current x coordinate of the spaceship
+                    bulletSound = mixer.Sound("laser.wav")
+                    bulletSound.play()
                     bulletX = playerX
                     fire_bullet(bulletX, bulletY)
 
@@ -294,16 +234,15 @@ while running:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 playerX_change = 0
 
-    # Checking for boundaries of spaceship so it doesn't go out of bounds
+    # Player movement
     playerX += playerX_change
     if playerX <= 0:
         playerX = 0
     elif playerX >= 736:
         playerX = 736
 
-    # Enemy Movement
+    # Enemy movement
     for i in range(num_of_enemies):
-
         # Game Over
         if enemyY[i] > 440:
             for j in range(num_of_enemies):
@@ -319,20 +258,20 @@ while running:
             enemyX_change[i] = -4
             enemyY[i] += enemyY_change[i]
 
-        # Collision
+        # Check for collision
         collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
         if collision:
-            explosion_Sound = mixer.Sound('explosion.wav')
-            explosion_Sound.play()
+            explosionSound = mixer.Sound("explosion.wav")
+            explosionSound.play()
             bulletY = 480
             bullet_state = "ready"
             score_value += 1
-            enemyX[i] = random.randint(0, 735)
+            enemyX[i] = random.randint(0, 736)
             enemyY[i] = random.randint(50, 150)
 
         enemy(enemyX[i], enemyY[i], i)
 
-    # Bullet Movement
+    # Bullet movement
     if bulletY <= 0:
         bulletY = 480
         bullet_state = "ready"
@@ -343,27 +282,23 @@ while running:
 
     player(playerX, playerY)
     show_score(textX, textY)
+
     pygame.display.update()
 
+    This loop keeps the game running.
+    It checks for user input (key presses) and moves the player or shoots bullets accordingly.
+    The enemies move back and forth, and their positions change if they hit the edge of the screen.
+    If an enemy reaches a certain point (Y coordinate > 440), the game ends.
+```
+Step 4: Run Your Game
 
----
+Save your main.py and run it using:
 
-Step 15: Add Sound Effects
+```
+python main.py
+```
 
-Make sure you have the following sound files in your project folder:
-
-laser.wav for the bullet firing.
-
-explosion.wav for when an enemy is hit.
-
-
-
----
-
-Step 16: Run Your Game!
-
-Save your space_invaders.py file and run it. You should see your game window open, and you can move the spaceship left and right using the arrow keys and fire bullets using the spacebar.
-
+Now, you have your very own Space Invaders game! This is a great project to help you learn about programming concepts like loops, functions, and basic physics in games.
 
 ---
 
@@ -382,31 +317,6 @@ Scoring: You kept track of the player's score.
 Game Over: You displayed a game over message when the enemies reach the bottom.
 
 
-
----
-
-What's Next?
-
-Customize the Game: Change images, add more enemies, or make the game harder.
-
-Add Levels: Increase the speed of enemies as the player scores more points.
-
-Improve Graphics: Design your own sprites or use more advanced graphics.
-
-
-
----
-
-Tips
-
-Keep Practicing: The more you code, the better you'll get.
-
-Experiment: Don't be afraid to change the code and see what happens.
-
-Have Fun: Enjoy the process of creating and learning.
-
-
-
 ---
 
 Resources
@@ -421,6 +331,6 @@ Free Images: https://www.pngguru.com/
 
 ---
 
-Happy coding! If you have any questions or need help, feel free to ask. Enjoy your game! 🚀🎮
+
 
 
