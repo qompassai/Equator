@@ -1,0 +1,11 @@
+{
+  "runtime.version": "LuaJIT",
+  "runtime.path": ["lua/?.lua", "lua/?/init.lua"],
+  "diagnostics": {
+    "disable": ["mixed-table"],
+    "globals": ["vim", "safe_require", "augroup"]
+  },
+  "workspace.checkThirdParty": false,
+  "workspace.library": ["$VIMRUNTIME", "${3rd}/luv/library"]
+}
+
