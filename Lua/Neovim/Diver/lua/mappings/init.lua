@@ -21,15 +21,12 @@ M.rustmap = safe_require("mappings.rustmap")
 M.settings = safe_require("mappings.settings")
 M.source = safe_require("mappings.source")
 M.telemap = safe_require("mappings.telemap")
+M.settings = safe_require("mappings.themes")
 M.automatic_setup = safe_require("mappings.automatic_setup")
 vim.keymap.set('n', 'gc', '<Nop>', { noremap = true })
 vim.keymap.set('n', 'gcc', '<Nop>', { noremap = true })
 vim.keymap.set('x', 'gc', '<Nop>', { noremap = true })
 vim.keymap.set('o', 'gc', '<Nop>', { noremap = true })
 
--- Example keybinding
-vim.api.nvim_set_keymap('n', '<leader>th', '<cmd>Telescope colorscheme<CR>', { noremap = true, silent = true })
-
--- Return the module table to be used in other configurations
 return M
 

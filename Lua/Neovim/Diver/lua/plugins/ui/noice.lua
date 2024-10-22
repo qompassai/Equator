@@ -17,11 +17,11 @@ return {
         enabled = false,  -- Enable enhanced signature help using Treesitter
         auto_open = {
           enabled = false,
-          trigger = false, -- Automatically show signature help when typing a trigger character from the LSP
+          trigger = false,
           luasnip = true, -- Open signature help when jumping to Luasnip insert nodes
           throttle = 50,  -- Debounce LSP signature help request by 50ms
         },
-        view = nil,  -- When nil, use defaults from documentation
+        view = nil,
         routes = {
       {
         filter = {
@@ -43,7 +43,7 @@ return {
     },
     views = {
       cmdline_popup = {
-        relative = "editor", -- Position relative to the editor
+        relative = "editor",
         position = {
           row = "50%",
           col = "50%",

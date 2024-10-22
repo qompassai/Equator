@@ -221,3 +221,4 @@ M.can_run = function(filetype, method)
 end
 
 return M
+

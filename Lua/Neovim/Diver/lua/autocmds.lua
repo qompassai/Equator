@@ -1,11 +1,10 @@
 local autocmd = vim.api.nvim_create_autocmd
 
-
 -- Signature Help Autocmd
 autocmd("TextChangedI", {
   callback = function()
     vim.schedule(function()
-      local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+      local clients = vim.lsp.get_clients({ bufnr = 0 })
       if #clients > 0 then
         local client = clients[1]
         if client.server_capabilities.signatureHelpProvider then
@@ -15,14 +14,14 @@ autocmd("TextChangedI", {
     end)
   end,
 })
---save on formatting
+
+-- Save on Formatting Autocmd
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*.rc",
   callback = function()
-    vim.lsp.buf.format()
+    vim.lsp.buf.format({ async = true })
   end,
 })
-
 
 -- FilePost Autocmd
 autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
@@ -37,7 +36,7 @@ autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
 
     if file ~= "" and buftype ~= "nofile" and vim.g.ui_entered then
       vim.api.nvim_exec_autocmds("User", { pattern = "FilePost", modeline = false })
-      vim.api.nvim_del_augroup_by_name "NvFilePost"
+      vim.api.nvim_del_augroup_by_name("NvFilePost")
 
       vim.schedule(function()
         vim.api.nvim_exec_autocmds("FileType", {})

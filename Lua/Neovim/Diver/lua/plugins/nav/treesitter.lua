@@ -4,91 +4,20 @@ return {
     lazy = false,
     event = { "BufReadPost", "BufNewFile" },
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
-    --TSBufEnable options
-    --highlight: Enables syntax highlighting
-    --indent: Enables indentation
-    --incremental_selection: Enables incremental selection
-    --folding: Enables code folding based on the syntax tree
-    --playground: Enables the Treesitter playground for debugging
-    --query_linter: Enables the query linter
-    --refactor.highlight_definitions: Enables highlighting of definitions
-    --refactor.navigation: Enables navigation features
-    --refactor.smart_rename: Enables smart renaming
-    --textobjects.select: Enables text object selection
-    --textobjects.move: Enables movement between text objects
-    --textobjects.swap: Enables swapping of text objects
-    --textobjects.lsp_interop: Enables LSP interoperability for text objects
-
     build = ":TSUpdate",
     opts = function()
       return {
         ensure_installed = {
-          "lua",
-          "python",
-          "javascript",
-          "typescript",
-          "html",
-          "css",
-          "json",
-          "yaml",
-          "toml",
-          "markdown",
-          "bash",
-          "fish",
-          "vim",
-          "regex",
-          "rust",
-          "go",
-          "c",
-          "cpp",
-          "java",
-          "kotlin",
-          "swift",
-          "ruby",
-          "php",
-          "r",
-          "scala",
-          "haskell",
-          "perl",
-          "clojure",
-          "erlang",
-          "elixir",
-          "dart",
-          "vue",
-          "svelte",
-          "tsx",
-          "scss",
-          "graphql",
-          "dockerfile",
-          "make",
-          "cmake",
-          "latex",
-          "bibtex",
-          "sql",
-          "nix",
-          "zig",
-          "julia",
-          "matlab",
-          "cuda",
-          "glsl",
-          "hlsl",
-          "wgsl",
-          "proto",
-          "terraform",
-          "hcl",
-          "xml",
-          "http",
-          "jsdoc",
-          "comment",
-          "git_rebase",
-          "gitignore",
-          "gitattributes",
-          "diff",
+          "lua", "python", "javascript", "typescript", "html", "css", "json", "yaml",
+          "toml", "markdown", "bash", "fish", "vim", "regex", "rust", "go", "c", "cpp",
+          "java", "kotlin", "swift", "ruby", "php", "r", "scala", "haskell", "perl",
+          "clojure", "erlang", "elixir", "dart", "vue", "svelte", "tsx", "scss",
+          "graphql", "dockerfile", "make", "cmake", "latex", "bibtex", "sql", "nix",
+          "zig", "julia", "matlab", "cuda", "glsl", "hlsl", "wgsl", "proto",
+          "terraform", "hcl", "xml", "http", "jsdoc", "comment", "git_rebase",
+          "gitignore", "gitattributes", "diff",
         },
-
-        highlight = {
-          enable = true,
-        },
+        highlight = { enable = true },
         incremental_selection = {
           enable = true,
           keymaps = {
@@ -111,22 +40,14 @@ return {
           },
           swap = {
             enable = true,
-            swap_next = {
-              ["<leader>sn"] = "@parameter.inner",
-            },
-            swap_previous = {
-              ["<leader>sp"] = "@parameter.inner",
-            },
+            swap_next = { ["<leader>sn"] = "@parameter.inner" },
+            swap_previous = { ["<leader>sp"] = "@parameter.inner" },
           },
           move = {
             enable = true,
-            set_jumps = true, -- Adds jumps in the jumplist
-            goto_next_start = {
-              ["<leader>nf"] = "@function.outer",
-            },
-            goto_previous_start = {
-              ["<leader>pf"] = "@function.outer",
-            },
+            set_jumps = true,
+            goto_next_start = { ["<leader>nf"] = "@function.outer" },
+            goto_previous_start = { ["<leader>pf"] = "@function.outer" },
           },
         },
         playground = {
@@ -140,11 +61,78 @@ return {
       }
     end,
     config = function(_, opts)
-      -- Setup Treesitter configurations using the provided options
       require("nvim-treesitter.configs").setup(opts)
-
-      -- Load the navigation mappings once Treesitter is set up
       require "mappings.navmap"
     end,
   },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    lazy = false,
+    branch = "v2.x",
+    dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim" },
+    config = function()
+      require("neo-tree").setup({
+        filesystem = {
+          follow_current_file = true,
+          hijack_netrw = true,
+          use_libuv_file_watcher = true,
+          filtered_items = {
+            visible = true,
+            hide_dotfiles = false,
+            hide_gitignored = false,
+          },
+          window = {
+            mappings = {
+              ["<CR>"] = "open",
+              ["l"] = "open",  -- Use 'l' to open files
+              ["h"] = "close_node",  -- Use 'h' to close nodes
+              ["P"] = "toggle_preview",  -- Toggle preview with 'P'
+            },
+          },
+          preview = {
+            enable = true,
+            mappings = {
+              ["l"] = "open",  -- Use 'l' to open the file after previewing
+            },
+          },
+        },
+        event_handlers = {
+          {
+            event = "file_opened",
+            handler = function(file_path)
+              -- Close Neo-tree after opening a file
+              require("neo-tree.command").execute({ action = "close" })
+            end,
+          },
+        },
+        window = {
+          width = 35,
+        },
+      })
+
+      vim.keymap.set("n", "<leader>nt", ":Neotree toggle<CR>", { noremap = true, silent = true })
+    end,
+  },
 }
+
+
+
+
+
+
+
+ --TSBufEnable options
+    --highlight: Enables syntax highlighting
+    --indent: Enables indentation
+    --incremental_selection: Enables incremental selection
+    --folding: Enables code folding based on the syntax tree
+    --playground: Enables the Treesitter playground for debugging
+    --query_linter: Enables the query linter
+    --refactor.highlight_definitions: Enables highlighting of definitions
+    --refactor.navigation: Enables navigation features
+    --refactor.smart_rename: Enables smart renaming
+    --textobjects.select: Enables text object selection
+    --textobjects.move: Enables movement between text objects
+    --textobjects.swap: Enables swapping of text objects
+    --textobjects.lsp_interop: Enables LSP interoperability for text objects
+

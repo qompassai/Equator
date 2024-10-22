@@ -21,27 +21,19 @@ return {
       {
         "saecki/crates.nvim",
         event = { "BufRead Cargo.toml" },
-        tag = 'stable',
+        tag = "stable",
         config = function()
-          require('crates').setup()
+          require("crates").setup()
         end,
       },
     },
     config = function()
       local on_attach = function(bufnr)
-        -- Set up omnifunction for completion
         vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-        -- Keybindings for LSP-related commands
-        local buf_set_keymap = vim.api.nvim_buf_set_keymap
-        local opts = { noremap = true, silent = true }
-
-        buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-        buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-        buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-        buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-        buf_set_keymap(bufnr, "n", "<leader>rh", ":RustHoverActions<CR>", opts) -- New keybind for Rust hover actions
       end
+
+      local codelldb_path = vim.fn.expand "$HOME/.local/share/nvim/mason/bin/codelldb"
+      local debug_command = vim.fn.executable(codelldb_path) == 1 and codelldb_path or "/usr/bin/lldb"
 
       require("rust-tools").setup {
         tools = {
@@ -68,7 +60,7 @@ return {
                 enable = true,
               },
               checkOnSave = {
-                command = "clippy",  -- Use clippy for linting on save
+                command = "clippy", -- Use clippy for linting on save
               },
             },
           },
@@ -76,13 +68,13 @@ return {
         dap = {
           adapter = {
             type = "executable",
-            command = "lldb-vscode",  -- Use system LLDB for debugging
+            command = debug_command,
             name = "rt_lldb",
+            args = { "--interpreter=stdio" },
           },
         },
       }
 
-      -- Set up formatting on save using rustfmt
       vim.api.nvim_create_autocmd("BufWritePre", {
         pattern = "*.rs",
         callback = function()
@@ -90,17 +82,16 @@ return {
         end,
       })
 
-      -- Optional: Setup Cargo commands for different targets
-      vim.api.nvim_create_user_command('CargoBuildAndroid', function()
-        vim.cmd("!cargo build --target aarch64-linux-android")
+      vim.api.nvim_create_user_command("CargoBuildAndroid", function()
+        vim.cmd "!cargo build --target aarch64-linux-android"
       end, { desc = "Build for Android using cargo" })
 
-      vim.api.nvim_create_user_command('CargoBuildIos', function()
-        vim.cmd("!cargo build --target aarch64-apple-ios")
+      vim.api.nvim_create_user_command("CargoBuildIos", function()
+        vim.cmd "!cargo build --target aarch64-apple-ios"
       end, { desc = "Build for iOS using cargo" })
 
-      vim.api.nvim_create_user_command('CargoBuildWasm', function()
-        vim.cmd("!cargo build --target wasm32-unknown-unknown")
+      vim.api.nvim_create_user_command("CargoBuildWasm", function()
+        vim.cmd "!cargo build --target wasm32-unknown-unknown"
       end, { desc = "Build for WebAssembly using cargo" })
     end,
   },

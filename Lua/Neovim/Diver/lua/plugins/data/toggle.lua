@@ -1,7 +1,7 @@
 return {
   "akinsho/toggleterm.nvim",
   lazy = false,
-  cmd = { "ToggleTerm" },  -- Lazy load when the command is run
+  cmd = { "ToggleTerm" },
   config = function()
     require("toggleterm").setup({
       -- Optional: add settings for terminal size, direction, etc.

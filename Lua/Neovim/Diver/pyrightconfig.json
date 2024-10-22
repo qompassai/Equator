@@ -1,0 +1,8 @@
+{
+  "exclude": [
+    "**/.pythonrc"
+  ],
+  "venvPath": "./.venv",
+  "reportMissingTypeStubs": false
+}
+

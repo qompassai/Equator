@@ -18,8 +18,8 @@ map("n", "<space>f", function()
   vim.lsp.buf.format { async = true }
 end, bufopts)
 
--- LSP diagnostics
-map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "lsp diagnostic loclist" })
-
+-- Dianostic LSP list
+map("n", "<leader>dll", vim.diagnostic.setloclist, { desc = "lsp diagnostic loclist" })
+-- In normal mode, press 'space' + 'd' + 'l' + 'l' to open a list of diagnostic suggestions (errors/formatting/safety) to address.
 return {}
 

@@ -24,3 +24,31 @@ map("n", "<leader>Tl", "<cmd>Trouble loclist toggle<cr>", { desc = "Location Lis
 map("n", "<leader>Tq", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
 -- In normal mode, press 'Space' + 'T' + 'q' to toggle the Trouble quickfix list
 
+
+-- Start debugging session
+map('n', '<leader>ds', "<cmd>lua require'dap'.continue()<CR>", { desc = 'Start debugging session' })
+-- In normal mode, press 'Space' + 'd' + 's' to start a debugging session
+
+-- Toggle breakpoint
+map('n', '<leader>db', "<cmd>lua require'dap'.toggle_breakpoint()<CR>", { desc = 'Toggle breakpoint' })
+-- In normal mode, press 'Space' + 'd' + 'b' to toggle a breakpoint
+
+-- Step over
+map('n', '<leader>dn', "<cmd>lua require'dap'.step_over()<CR>", { desc = 'Step over' })
+-- In normal mode, press 'Space' + 'd' + 'n' to step over
+
+-- Step into
+map('n', '<leader>di', "<cmd>lua require'dap'.step_into()<CR>", { desc = 'Step into' })
+-- In normal mode, press 'Space' + 'd' + 'i' to step into
+
+-- Step out
+map('n', '<leader>do', "<cmd>lua require'dap'.step_out()<CR>", { desc = 'Step out' })
+-- In normal mode, press 'Space' + 'd' + 'o' to step out
+
+-- Toggle DAP REPL
+map('n', '<leader>dr', "<cmd>lua require'dap'.repl.toggle()<CR>", { desc = 'Toggle DAP REPL' })
+-- In normal mode, press 'Space' + 'd' + 'r' to toggle the DAP REPL
+
+-- Show DAP UI
+map('n', '<leader>du', "<cmd>lua require'dapui'.toggle()<CR>", { desc = 'Toggle DAP UI' })
+-- In normal mode, press 'Space' + 'd' + 'u' to toggle the DAP UI
