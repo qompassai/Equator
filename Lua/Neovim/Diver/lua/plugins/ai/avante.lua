@@ -1,5 +1,4 @@
-return
-  {
+return {
   "yetone/avante.nvim",
   event = "VeryLazy",
   lazy = true,
@@ -30,14 +29,13 @@ return
           drag_and_drop = {
             insert_mode = true,
           },
-          -- required for Windows users
           use_absolute_path = true,
         },
       },
     },
     {
       -- Make sure to set this up properly if you have lazy=true
-      'MeanderingProgrammer/render-markdown.nvim',
+      "MeanderingProgrammer/render-markdown.nvim",
       opts = {
         file_types = { "markdown", "Avante" },
       },

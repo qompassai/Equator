@@ -1,6 +1,6 @@
 return {
   "neovim/nvim-lspconfig",
-  lazy = false,
+  lazy = true,
   event = { "BufReadPre", "BufNewFile" },
   cmd = { "LspInfo", "LspInstall", "LspUninstall" },
   dependencies = {
@@ -56,9 +56,17 @@ return {
       severity_sort = true,
     }
 
-    local function get_lsp_cmd(binary, mason_binary_name)
-      local system_cmd = vim.fn.executable(binary) == 1 and binary or vim.fn.stdpath "data" .. "/mason/bin/" .. mason_binary_name
-      return system_cmd
+    local function get_lsp_cmd(package_name, executable_name)
+      if vim.fn.executable(executable_name) == 1 then
+        return executable_name
+      end
+      local mason_path = vim.fn.stdpath "data" .. "/mason/packages/" .. package_name .. "/bin/" .. executable_name
+      if vim.fn.filereadable(mason_path) == 1 then
+        return mason_path
+      else
+        vim.notify("LSP executable not found: " .. executable_name, vim.log.levels.ERROR)
+        return nil
+      end
     end
     -- C/C++
     lspconfig.clangd.setup {
@@ -83,8 +91,8 @@ return {
     }
     lspconfig.docker_compose_language_service.setup {
       capabilities = capabilities,
-      cmd = { get_lsp_cmd("docker-compose-language-server", "docker-compose-language-server") },
-      filetypes = { "Dockerfile", "Containerfile" },
+      cmd = { vim.fn.stdpath "data" .. "/mason/packages/docker-compose-language-service/bin/docker-compose-language-service" },
+      filetypes = { "Dockerfile", "yaml", "yml", "Containerfile" },
       settings = {
         docker = {
           linting = {
@@ -119,6 +127,33 @@ return {
         "javascript.jsx",
       },
     }
+    --Diagnosticls
+    local enable_diagnosticls = true
+
+    if enable_diagnosticls then
+      require("lspconfig").diagnosticls.setup {
+        autostart = false,
+        filetypes = { "lua", "javascript", "typescript", "python" },
+        init_options = {
+          filetypes = {
+            lua = "lua-format",
+          },
+          formatters = {
+            ["lua-format"] = {
+              command = "lua-format",
+              args = {
+                "--indent-width=4",
+                "--column-limit=130",
+              },
+            },
+          },
+          formatFiletypes = {
+            lua = "lua-format",
+          },
+        },
+      }
+    end
+
     -- Go
     lspconfig.gopls.setup {
       capabilities = capabilities,

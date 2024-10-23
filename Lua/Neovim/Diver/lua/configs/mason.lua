@@ -28,6 +28,7 @@ M.setup = function()
       lspconfig[server_name].setup {
         on_attach = on_attach,
         capabilities = capabilities,
+        autostart = false,
       }
     end,
 

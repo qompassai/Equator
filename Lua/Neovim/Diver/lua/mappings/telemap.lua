@@ -46,7 +46,12 @@ map("n", "<leader>tfo", "<cmd>Telescope oldfiles<CR>", vim.tbl_extend("force", o
 -- In normal mode, press 'Space' + 't' + 'f' + 'o' to list recently opened files
 
 -- Telescope: Fuzzy search current file
-map("n", "<leader>tfc", "<cmd>Telescope current_buffer_fuzzy_find<CR>", vim.tbl_extend("force", opts, { desc = "Telefind in current buffer" }))
+map(
+  "n",
+  "<leader>tfc",
+  "<cmd>Telescope current_buffer_fuzzy_find<CR>",
+  vim.tbl_extend("force", opts, { desc = "Telefind in current buffer" })
+)
 -- In normal mode, press 'Space' + 't' + 'f' + 'c' to search for text in the current buffer
 
 -- Telescope: Find git commits
@@ -62,7 +67,12 @@ map("n", "<leader>tr", "<cmd>Telescope terms<CR>", vim.tbl_extend("force", opts,
 -- In normal mode, press 'Space' + 't' + 'r' to list hidden terminals
 
 -- Telescope: Finds all hidden & ignored files
-map("n", "<leader>tfa", "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>", vim.tbl_extend("force", opts, { desc = "Telefind all files" }))
+map(
+  "n",
+  "<leader>tfa",
+  "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
+  vim.tbl_extend("force", opts, { desc = "Telefind all files" })
+)
 -- In normal mode, press 'Space' + 't' + 'f' + 'a' to search for all files, even hidden ones
 
 -- NvimTree mappings
@@ -114,10 +124,9 @@ map("n", "<leader>tz", "<cmd>Telescope zoxide list<CR>", vim.tbl_extend("force",
 -- In normal mode, press 'Space' + 't' + 'z' to open a list of directories with Zoxide
 
 -- Zoxide: Interactively suggests directories to zoom into based on what you type without the list
-map("n", "<leader>zi", "<cmd>Zi<CR>", vim.tbl_extend("force", opts, { desc = "Zoxide interactive" }))
+map("n", "<leader>zi", "<cmd>:Zi<CR>", vim.tbl_extend("force", opts, { desc = "Zoxide interactive" }))
 -- In normal mode, press 'Space' + 'z' + 'i' to interactively navigate with Zoxide
 
 -- Zoxide: Query lets you zoom directly into where you want to go when you know the name
 map("n", "<leader>zq", ":Z ", vim.tbl_extend("force", opts, { desc = "Zoxide query" }))
 -- In normal mode, press 'Space' + 'z' + 'q' followed by a directory name to query Zoxide
-

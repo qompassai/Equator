@@ -976,19 +976,19 @@ return {
           --shellharden | Hardens shell scripts by quoting variables, replacing function_call with $(function_call)
           require("null_ls").builtins.formatting.shellharden.with {
             filetypes = { "sh", "bash", "zsh", "rc" },
-            command = { "shellharden" },
-            extra_args = { "--replace", "--" },
+            command = "shellharden",
+            extra_args = { "--replace" },
           },
           on_attach = function(client, bufnr)
             if client.resolved_capabilities.document_formatting then
               vim.api.nvim_buf_create_user_command(bufnr, "Format", function()
-                vim.lsp.buf.format { async = true }
+                vim.lsp.buf.format { async = false }
               end, { desc = "Format current buffer with LSP" })
 
               vim.cmd [[
                 augroup LspFormatting
                     autocmd! * <buffer>
-                    autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = true })
+                    autocmd BufWritePre <buffer> lua vim.lsp.buf.format({ async = false })
                 augroup END
             ]]
             end

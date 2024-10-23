@@ -2,14 +2,14 @@ return {
   "nvim-telescope/telescope.nvim",
   lazy = false,
   dependencies = {
-    'nvim-lua/plenary.nvim',
-    'jvgrootveld/telescope-zoxide',
-    'nvim-telescope/telescope-ui-select.nvim',
-    'folke/tokyonight.nvim',
-    'catppuccin/nvim',
-    'gruvbox-community/gruvbox',
-    'EdenEast/nightfox.nvim',
-    'rose-pine/neovim',
+    "nvim-lua/plenary.nvim",
+    "jvgrootveld/telescope-zoxide",
+    "nvim-telescope/telescope-ui-select.nvim",
+    "folke/tokyonight.nvim",
+    "catppuccin/nvim",
+    "gruvbox-community/gruvbox",
+    "EdenEast/nightfox.nvim",
+    "rose-pine/neovim",
   },
   cmd = "Telescope",
   keys = function()
@@ -18,7 +18,7 @@ return {
     }
   end,
   opts = function()
-    local themes = require("telescope.themes")
+    local themes = require "telescope.themes"
     return {
       extensions = {
         fzf = {
@@ -27,7 +27,7 @@ return {
           override_file_sorter = true,
           case_mode = "smart_case",
         },
-        ["ui-select"] = themes.get_dropdown({}),
+        ["ui-select"] = themes.get_dropdown {},
       },
       pickers = {
         find_files = {
@@ -48,7 +48,7 @@ return {
     }
   end,
   config = function(_, opts)
-    local telescope = require("telescope")
+    local telescope = require "telescope"
     telescope.setup(opts)
 
     -- Load extensions safely
@@ -59,9 +59,8 @@ return {
       end
     end
 
-    load_extension_safe('fzf')
-    load_extension_safe('zoxide')
-    load_extension_safe('ui-select')
+    load_extension_safe "fzf"
+    load_extension_safe "zoxide"
+    load_extension_safe "ui-select"
   end,
 }
-

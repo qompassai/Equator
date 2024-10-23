@@ -1,19 +1,19 @@
 -- Set leader key
 vim.g.mapleader = " "
-vim.keymap.set('n', 'gc', '<Nop>', { noremap = true })
-vim.keymap.set('n', 'gcc', '<Nop>', { noremap = true })
-vim.keymap.set('x', 'gc', '<Nop>', { noremap = true })
-vim.keymap.set('o', 'gc', '<Nop>', { noremap = true })
+vim.keymap.set("n", "gc", "<Nop>", { noremap = true })
+vim.keymap.set("n", "gcc", "<Nop>", { noremap = true })
+vim.keymap.set("x", "gc", "<Nop>", { noremap = true })
+vim.keymap.set("o", "gc", "<Nop>", { noremap = true })
 -- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   local repo = "https://github.com/folke/lazy.nvim.git"
-  vim.fn.system({ "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath })
+  vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
 end
 vim.opt.rtp:prepend(lazypath)
 
 -- providers
- vim.opt.rtp:append(vim.fn.stdpath("config") .. "/lua/providers")
+vim.opt.rtp:append(vim.fn.stdpath "config" .. "/lua/providers")
 -- Color settings
 vim.o.termguicolors = true
 
@@ -32,14 +32,13 @@ local function safe_require(module)
   return success, result
 end
 
--- Check for OpenResty LuaJIT
-local has_openresty = vim.loop.fs_stat("/opt/openresty/luajit")
+local has_openresty = vim.loop.fs_stat "/opt/openresty/luajit"
 
 -- Set environment variables within Neovim
-vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.expand("$HOME/.cargo/bin")
-vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.expand("$HOME/.npm-global/bin")
-vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.expand("/usr/bin")
-vim.env.PYENV_ROOT = os.getenv("HOME") .. "/.pyenv"
+vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.expand "$HOME/.cargo/bin"
+vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.expand "$HOME/.npm-global/bin"
+vim.env.PATH = vim.env.PATH .. ":" .. vim.fn.expand "/usr/bin"
+vim.env.PYENV_ROOT = os.getenv "HOME" .. "/.pyenv"
 vim.env.PATH = vim.env.PYENV_ROOT .. "/bin:" .. vim.env.PATH
 
 if has_openresty then
@@ -49,43 +48,43 @@ end
 
 -- Modular plugin paths
 local plugin_imports = {
-    "plugins.core",
-    "plugins.ai",
-    "plugins.cloud",
-    "plugins.data",
-    "plugins.edu",
-    "plugins.lang",
-    "plugins.nav",
-    "plugins.flow",
-    "plugins.ui",
+  "plugins.core",
+  "plugins.ai",
+  "plugins.cloud",
+  "plugins.data",
+  "plugins.edu",
+  "plugins.lang",
+  "plugins.nav",
+  "plugins.flow",
+  "plugins.ui",
 }
 
 local plugins = {}
 for _, import in ipairs(plugin_imports) do
-    if import == "plugins.core" then
-        table.insert(plugins, { import = import })
-    else
-        table.insert(plugins, { import = import, lazy = false })
-    end
+  if import == "plugins.core" then
+    table.insert(plugins, { import = import })
+  else
+    table.insert(plugins, { import = import, lazy = false })
+  end
 end
 
 -- Initialize Lazy.nvim with the configured plugins
 require("lazy").setup(plugins)
 
 local function load_directory(directory)
-        local path = vim.fn.stdpath("config") .. "/lua/" .. directory
-        local files = vim.fn.glob(path .. "/*.lua", true, true)
-        for _, file in ipairs(files) do
-            local module = file:match(".*/lua/(.*)%.lua$"):gsub("/", ".")
-            safe_require(module)
-        end
-    end
+  local path = vim.fn.stdpath "config" .. "/lua/" .. directory
+  local files = vim.fn.glob(path .. "/*.lua", true, true)
+  for _, file in ipairs(files) do
+    local module = file:match(".*/lua/(.*)%.lua$"):gsub("/", ".")
+    safe_require(module)
+  end
+end
 
-    load_directory("helpers")
-    safe_require("sources")
-    safe_require("autocmds")
-    safe_require("options")
-    safe_require("mappings")
+load_directory "helpers"
+safe_require "sources"
+safe_require "autocmds"
+safe_require "options"
+safe_require "mappings"
 
 -- System Language Providers Configuration
 
@@ -136,15 +135,15 @@ vim.g.node_host_prog = "/usr/bin/node"
 ------------------- | Lua OpenResty Integration (Conditional) | -------------------
 -- Uncomment to enable Lua integration with OpenResty.
 if has_openresty then
-  vim.opt.runtimepath:append("/opt/openresty/lualib")
-  vim.opt.runtimepath:append("/opt/openresty/luajit/share/luajit-2.1")
+  vim.opt.runtimepath:append "/opt/openresty/lualib"
+  vim.opt.runtimepath:append "/opt/openresty/luajit/share/luajit-2.1"
 end
 
 -- Set up Lua C path for binary modules conditionally for OpenResty
 if has_openresty then
   local lua_cpath = table.concat({
     "/opt/openresty/lualib/?.so",
-    vim.fn.expand("~/.luarocks/lib/lua/5.1/?.so"),
+    vim.fn.expand "~/.luarocks/lib/lua/5.1/?.so",
     package.cpath,
   }, ";")
   package.cpath = lua_cpath
@@ -155,8 +154,8 @@ if has_openresty then
   local lua_path = table.concat({
     "/opt/openresty/lualib/?.lua",
     "/opt/openresty/lualib/?/init.lua",
-    vim.fn.expand("~/.luarocks/share/lua/5.1/?.lua"),
-    vim.fn.expand("~/.luarocks/share/lua/5.1/?/init.lua"),
+    vim.fn.expand "~/.luarocks/share/lua/5.1/?.lua",
+    vim.fn.expand "~/.luarocks/share/lua/5.1/?/init.lua",
     package.path,
   }, ";")
   package.path = lua_path
@@ -224,5 +223,3 @@ vim.g.zig_host_prog = "/usr/local/bin/zig"
 ----------------- | Jupyter (for IPython Notebook) | -----------------
 vim.g.jupyter_command = "/usr/bin/jupyter"
 ----------------- | Jupyter (for IPython Notebook) | -----------------
-
-

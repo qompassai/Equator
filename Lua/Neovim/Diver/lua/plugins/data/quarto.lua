@@ -16,7 +16,7 @@ return {
   },
   {
     "jmbuhr/otter.nvim",
-    lazy = true,
+    lazy = false,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
@@ -51,7 +51,7 @@ return {
   },
   {
     "GCBallesteros/jupytext.nvim",
-    lazy = true,
+    lazy = false,
     opts = {
       custom_language_formatting = {
         python = {
@@ -69,7 +69,7 @@ return {
   },
   {
     "jpalardy/vim-slime",
-    lazy = true,
+    lazy = false,
     dev = false,
     init = function()
       vim.b["quarto_is_python_chunk"] = false
@@ -173,4 +173,3 @@ return {
     },
   },
 }
-

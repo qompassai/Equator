@@ -1,27 +1,24 @@
--- oil.lua plugin configuration for oil.nvim
-
 return {
-  'stevearc/oil.nvim',
+  "stevearc/oil.nvim",
   lazy = false,
   opts = {
-    -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
     default_file_explorer = true,
     columns = {
       "icon",
-      -- "permissions",
-      -- "size",
-      -- "mtime",
+      "permissions",
+      "size",
+      "mtime",
     },
     buf_options = {
       buflisted = false,
       bufhidden = "hide",
     },
     win_options = {
-      wrap = false,
+      wrap = true,
       signcolumn = "no",
       cursorcolumn = false,
       foldcolumn = "0",
-      spell = false,
+      spell = true,
       list = false,
       conceallevel = 3,
       concealcursor = "nvic",
@@ -36,7 +33,7 @@ return {
       autosave_changes = false,
     },
     constrain_cursor = "editable",
-    watch_for_changes = false,
+    watch_for_changes = true,
     keymaps = {
       ["g?"] = "actions.show_help",
       ["<CR>"] = "actions.select",
@@ -73,9 +70,15 @@ return {
     },
     extra_scp_args = {},
     git = {
-      add = function(path) return false end,
-      mv = function(src_path, dest_path) return false end,
-      rm = function(path) return false end,
+      add = function(path)
+        return false
+      end,
+      mv = function(src_path, dest_path)
+        return false
+      end,
+      rm = function(path)
+        return false
+      end,
     },
     float = {
       padding = 2,
@@ -118,6 +121,5 @@ return {
     keymaps_help = {
       border = "rounded",
     },
-  }
+  },
 }
-

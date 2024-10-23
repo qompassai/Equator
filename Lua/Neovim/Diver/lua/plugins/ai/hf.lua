@@ -15,6 +15,8 @@ return {
           max_new_tokens = 60,
           temperature = 0.2,
           top_p = 0.95,
+          frequency_penalty = 0.5,
+          presence_penalty = 0.6,
         },
       },
       fim = {
@@ -34,7 +36,7 @@ return {
         cmd_env = nil,
         version = "0.5.3",
       },
-      tokenizer = nil,
+      tokenizer = "qompass/r3",
       context_window = 1024,
       enable_suggestions_on_startup = true,
       enable_suggestions_on_files = "*",
@@ -43,7 +45,5 @@ return {
     config = function(_, opts)
       require("llm").setup(opts)
     end,
-    lazy = true,
-  }
+  },
 }
-
