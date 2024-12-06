@@ -49,7 +49,7 @@ The dual licensing model supports initiatives like theCybersecurity and Infrastr
 
 ### Bridging the Digital Divide
 
-The unfortunate reality is that a number of individuals and organizations have gone into a frenzy in every facet of our daily lives[^4]. These unfortunate folks identify themselves with their talk of "10X" returns and building towards Artificial General Intelligence aka "AGI" whiel offering GPT wrappers. Our dual licensing approach aims to acknkowledge this deeply concerning predatory paradigm witih clear eyes while still doing operating to bring the best parts of the open-source community with our services and solutions.
+The unfortunate reality is that a number of individuals and organizations have gone into a frenzy in every facet of our daily lives[^4]. These unfortunate folks identify themselves with their talk of "10X" returns and building towards Artificial General Intelligence aka "AGI" while offering GPT wrappers. Our dual licensing approach aims to acknkowledge this deeply concerning predatory paradigm witih clear eyes while still doing operating to bring the best parts of the open-source community with our services and solutions.
 
 ### Recent Cybersecurity Attacks
 
