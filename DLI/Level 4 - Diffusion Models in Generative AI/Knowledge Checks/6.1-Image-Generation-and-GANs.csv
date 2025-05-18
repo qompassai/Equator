@@ -1,0 +1,26 @@
+Question,Option A,Option B,Option C,Option D,Correct Answer
+1. What is the primary focus of image generation in deep learning?,Image Comprehension,Image Classification,Image Generation,Text Generation,C
+2. What operation is key to the success of computer vision models?,Recurrent Neural Networks,Convolution Operation,Random Forest,K-means Clustering,B
+3. Which neural network architecture won the 2012 ImageNet competition?,ResNet,AlexNet,VGGNet,InceptionNet,B
+4. What are the two types of cells involved in human vision?,Rods and Cones,Neurons and Glia,Axons and Dendrites,Ganglia and Nuclei,A
+5. What type of vision do rods support?,Color Vision,High Spatial Acuity,Scotopic Vision,Photopic Vision,C
+6. What database is commonly used for training image processing systems with handwritten digits?,CIFAR-10,ImageNet,MNIST,COCO,C
+7. What issue arises when a generator in GAN training produces a single output and stops exploring new examples?,Mode Collapse,Vanishing Gradients,Overfitting,Underfitting,A
+8. What is the main challenge in generating images compared to generating text?,Images have a continuous multidimensional space,Images have a finite vocabulary,Text generation requires more data,Text generation models are more complex,A
+9. What does a convolution layer use to perform convolutions over the image?,Filters,Kernels,Nodes,Layers,B
+10. What process does a transpose convolution layer perform?,Combining multiple input values into a single output,Increasing the spatial dimensions of the data,Reducing the dimensionality of the data,Normalizing the data,B
+11. Who proposed the Generative Adversarial Network (GAN)?,Yann LeCun,Geoffrey Hinton,Ian Goodfellow,Andrew Ng,C
+12. What is the role of the discriminator in a GAN?,Generate new data,Classify whether data is real or fake,Reduce the dimensionality of data,Normalize data,B
+13. What distribution is often used as the input to the generator in a GAN?,Uniform distribution,Binomial distribution,Exponential distribution,Normal distribution,D
+14. What is a common issue in training GANs where the discriminator's feedback loses value over time?,Mode Collapse,Training Instability,Hyperparameter Sensitivity,Lack of Interpretability,B
+15. What technique does StyleGAN use to manipulate image styles?,Convolution Operation,Mapping Network,Pooling Layers,Recurrent Layers,B
+16. What does a Conditional GAN (cGAN) use to guide the generation process?,Random noise,Class labels or specific attributes,Image filters,Convolutional layers,B
+17. What is the purpose of CycleGAN?,Generate photorealistic images,Perform image classification,Enable unpaired image-to-image translation,Increase image resolution,C
+"18. What does the term ""latent vector"" refer to in the context of GANs?",The output image,The input noise vector,The discriminator's classification score,The kernel size,B
+19. What is the key feature of the DCGAN architecture?,Use of recurrent layers,Inclusion of transpose convolutions,High spatial acuity,Use of pooling layers,B
+20. Which type of GAN architecture was introduced to address the issue of training stability and output quality?,DCGAN,CycleGAN,StyleGAN,Conditional GAN,C
+"21. What does the term ""mode collapse"" refer to in GAN training?",The discriminator cannot distinguish real and fake data,The generator produces diverse outputs,The generator outputs a single type of data repeatedly,The discriminator overpowers the generator,C
+22. What is the main advantage of using a Conditional GAN (cGAN)?,Increased training speed,Controlled and targeted image generation,Improved image resolution,Simplified architecture,B
+23. What is a common application of StyleGAN?,Image classification,Generating high-quality photorealistic images,Unpaired image-to-image translation,Image segmentation,B
+24. What does a CycleGAN enable in the context of GAN applications?,Photorealistic image generation,Conditional image generation,Unpaired image-to-image translation,Latent space exploration,C
+25. What is the role of the generator in a GAN?,Classify real and fake data,Generate synthetic data,Normalize input data,Increase the spatial dimensions of data,B
