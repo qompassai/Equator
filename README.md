@@ -201,23 +201,6 @@ Where:
 
 </details>
 
-<details id="Zenodo DOI">
-  <summary><strong>Digital Object Identifier (DOI) for public transparency and accountability</strong></summary>
-Badge
-
-
-```markdown
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.xxxxxx.svg)](https://doi.org/10.5281/zenodo.xxxxxx)
-```
-
----
-
-- See `.zenodo.json` for metadata, authorship, licensing, and related software attribution.
-</details>
-
-## 🧭 Attribution
-
-
 
 <details id="Dual-License Notice">
   <summary><strong>What a Dual-License Means</strong></summary>
